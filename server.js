@@ -8,8 +8,8 @@ var fs = require('fs');
 var path = require('path');
 
 
-var sortAges = require("sort-ids");
-var reorder = require("array-rearrange");
+// var sortAges = require("sort-ids");
+// var reorder = require("array-rearrange");
 
 // make port ready for deployment on heroku as well as local
 var PORT = process.env.PORT || 3000;
