@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Kittens: User</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/userStyle.css">
+    </head>
+    <body>
+        <nav id="navColor" class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <button id="topicButton"><a href="/topic">Topics</a></button>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <h3><span>Mark's Robots</span></h3>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <button id="logoutButton">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="wrapper">
+                <!-- First Modal for entering new Robot-->
+                <div class="modal fade" id="newRobotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Robot Entry</h2>
+                            </div>
+                            <div class="modal-body">
+                                <!-- entry form for entering info about the new robot-->
+                                <div class="form-group">
+                                    <label for="RobotNameInput">Robot Name:</label>
+                                    <input type="text" class="form-control" name="name" id="RobotNameInput" placeholder="Enter a Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="RobotBioInput">Robot Biography:</label>
+                                    <input type="text" class="form-control" name="bio" id="RobotBioInput" placeholder="Enter the Robot Biography">
+                                </div>
+                                <button type="submit" id="submitNewKitten">Submit</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Bootstrap modal code -->
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <button type="button" data-toggle="modal" data-target="#newRobotModal" id="createRobot">
+                            New Robot
+                        </button>
+                        <h2>Current Robots</h2>
+                        <div id="currentRobots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
