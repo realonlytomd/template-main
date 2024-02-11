@@ -28,27 +28,44 @@ app.use(express.static("public"));
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 
+// This block is what was originally in the kittens app
+// mongoose.Promise = Promise;
+// // set up for deploying on mongodb and developing local
+//   if (process.env.DB_URI) {
+//     mongoose.connect(process.env.DB_URI);
+//   } else {
+//     mongoose.connect("mongodb://localhost:27017/simplerobots", { 
+//       useNewUrlParser: true, 
+//       useUnifiedTopology: true,
+//       useFindAndModify: false
+//     }, function(err){
+//       if(err){
+//       console.log("I am gettting an error", err);
+//     } else {
+//       console.log("mongoose connection is successful on: " + "mongodb://localhost:27017/simplerobots");
+//     }
+//    });
+//   }
+
+// This block is my attempt to make it work with latest mongoose npm
 mongoose.Promise = Promise;
-// set up for deploying on mongodb and developing local
-  if (process.env.DB_URI) {
-    mongoose.connect(process.env.DB_URI);
-  } else {
-    mongoose.connect("mongodb://localhost:27017/simplerobots", { 
-      useNewUrlParser: true, 
-      useUnifiedTopology: true,
-      useFindAndModify: false
-    }, function(err){
-      if(err){
-      console.log("I am gettting an error", err);
+    if (process.env.DB_URI) {
+      mongoose.connect(process.env.DB_URI);
     } else {
-      console.log("mongoose connection is successful on: " + "mongodb://localhost:27017/simplerobots");
+        mongoose.connect("mongodb://localhost:27017/simplerobots", {
+         // useNewUrlParser: true, 
+         // useUnifiedTopology: true,
+          // useFindAndModify: false
+        },).then((res) => {
+          console.log("mongoose connection is successful on: " + "mongodb://localhost:27017/simplerobots");
+        }).catch(error => {
+          console.log("I am gettting an error", error);
+        });
     }
-   });
-  }
 
 // // Routes
 require("./routes/api-routes.js")(app);
-require("./routes/html-routes.js")(app);
+// require("./routes/html-routes.js")(app);
 
 // Start the server
 app.listen(PORT, function() {
