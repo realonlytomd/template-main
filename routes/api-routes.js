@@ -31,27 +31,23 @@ var upload = multer({ storage: storage });
 var fs = require('fs');
 // still need routes below
 
-module.exports = function(router) { //I'M GOING TO MAKE MARK A USER WITH HIS OWN DATABASE TO MIRROR KITTENS
+module.exports = function(router) {
   
     // Route for getting a specific User by id, and then populate it with a kitten
-    router.get("/popMark", function(req, res) {
+    router.get("/popRobot/:id", function(req, res) {
         // Using the id passed in the id parameter, and make a query that finds the matching one in the db
         db.Robot.findOne({ _id: req.params.id })
             // then populate the kitten schema associated with it
             .populate([
                 {
-                    path: "robot",
-                    model: "Robot",
-                    populate: {
-                        path: "image",
-                        model: "Image"
-                    }
+                    path: "image",
+                    model: "Image"
                 }
             ])
-            .then(function(dbMark) {
+            .then(function(dbRobot) {
             // If successful, find a User with the given id, send it back to the client
-            console.log("api-routes.js, JUST POPULATE MARK, dbMark: ", dbMark);
-            res.json(dbMark);
+            console.log("api-routes.js, JUST POPULATE ROBOT, dbRobot: ", dbRobot);
+            res.json(dbRobot);
             })
             .catch(function(err) {
             // but if an error occurred, send it to the client

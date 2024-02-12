@@ -11,7 +11,7 @@ var path = require('path');
 // var sortAges = require("sort-ids");
 // var reorder = require("array-rearrange");
 
-// make port ready for deployment on heroku as well as local
+// make port ready for deployment on Render as well as local
 var PORT = process.env.PORT || 3000;
 
 // Initialize Express
@@ -53,9 +53,6 @@ mongoose.Promise = Promise;
       mongoose.connect(process.env.DB_URI);
     } else {
         mongoose.connect("mongodb://localhost:27017/simplerobots", {
-         // useNewUrlParser: true, 
-         // useUnifiedTopology: true,
-          // useFindAndModify: false
         },).then((res) => {
           console.log("mongoose connection is successful on: " + "mongodb://localhost:27017/simplerobots");
         }).catch(error => {
