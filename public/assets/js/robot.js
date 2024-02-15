@@ -29,25 +29,28 @@ jQuery(document).ready(function( $ ){
             $("#robotBioInput").val("");
             // Hide the current modal, then bring up 2nd modal that allows user to enter kitten metrics.
             $("#newRobotModal").modal("hide");
+            //Now add a button to add the main image for the new robot
+            $("#mainImageButtonSpace").append("<button type='button' data-toggle='modal' " +
+                "data-target='#newRobotImageModal' id='createImageRobot'" + 
+                ">Add Image for Robot</button>");
         });
     });
 
     // this function is after Mark clicks the add image button. A modal appears for him to
     // enter the title, description and browse for an image,
     // but first the individual robot must be found and populated to accept an array of images
-    $(document).on("click", "#addImage", function(event) {
+    $(document).on("click", "#createImageRobot", function(event) {
     event.preventDefault();
-    // make an ajax call for Mark to add a robot
-    $.ajax({
-        method: "GET",
-        url: "/popRobot/" + currentRobotId
-    })
-        .then(function(dataAddImage) {
-        // this sets up the fields populated to receive robot name and image data
-        console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
-        });
+    // make an ajax call for the robot to be populated
+        $.ajax({
+            method: "GET",
+            url: "/popRobot/" + currentRobotId
+            })
+            .then(function(dataAddImage) {
+            // this sets up the fields populated to receive robot name and image data
+            console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
+            });
     });
   
-
 
 });

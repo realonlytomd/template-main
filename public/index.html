@@ -53,15 +53,49 @@
                     </div>
                 </div>
                 <!-- End of Bootstrap modal code -->
+                <!-- What Mark sees while editing or adding robots-->
                 <div class="row">
                     <div class="col-xs-12 text-center">
                         <button type="button" data-toggle="modal" data-target="#newRobotModal" id="createRobot">
                             New Robot
                         </button>
+                        <div id="mainImageButtonSpace"></div>
                         <h2>Current Robots</h2>
-                        <div id="currentRobots"></div>
+                        <div id="currentRobots"></div> <!-- this might go in it's own row below Mark's editing row-->
                     </div>
                 </div>
+                <!-- Modal for entering new robot image-->
+                <div class="modal fade" id="newRobotImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Robot Image Entry</h2>
+                            </div>
+                            <div class="modal-body">
+                                <form id="RobotImageInputForm" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="title">Image Title</label>
+                                        <input type="text" id="title" placeholder="Title" value="" name="title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="desc">Image Description</label>
+                                        <textarea id="desc" name="desc" value="" rows="3" placeholder="Description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="RobotImageInput">Upload Picture of Robot:</label>
+                                    <input type="file" class="form-control" id="robotImageInput" name="robotImageInput" value="">
+                                    </div>
+                                    <button type="submit" id="submitNewRobotImage">Submit</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Bootstrap modal code -->
                 <div class="push"></div>
             </div>
             <!--footer with copyright-->

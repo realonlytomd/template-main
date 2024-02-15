@@ -33,7 +33,7 @@ var fs = require('fs');
 
 module.exports = function(router) {
   
-    // Route for getting a specific User by id, and then populate it with a kitten
+    // Route for getting a specific Robot by id, and then populate it with an array for Images
     router.get("/popRobot/:id", function(req, res) {
         // Using the id passed in the id parameter, and make a query that finds the matching one in the db
         db.Robot.findOne({ _id: req.params.id })
