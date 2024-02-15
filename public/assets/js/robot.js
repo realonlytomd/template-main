@@ -18,13 +18,15 @@ jQuery(document).ready(function( $ ){
         console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
         });
     });
-    // this function happens when the user clicks the button
-    // to get the modal with the form to enter the name, etc. for a new robot
+    // this function happens when Mark clicks the submit a new robot button
+    // 
     //
     $(document).on("click", "#submitNewRobot", function(event) {
         event.preventDefault();
-          $.ajax({
-              method: "POST",
+        console.log("name: ", $("#robotNameInput").val().trim());
+        console.log("bio: ", $("#robotBioInput").val().trim());
+        $.ajax({
+              method: "GET",
               url: "/createRobot/",
               data: {
                 name: $("#robotNameInput").val().trim(),
@@ -35,7 +37,7 @@ jQuery(document).ready(function( $ ){
               console.log("Creation of new robot (dataRobot) in robot.js: ", dataRobot);
               // save id of current (last created) robot
               // currentRobotId = dataRobot.kitten[dataKittenUser.kitten.length - 1];???
-              // console.log(currentKittenId: " + currentKittenId);
+              console.log("dataRobotId: " + dataRobot._id);
               // empty out the input fields
               $("#robotNameInput").val("");
               $("#robotBioInput").val("");

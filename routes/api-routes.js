@@ -54,4 +54,20 @@ module.exports = function(router) {
             res.json(err);
             });
     });
+
+    // Route for creating a new Robot
+    router.get("/createRobot/", function(req, res) {
+        console.log("from /createRobot, req.query: ", req.query);
+        db.Robot.create(req.query)
+            .then(function(dbRobot) {
+                // View the added result in the console
+            console.log("what was created in the robot db, dbRobot: ", dbRobot);
+            res.json(dbRobot);
+            })
+            .catch(function(err) {
+            // If an error occurred, send it to the client
+            return res.json(err);
+            });
+    });
+
 };
