@@ -104,4 +104,47 @@ module.exports = function(router) {
             });
     });
 
+    //This route gets one robot document from robot collection
+    router.get("/getARobot/:id", function(req, res) {
+        console.log("inside api-routes: req.params: ", req.params);
+        // need to find the correct robot, and retrieve it's data, 
+        db.Robot.find({ _id: req.params.id })
+            .then(function(dbARobot) {
+                res.json(dbARobot);
+                console.log("from route /getARobot:id, dbARobot: ", dbARobot);
+            })
+            .catch(function(err) {
+            // However, if an error occurred, send it to the client
+            res.json(err);
+            });
+    });
+
+    // the GET route for getting all the images from the db
+    // do I have a problem here: is id the correct id?
+    router.get("/getImages/:id" , (req, res) => {
+        console.log("in /getImages/, req.params.id: ", req.params.id );
+        db.Image.find({ _id: req.params.id})
+        .exec((error, records) => { // db is the database schema model. 
+            console.log("this is records from api route /getImages/: ", records);
+            //for loop to create array of robot images from records from db
+            //study: I'm only getting one record, instead of all of them,
+            // so this loop doesn't really need to be here,
+            // it's only going through once, and client side has the .forEach
+            // to go through the full array. Leaving it for now...
+            for (i=0; i<records.length; i++) {
+                imgHold[i] = Buffer.from(records[i].img.data, "base64");
+                imagesHold.push(imgHold[i]);
+            }
+            console.log("inside /getImages/, records[0]._id: " + records[0]._id);
+            const formattedImages = imagesHold.map(buffer => {
+                return `<img data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
+            }).join("");
+            
+            res.send(formattedImages)  //this should be going back to user.js
+            //empty out arrays
+            imgHold = [];
+            imagesHold = [];
+        })
+    });
+
 };
