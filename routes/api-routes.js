@@ -70,4 +70,38 @@ module.exports = function(router) {
             });
     });
 
+    //This is Step 8 from notes on uploading the images chosen by the user
+    //It's now being called from robot.js, not directly from html form
+    // 
+    router.post("/createImageRobot/:id", upload.single("robotImageInput"), (req, res, next) => {
+        console.log("from api-routes step 8, req.file.filename: ", req.file.filename);
+        var obj = {
+            title: req.body.title,
+            desc: req.body.desc,
+            img: {
+                data: fs.readFileSync(path.join(__dirname + "/../uploads/" + req.file.filename)),
+                contentType: "image/jpeg"
+            }
+        }
+        db.Image.create(obj)
+            .then(function(dbImage) {
+                console.log("after .create Image - dbImage: ", dbImage);
+                //pushing the new kitten image into the document kitten array
+                return db.Robot.findOneAndUpdate(
+                    { _id: req.params.id },
+                    { $push: { image: dbImage._id } },
+                    { new: true }
+                );
+            })
+            .then(function(dbRobot) {
+                //send back the correct robot with the new data in the image array
+                res.json(dbRobot);
+
+            })
+            .catch(function(err) {
+                //If an error occurred, send back
+                res.json(err);
+            });
+    });
+
 };
