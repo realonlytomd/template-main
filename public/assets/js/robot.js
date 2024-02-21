@@ -88,7 +88,7 @@ jQuery(document).ready(function( $ ){
         // gets the array of metrics associated with the current kitten
         $.getJSON("/getARobot/" + currentRobotId, function(currob) {
             console.log("WHAT'S IN HERE currob[0]: ", currob[0]);
-            console.log("more specific, currob[0].title is: ", currob[0].title);
+            console.log("more specific, currob[0].name is: ", currob[0].name);
             // strings with multiple words are not being assigned.
             // try to to write the h5 element with data attributes instead.
             var showSpan = $("<span>");
@@ -123,8 +123,8 @@ jQuery(document).ready(function( $ ){
                 })
                 .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
                     // this is the current image data
-                    //console.log(in user.js, after each get images dataGetImages: ", dataGetImages);
-                    // then dataGetImages should be something I can setnd to user.html through jQuery
+                    console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
+                    // then dataGetImages should be something I can send to index.html through jQuery
                     $("#imageDiv").append(dataGetImages);
                     // does user still have currentKittenId?
                     //console.log(currentKittenId: " + currentKittenId);
