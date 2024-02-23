@@ -29,9 +29,25 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 //and from Step 1 of uploading images to mongodb:
 var fs = require('fs');
-// still need routes below
+
+// initialize image variables
+var imgHold = [];
+var imagesHold = [];
 
 module.exports = function(router) {
+
+    // route for getting all the robots out of the db
+    router.get("/getAllRobots", function(req, res) {
+        db.Robot.find({})
+            .then(function(dbAllRobots) {
+                res.json(dbAllRobots);
+                console.log("dbAllRobots from /getAllRobots; ", dbAllRobots);
+            })
+            .catch(function(err) {
+                // or send the error
+                res.json(err);
+            });
+    });
   
     // Route for getting a specific Robot by id, and then populate it with an array for Images
     router.get("/popRobot/:id", function(req, res) {
@@ -120,46 +136,43 @@ module.exports = function(router) {
     });
 
     // the GET route for getting all the images from the db
-    // do I have a problem here: is id the correct id?
-    router.get("/getImages/:id" , (req, res) => {
-        console.log("in /getImages/, req.params.id: ", req.params.id );
-        db.Image.find({ _id: req.params.id}) //.catch, below, isn't correct. it used to be .exec
-        .exec((error, records) => { // db is the database schema model. 
-            console.log("this is records from api route /getImages/: ", records);
-            //for loop to create array of robot images from records from db
-            //study: I'm only getting one record, instead of all of them,
-            // so this loop doesn't really need to be here,
-            // it's only going through once, and client side has the .forEach
-            // to go through the full array. Leaving it for now...
-            for (i=0; i<records.length; i++) {
-                imgHold[i] = Buffer.from(records[i].img.data, "base64");
-                imagesHold.push(imgHold[i]);
-            }
-            console.log("inside /getImages/, records[0]._id: " + records[0]._id);
-            const formattedImages = imagesHold.map(buffer => {
-                return `<img data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
-            }).join("");
+    // this is old one with .exec
+    // router.get("/getImages/:id" , (req, res) => {
+    //     console.log("in /getImages/, req.params.id: ", req.params.id );
+    //     db.Image.find({ _id: req.params.id}) //.catch, below, isn't correct. it used to be .exec
+    //     .exec((error, records) => { // db is the database schema model. 
+    //         console.log("this is records from api route /getImages/: ", records);
+    //         //for loop to create array of robot images from records from db
+    //         //study: I'm only getting one record, instead of all of them,
+    //         // so this loop doesn't really need to be here,
+    //         // it's only going through once, and client side has the .forEach
+    //         // to go through the full array. Leaving it for now...
+    //         for (i=0; i<records.length; i++) {
+    //             imgHold[i] = Buffer.from(records[i].img.data, "base64");
+    //             imagesHold.push(imgHold[i]);
+    //         }
+    //         console.log("inside /getImages/, records[0]._id: " + records[0]._id);
+    //         const formattedImages = imagesHold.map(buffer => {
+    //             return `<img data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
+    //         }).join("");
             
-            res.send(formattedImages)  //this should be going back to user.js
-            //empty out arrays
-            imgHold = [];
-            imagesHold = [];
-        })
-    });
-
+    //         res.send(formattedImages)  //this should be going back to user.js
+    //         //empty out arrays
+    //         imgHold = [];
+    //         imagesHold = [];
+    //     })
+    // });
+    
     // duplicate of /gitImages/ above to tinker with.
     // the GET route for getting all the images from the db
-    // do I have a problem here: is id the correct id?
     router.get("/getImages/:id" , (req, res) => {
         console.log("in /getImages/, req.params.id: ", req.params.id );
-        db.Image.find({ _id: req.params.id}) //.catch, below, isn't correct. it used to be .exec
-        .exec((error, records) => { // db is the database schema model. 
-            console.log("this is records from api route /getImages/: ", records);
+        db.Image.find({ _id: req.params.id})
+        .then((records) => {
+            // console.log("this is records from api route /getImages/: ", records);
             //for loop to create array of robot images from records from db
-            //study: I'm only getting one record, instead of all of them,
-            // so this loop doesn't really need to be here,
-            // it's only going through once, and client side has the .forEach
-            // to go through the full array. Leaving it for now...
+            //study: I'm only getting one record, instead of all of them, so this loop doesn't really need to be here,
+            // it's only going through once, and client side has the .forEach to go through the full array. Leaving it for now...
             for (i=0; i<records.length; i++) {
                 imgHold[i] = Buffer.from(records[i].img.data, "base64");
                 imagesHold.push(imgHold[i]);
@@ -168,12 +181,14 @@ module.exports = function(router) {
             const formattedImages = imagesHold.map(buffer => {
                 return `<img data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
             }).join("");
-            
             res.send(formattedImages)  //this should be going back to user.js
             //empty out arrays
             imgHold = [];
             imagesHold = [];
         })
+            .catch(error => {
+                console.log("Iam getting an error", error);
+            });
     });
 
 };

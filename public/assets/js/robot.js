@@ -4,9 +4,21 @@ jQuery.noConflict();
 jQuery(document).ready(function( $ ){
     // initialize vari;ables
     var currentRobotId = "";
+
+    // Need to add the inital load code that shows the user the robot's currently in the db.
+    getAllData();
+
+    //Code to get all the robots in the db listed 
+    function getAllData() {
+        //empty out the current div
+        $("#currentRobots").empty();
+        //get the list of robots from the db
+        $.getJSON("/getAllRobots", function(robots) {
+            console.log("robots array, from getAllData function", robots);
+        });
+    }
+
     // this function happens when Mark clicks the submit a new robot button
-    // 
-    //
     $(document).on("click", "#submitNewRobot", function(event) {
         event.preventDefault();
         console.log("name: ", $("#robotNameInput").val().trim());
@@ -123,11 +135,11 @@ jQuery(document).ready(function( $ ){
                 })
                 .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
                     // this is the current image data
-                    console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
+                    // console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
                     // then dataGetImages should be something I can send to index.html through jQuery
                     $("#imageDiv").append(dataGetImages);
                     // does user still have currentKittenId?
-                    //console.log(currentKittenId: " + currentKittenId);
+                    //console.log("currentRobotId: " + currentRobotId);
                 });
             }
         });
