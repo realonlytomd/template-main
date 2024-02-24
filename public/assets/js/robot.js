@@ -9,12 +9,35 @@ jQuery(document).ready(function( $ ){
     getAllData();
 
     //Code to get all the robots in the db listed 
+    // then go through each robot, and creat in the currentRobots div a name and 1st image of that robot.
+    // Make that pic clickable to bring up other biography and other pictures down below.
+    // This should be visible to all users.
     function getAllData() {
         //empty out the current div
         $("#currentRobots").empty();
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
             console.log("robots array, from getAllData function", robots);
+            for (i=0; i<robots.length; i++) {
+                console.log("in loop, i= " + i);
+                console.log("in loop, robots[i}.name: " + robots[i].name);
+                console.log("in loop, robots[i}.bio: " + robots[i].bio);
+                console.log("in loop, robots[i}.image[0]: " + robots[i].image[0]);
+                var showSpan = $("<span>");
+                showSpan.attr("data-name", robots[i].name);
+                showSpan.attr("data-bio", robots[i].bio);
+                //now attache just the FIRST image for each robot
+                $.ajax({
+                method: "GET",
+                url: "/getImages/" + robots[i].image[0]
+                })
+                .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
+                    // attach this specific image to the name span created above, and join them.
+                    showSpan.append(dataGetImages);
+                    $("#currentRobots").append(showSpan);
+                });
+            }
+
         });
     }
 
@@ -95,7 +118,7 @@ jQuery(document).ready(function( $ ){
 
         // function called after a particular robot button is clicked - gets and displays robot data
     function writeRobotDom() {
-        //console.log(currentKittenId inside writeKittendom: " + currentKittenId);
+        console.log("currentRobotId inside writeRobotdom: " + currentRobotId);
         $("#specificRobot").empty(); // empties out the div containing robot data and images. 
         // gets the array of metrics associated with the current kitten
         $.getJSON("/getARobot/" + currentRobotId, function(currob) {
@@ -138,7 +161,6 @@ jQuery(document).ready(function( $ ){
                     // console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
                     // then dataGetImages should be something I can send to index.html through jQuery
                     $("#imageDiv").append(dataGetImages);
-                    // does user still have currentKittenId?
                     //console.log("currentRobotId: " + currentRobotId);
                 });
             }
