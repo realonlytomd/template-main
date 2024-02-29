@@ -177,9 +177,9 @@ module.exports = function(router) {
                     imgHold[i] = Buffer.from(records[i].img.data, "base64");
                     imagesHold.push(imgHold[i]);
                 }
-                console.log("inside /getImages/, records[0]._id: " + records[0]._id);
+                console.log("inside /getImages/, records[i]._id: " + records[0]._id);
                 const formattedImages = imagesHold.map(buffer => {
-                    return `<img data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
+                    return `<img data-title=` + records[0].title + `data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
                 });
                 res.send(formattedImages)  //this should be going back to robots.js
                 //empty out arrays

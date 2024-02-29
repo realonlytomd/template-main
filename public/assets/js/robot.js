@@ -1,7 +1,7 @@
 var currentRobotId;
 var robots;
 var dataGetImages = [];
-var allRobotNames = [];
+var allRobotNameswithImages = [];
 
 jQuery.noConflict();
 jQuery(document).ready(function( $ ){
@@ -30,13 +30,19 @@ jQuery(document).ready(function( $ ){
                     // var showSpan = $("<span>");
                     // showSpan.attr("data-name", robots[i].name);
                     // showSpan.attr("data-bio", robots[i].bio);
-                    allRobotNames.push(robots[i].name);
+                    allRobotNameswithImages.push(robots[i].name);
                     //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
                     //put all the robot names in an array?????it alreay is
                     //now get just the FIRST image for each robot
                     if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
-                        $("#currentRobots").append ("<h4>" + robots[i].name + "</h4>");
+                        $("#currentRobots").append ("<h4>" + robots[i].name + "</h4><h5>No Image</h5><br>");
+                        //remove THIS robot from allRobotNameswithImages array
+                        allRobotNameswithImages.pop();
+                        console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                     } else {
+                        console.log("inside else, i: " + i);
+                        $("#currentRobots").append("<h3>" + 
+                            robots[i].name + "</h3>");
                         $.ajax({
                         method: "GET",
                         url: "/getImages/" + robots[i].image[0]
@@ -44,16 +50,13 @@ jQuery(document).ready(function( $ ){
                         .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
                             // attach this specific image to the name span created above, and join them.
                             console.log("inside ajax call, i: " + i);
-                            console.log("inside ajax call, allRobotNames[i]: ", allRobotNames[i]);
+                            console.log("inside ajax call, allRobotNameswithImages: ", allRobotNameswithImages);
                             console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
-                            //$("#currentRobots").append(dataGetImages);
-                            $("#currentRobots").append("<h4>" + 
-                            allRobotNames + "</h4>" +
-                            dataGetImages + "<br>");
+                            $("#currentRobots").append(dataGetImages + "<br>");
                         });
                         
                     }
-                    console.log("allRobotNames: ", allRobotNames);
+                    console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);
                     
                 }
 
@@ -63,12 +66,13 @@ jQuery(document).ready(function( $ ){
     // show completed robots
     function showAllRobots() {
         console.log("inside function showAllRobots()");
-        for (i = 0; i < allRobotNames.length; i++) {
-            console.log("allRobotNames[i]: ", allRobotNames[i]);
-            console.log("dataGetImages[i]: ", dataGetImages[i]);
+        console.log("allRobotNameswithImages[i]: ", allRobotNameswithImages[i]);
+        console.log("dataGetImages[i]: ", dataGetImages[i]);
+        for (i = 0; i < allRobotNameswithImages.length; i++) {
+            
             $("#currentRobots").append("<h5>" + 
-            allRobotNames[i] + "</h5>" +
-            dataGetImages[i] + "<br>");
+            allRobotNameswithImages[i] + "</h5>" +
+            dataGetImages + "<br>");
         }
     }
 
