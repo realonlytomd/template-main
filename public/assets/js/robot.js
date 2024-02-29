@@ -1,4 +1,7 @@
 var currentRobotId;
+var robots;
+var dataGetImages = [];
+var allRobotNames = [];
 
 jQuery.noConflict();
 jQuery(document).ready(function( $ ){
@@ -16,29 +19,57 @@ jQuery(document).ready(function( $ ){
         //empty out the current div
         $("#currentRobots").empty();
         //get the list of robots from the db
-        $.getJSON("/getAllRobots", function(robots) {
-            console.log("robots array, from getAllData function", robots);
-            for (i=0; i<robots.length; i++) {
-                console.log("in loop, i= " + i);
-                console.log("in loop, robots[i}.name: " + robots[i].name);
-                console.log("in loop, robots[i}.bio: " + robots[i].bio);
-                console.log("in loop, robots[i}.image[0]: " + robots[i].image[0]);
-                var showSpan = $("<span>");
-                showSpan.attr("data-name", robots[i].name);
-                showSpan.attr("data-bio", robots[i].bio);
-                //now attache just the FIRST image for each robot
-                $.ajax({
-                method: "GET",
-                url: "/getImages/" + robots[i].image[0]
-                })
-                .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
-                    // attach this specific image to the name span created above, and join them.
-                    showSpan.append(dataGetImages);
-                    $("#currentRobots").append(showSpan);
-                });
-            }
+        $.getJSON("/getAllRobots")
+            .done ( function(robots) {
+                console.log("robots array, from getAllData function", robots);
+                for (i=0; i<robots.length; i++) {
+                    console.log("in loop, i= " + i);
+                    console.log("in loop, robots[i].name: " + robots[i].name);
+                    console.log("in loop, robots[i].bio: " + robots[i].bio);
+                    console.log("in loop, robots[i].image[0]: " + robots[i].image[0]);
+                    // var showSpan = $("<span>");
+                    // showSpan.attr("data-name", robots[i].name);
+                    // showSpan.attr("data-bio", robots[i].bio);
+                    allRobotNames.push(robots[i].name);
+                    //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
+                    //put all the robot names in an array?????it alreay is
+                    //now get just the FIRST image for each robot
+                    if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
+                        $("#currentRobots").append ("<h4>" + robots[i].name + "</h4>");
+                    } else {
+                        $.ajax({
+                        method: "GET",
+                        url: "/getImages/" + robots[i].image[0]
+                        })
+                        .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
+                            // attach this specific image to the name span created above, and join them.
+                            console.log("inside ajax call, i: " + i);
+                            console.log("inside ajax call, allRobotNames[i]: ", allRobotNames[i]);
+                            console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
+                            //$("#currentRobots").append(dataGetImages);
+                            $("#currentRobots").append("<h4>" + 
+                            allRobotNames + "</h4>" +
+                            dataGetImages + "<br>");
+                        });
+                        
+                    }
+                    console.log("allRobotNames: ", allRobotNames);
+                    
+                }
 
-        });
+            });
+            
+    }
+    // show completed robots
+    function showAllRobots() {
+        console.log("inside function showAllRobots()");
+        for (i = 0; i < allRobotNames.length; i++) {
+            console.log("allRobotNames[i]: ", allRobotNames[i]);
+            console.log("dataGetImages[i]: ", dataGetImages[i]);
+            $("#currentRobots").append("<h5>" + 
+            allRobotNames[i] + "</h5>" +
+            dataGetImages[i] + "<br>");
+        }
     }
 
     // this function happens when Mark clicks the submit a new robot button

@@ -167,8 +167,6 @@ module.exports = function(router) {
     // the GET route for getting all the images from the db
     router.get("/getImages/:id" , (req, res) => {
         console.log("in /getImages/, req.params.id: ", req.params.id );
-        if (typeof req.params.id === "undefined"){
-        } else {
             db.Image.find({ _id: req.params.id})
             .then((records) => {
                 // console.log("this is records from api route /getImages/: ", records);
@@ -182,8 +180,8 @@ module.exports = function(router) {
                 console.log("inside /getImages/, records[0]._id: " + records[0]._id);
                 const formattedImages = imagesHold.map(buffer => {
                     return `<img data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
-                }).join("");
-                res.send(formattedImages)  //this should be going back to user.js
+                });
+                res.send(formattedImages)  //this should be going back to robots.js
                 //empty out arrays
                 imgHold = [];
                 imagesHold = [];
@@ -191,7 +189,7 @@ module.exports = function(router) {
                 .catch(error => {
                     console.log("Iam getting an error", error);
                 });
-        }
+        
     });
 
 };
