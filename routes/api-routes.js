@@ -40,8 +40,8 @@ module.exports = function(router) {
     router.get("/getAllRobots", function(req, res) {
         db.Robot.find({})
             .then(function(dbAllRobots) {
-                res.json(dbAllRobots);
                 console.log("dbAllRobots from /getAllRobots; ", dbAllRobots);
+                res.json(dbAllRobots);
             })
             .catch(function(err) {
                 // or send the error
@@ -177,9 +177,11 @@ module.exports = function(router) {
                     imgHold[i] = Buffer.from(records[i].img.data, "base64");
                     imagesHold.push(imgHold[i]);
                 }
-                console.log("inside /getImages/, records[i]._id: " + records[0]._id);
+                console.log("inside /getImages/, records[0]._id: " + records[0]._id);
+                console.log("inside /getImages/, records[0].title: " + records[0].title);
                 const formattedImages = imagesHold.map(buffer => {
-                    return `<img data-title=` + records[0].title + `data-id=` + records[0]._id + ` class="theImages" title="Click to Enlarge" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
+                    return `<img data-title=` + records[0].title + ` data-id=` + records[0]._id + ` class="theImages" title=` + records[0].title + ` src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
+                    //return "<img data-title='"+ records[0].title + "' data-id=" + records[0]._id + " class='theImages' title='Click to Enlarge' src='data:image/jpeg;base64,${buffer.toString(`base64`)}'/>"
                 });
                 res.send(formattedImages)  //this should be going back to robots.js
                 //empty out arrays
