@@ -2,6 +2,7 @@ var currentRobotId;
 var robots;
 var dataGetImages = [];
 var allRobotNameswithImages = [];
+var imagesOfRobots = [];
 
 jQuery.noConflict();
 jQuery(document).ready(function( $ ){
@@ -41,8 +42,6 @@ jQuery(document).ready(function( $ ){
                         console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                     } else {
                         console.log("inside else, i: " + i);
-                        $("#currentRobots").append("<h3>" + 
-                            robots[i].name + "</h3>");
                         $.ajax({
                         method: "GET",
                         url: "/getImages/" + robots[i].image[0]
@@ -52,27 +51,38 @@ jQuery(document).ready(function( $ ){
                             console.log("inside ajax call, i: " + i);
                             console.log("inside ajax call, allRobotNameswithImages: ", allRobotNameswithImages);
                             console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
-                            $("#currentRobots").append(dataGetImages + "<br>");
-                        });
-                        
+                            imagesOfRobots.push(dataGetImages);
+                        });    
                     }
-                    console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);
-                    
+                    console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);   
                 }
-
-            });
-            
+            });            
     }
+
+    // when button to show all Robots is clicked
+    $(document).on("click", "#revealAllRobots", function(event) {
+        event.preventDefault();
+        showAllRobots();
+    });
+
     // show completed robots
     function showAllRobots() {
         console.log("inside function showAllRobots()");
-        console.log("allRobotNameswithImages[i]: ", allRobotNameswithImages[i]);
-        console.log("dataGetImages[i]: ", dataGetImages[i]);
+        console.log("allRobotNameswithImages: ", allRobotNameswithImages);
+        console.log("imagesOfRobots: ", imagesOfRobots);
+        
         for (i = 0; i < allRobotNameswithImages.length; i++) {
+
+            //RobotImageTitle[i] = imagesOfRobots[i].title;
+                   
+            //console.log("RobotImageTitle[" + i + "] =", RobotImageTitle[i]);
             
-            $("#currentRobots").append("<h5>" + 
-            allRobotNameswithImages[i] + "</h5>" +
-            dataGetImages + "<br>");
+            //console.log("imagesOfRobots[i].attr('id')= ", imagesOfRobots[i].attr('id'));
+            //console.log("$('#robotImg')[" + i + "]('title') = "), $("#robotImg")[i].attr('title');
+            
+            $("#currentRobots").append("<h4>" + 
+            allRobotNameswithImages[i] + "</h4>" +
+            imagesOfRobots[i] + "<br>");
         }
     }
 
