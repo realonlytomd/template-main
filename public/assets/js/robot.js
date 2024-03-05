@@ -67,23 +67,21 @@ jQuery(document).ready(function( $ ){
 
     // show completed robots
     function showAllRobots() {
+        var robotDataId = [];
+
         console.log("inside function showAllRobots()");
         console.log("allRobotNameswithImages: ", allRobotNameswithImages);
         console.log("imagesOfRobots: ", imagesOfRobots);
-        
-        for (i = 0; i < allRobotNameswithImages.length; i++) {
 
-            //RobotImageTitle[i] = imagesOfRobots[i].title;
-                   
-            //console.log("RobotImageTitle[" + i + "] =", RobotImageTitle[i]);
-            
-            //console.log("imagesOfRobots[i].attr('id')= ", imagesOfRobots[i].attr('id'));
-            //console.log("$('#robotImg')[" + i + "]('title') = "), $("#robotImg")[i].attr('title');
-            
+        for (i = 0; i < allRobotNameswithImages.length; i++) {
             $("#currentRobots").append("<h4>" + 
             allRobotNameswithImages[i] + "</h4>" +
             imagesOfRobots[i] + "<br>");
         }
+        robotDataId = $("#robotImg").map(function () {
+            return this.; //wtf
+        }).get();
+        console.log ("robotDataId: ", robotDataId);
     }
 
     // this function happens when Mark clicks the submit a new robot button
