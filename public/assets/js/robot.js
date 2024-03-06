@@ -78,10 +78,13 @@ jQuery(document).ready(function( $ ){
             allRobotNameswithImages[i] + "</h4>" +
             imagesOfRobots[i] + "<br>");
         }
-        robotDataId = $("#robotImg").map(function () {
-            return this.; //wtf
+        robotDataId = $("img#robotImg").map(function () {
+            return $(this).attr("data-id");
         }).get();
         console.log ("robotDataId: ", robotDataId);
+        //now, compare allRobotNameswithImaages and robotDataId arrays to match them up
+        // and put them in the correct order, write to DOM
+        
     }
 
     // this function happens when Mark clicks the submit a new robot button
