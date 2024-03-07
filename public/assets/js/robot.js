@@ -2,7 +2,9 @@ var currentRobotId;
 var robots;
 var dataGetImages = [];
 var allRobotNameswithImages = [];
-var imagesOfRobots = [];
+var allRobotImageIds = [];
+var allImagesOfRobots = [];
+var allImageDataId = [];
 
 jQuery.noConflict();
 jQuery(document).ready(function( $ ){
@@ -24,10 +26,10 @@ jQuery(document).ready(function( $ ){
             .done ( function(robots) {
                 console.log("robots array, from getAllData function", robots);
                 for (i=0; i<robots.length; i++) {
-                    console.log("in loop, i= " + i);
-                    console.log("in loop, robots[i].name: " + robots[i].name);
-                    console.log("in loop, robots[i].bio: " + robots[i].bio);
-                    console.log("in loop, robots[i].image[0]: " + robots[i].image[0]);
+                    // console.log("in loop, i= " + i);
+                    // console.log("in loop, robots[i].name: " + robots[i].name);
+                    // console.log("in loop, robots[i].bio: " + robots[i].bio);
+                    // console.log("in loop, robots[i].image[0]: " + robots[i].image[0]);
                     // var showSpan = $("<span>");
                     // showSpan.attr("data-name", robots[i].name);
                     // showSpan.attr("data-bio", robots[i].bio);
@@ -39,23 +41,26 @@ jQuery(document).ready(function( $ ){
                         $("#currentRobots").append ("<h4>" + robots[i].name + "</h4><h5>No Image</h5><br>");
                         //remove THIS robot from allRobotNameswithImages array
                         allRobotNameswithImages.pop();
-                        console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
+                        //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                     } else {
-                        console.log("inside else, i: " + i);
+                        allRobotImageIds.push(robots[i].image[0]);
+                        //console.log("inside else, i: " + i);
                         $.ajax({
                         method: "GET",
                         url: "/getImages/" + robots[i].image[0]
                         })
                         .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
                             // attach this specific image to the name span created above, and join them.
-                            console.log("inside ajax call, i: " + i);
-                            console.log("inside ajax call, allRobotNameswithImages: ", allRobotNameswithImages);
-                            console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
-                            imagesOfRobots.push(dataGetImages);
+                            // console.log("inside ajax call, i: " + i);
+                            // console.log("inside ajax call, allRobotNameswithImages: ", allRobotNameswithImages);
+                            // console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
+                            allImagesOfRobots.push(dataGetImages);
                         });    
                     }
-                    console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);   
+                       
                 }
+                console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);
+                console.log("outside loop, allRobotImageIds: ", allRobotImageIds);
             });            
     }
 
@@ -67,24 +72,32 @@ jQuery(document).ready(function( $ ){
 
     // show completed robots
     function showAllRobots() {
-        var robotDataId = [];
-
         console.log("inside function showAllRobots()");
-        console.log("allRobotNameswithImages: ", allRobotNameswithImages);
-        console.log("imagesOfRobots: ", imagesOfRobots);
-
+        console.log("allRobotNameswithImages: ", allRobotNameswithImages); // array of robot names, correct order
+        console.log("allRobotImageIds: ", allRobotImageIds); // array of robot image data-ids, same correct order as names
+        console.log("allImagesOfRobots: ", allImagesOfRobots);// array of robot image objects in incorrect order from db
+        // write the current list of robot names to the DOM followed by the INCORRECT order of images
         for (i = 0; i < allRobotNameswithImages.length; i++) {
             $("#currentRobots").append("<h4>" + 
             allRobotNameswithImages[i] + "</h4>" +
-            imagesOfRobots[i] + "<br>");
+            allImagesOfRobots[i] + "<br>");
         }
-        robotDataId = $("img#robotImg").map(function () {
+        //now, make an array of data-ids from this INCORRECT order of images
+        allImageDataId = $("img#robotImg").map(function () {
             return $(this).attr("data-id");
         }).get();
-        console.log ("robotDataId: ", robotDataId);
-        //now, compare allRobotNameswithImaages and robotDataId arrays to match them up
-        // and put them in the correct order, write to DOM
         
+        console.log ("BEFORE reorder, allImageDataId: ", allImageDataId);// this is still the incorrect order
+        //now, sort allImageDataId array so that it's order matches the order of allRobotImageIds array
+        // write to DOM
+        // allImageDataId.sort((prev, next) => {
+        // return  allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
+        // })
+        // this does the same thing...
+        // order = Object.fromEntries(allRobotImageIds.map((value, index) => [value, index + 1]));
+        // allImageDataId.sort((a, b) => order[a] - order[b]);
+        
+        // console.log ("AFTER reorder - allImageDataId: ", allImageDataId);    
     }
 
     // this function happens when Mark clicks the submit a new robot button
