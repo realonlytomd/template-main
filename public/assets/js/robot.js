@@ -5,6 +5,7 @@ var allRobotNameswithImages = [];
 var allRobotImageIds = [];
 var allImagesOfRobots = [];
 var allImageDataId = [];
+var sortedAllImageDataId = [];
 
 jQuery.noConflict();
 jQuery(document).ready(function( $ ){
@@ -61,6 +62,7 @@ jQuery(document).ready(function( $ ){
                 }
                 console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);
                 console.log("outside loop, allRobotImageIds: ", allRobotImageIds);
+                console.log("outside of loop, allImagesOfRobots: ", allImagesOfRobots);
             });            
     }
 
@@ -88,16 +90,19 @@ jQuery(document).ready(function( $ ){
         }).get();
         
         console.log ("BEFORE reorder, allImageDataId: ", allImageDataId);// this is still the incorrect order
-        //now, sort allImageDataId array so that it's order matches the order of allRobotImageIds array
+        sortedAllImageDataId = allImageDataId;
+        //now, sort correctAllImageDataId array so that it's order matches the order of allRobotImageIds array
         // write to DOM
-        // allImageDataId.sort((prev, next) => {
-        // return  allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
-        // })
+        // adding the .slice() was supposed to preserve the original array, but didn't seem to work
+        sortedAllImageDataId.slice().sort((prev, next) => {
+        return  allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
+        })
         // this does the same thing...
-        // order = Object.fromEntries(allRobotImageIds.map((value, index) => [value, index + 1]));
-        // allImageDataId.sort((a, b) => order[a] - order[b]);
+        //order = Object.fromEntries(allRobotImageIds.map((value, index) => [value, index + 1]));
+        //allImageDataId.sort((a, b) => order[a] - order[b]);
         
-        // console.log ("AFTER reorder - allImageDataId: ", allImageDataId);    
+        console.log ("AFTER reorder - sortedAllImageDataId: ", sortedAllImageDataId);
+        
     }
 
     // this function happens when Mark clicks the submit a new robot button
