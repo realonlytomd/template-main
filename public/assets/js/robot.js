@@ -94,9 +94,10 @@ jQuery(document).ready(function( $ ){
         //now, sort correctAllImageDataId array so that it's order matches the order of allRobotImageIds array
         // write to DOM
         // adding the .slice() was supposed to preserve the original array, but didn't seem to work
-        sortedAllImageDataId.slice().sort((prev, next) => {
+        sortedAllImageDataId.sort((prev, next) => {
         return  allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
-        })
+        }) // ugh, this is actually already known from above where I get the image id's directly
+        // from the original robot objects,  - because they SHOULD match the robot name order.
         // this does the same thing...
         //order = Object.fromEntries(allRobotImageIds.map((value, index) => [value, index + 1]));
         //allImageDataId.sort((a, b) => order[a] - order[b]);
