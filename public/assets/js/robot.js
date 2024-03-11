@@ -74,15 +74,15 @@ jQuery(document).ready(function( $ ){
 
     // show completed robots
     function showAllRobots() {
+        //$("#currentRobots").empty();
         console.log("inside function showAllRobots()");
         console.log("allRobotNameswithImages: ", allRobotNameswithImages); // array of robot names, correct order
         console.log("allRobotImageIds: ", allRobotImageIds); // array of robot image data-ids, same correct order as names
         console.log("allImagesOfRobots: ", allImagesOfRobots);// array of robot image objects in incorrect order from db
         // write the current list of robot names to the DOM followed by the INCORRECT order of images
         for (i = 0; i < allRobotNameswithImages.length; i++) {
-            $("#currentRobots").append("<h4>" + 
-            allRobotNameswithImages[i] + "</h4>" +
-            allImagesOfRobots[i] + "<br>");
+            $("#currentRobots").append(
+            allImagesOfRobots[i]);
         }
         //now, make an array of data-ids from this INCORRECT order of images
         allImageDataId = $("img#robotImg").map(function () {
@@ -90,20 +90,28 @@ jQuery(document).ready(function( $ ){
         }).get();
         
         console.log ("BEFORE reorder, allImageDataId: ", allImageDataId);// this is still the incorrect order
-        sortedAllImageDataId = allImageDataId;
-        //now, sort correctAllImageDataId array so that it's order matches the order of allRobotImageIds array
+        var snapshotAllImageDataId = allImageDataId.slice(0, allImageDataId.length+1); // makes a copy of the array
+        console.log("snapshotAllImageDataId: ", snapshotAllImageDataId); //this IS the original array allImageDataId
+        //it matches the order of the data-ids in the aray of images, allImagesOfRobots 
+        //now, sort allImageDataId array so that it's order matches the order of allRobotImageIds array
         // write to DOM
-        // adding the .slice() was supposed to preserve the original array, but didn't seem to work
-        sortedAllImageDataId.sort((prev, next) => {
+        
+        //GOAL: I'm trying to save the change in ideces of the array so that I can reorder the image array, allImagesOfRobots
+        // and then reprint to to #currentRobots so that the names match the images.
+        
+        allImageDataId.sort((prev, next) => {
         return  allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
-        }) // ugh, this is actually already known from above where I get the image id's directly
-        // from the original robot objects,  - because they SHOULD match the robot name order.
+        }) 
         // this does the same thing...
         //order = Object.fromEntries(allRobotImageIds.map((value, index) => [value, index + 1]));
         //allImageDataId.sort((a, b) => order[a] - order[b]);
-        
-        console.log ("AFTER reorder - sortedAllImageDataId: ", sortedAllImageDataId);
-        
+        console.log ("AFTER reorder - allImageDataId: ", allImageDataId); //the original array is NOT preserved
+        //start figuring out how to get the data-id's out of the original array of images so
+        // that array can be reordered (which means that this entire function will not be needed)
+        var insideAllImageDataIds = allImagesOfRobots.map(function () {
+            return $(this).attr("data-id");
+        })
+        console.log("insideAllImageDataIds: ", insideAllImageDataIds);
     }
 
     // this function happens when Mark clicks the submit a new robot button
