@@ -39,7 +39,7 @@ jQuery(document).ready(function( $ ){
                     //put all the robot names in an array?????it alreay is
                     //now get just the FIRST image for each robot
                     if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
-                        $("#currentRobots").append ("<h4>" + robots[i].name + "</h4><h5>No Image</h5><br>");
+                        $("#currentRobots").append ("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
                         //remove THIS robot from allRobotNameswithImages array
                         allRobotNameswithImages.pop();
                         //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
@@ -56,9 +56,9 @@ jQuery(document).ready(function( $ ){
                             // console.log("inside ajax call, allRobotNameswithImages: ", allRobotNameswithImages);
                             // console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
                             allImagesOfRobots.push(dataGetImages);
+                            $("#currentRobots").append(dataGetImages);
                         });    
                     }
-                       
                 }
                 console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);
                 console.log("outside loop, allRobotImageIds: ", allRobotImageIds);
@@ -66,7 +66,7 @@ jQuery(document).ready(function( $ ){
             });            
     }
 
-    // when button to show all Robots is clicked
+    // when button to show all Robots is clicked.  already removed button from html
     $(document).on("click", "#revealAllRobots", function(event) {
         event.preventDefault();
         showAllRobots();
