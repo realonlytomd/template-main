@@ -14,19 +14,47 @@ var secondIndex = 0;
 
 jQuery.noConflict();
 jQuery(document).ready(function( $ ){
-    // initialize vari;ables
+    // initialize variables
     var currentRobotId = "";
 
     // Need to add the inital load code that shows the user the robot's currently in the db.
     getAllData();
 
     //Code to get all the robots in the db listed 
-    // then go through each robot, and creat in the currentRobots div a name and 1st image of that robot.
+    // then go through each robot, and create in the currentRobots div a name and 1st image of that robot.
     // Make that pic clickable to bring up other biography and other pictures down below.
     // This should be visible to all users.
     function getAllData() {
         //empty out the current div
         $("#currentRobots").empty();
+        // test to see what an array looks like:
+        arr2.sort((prev, next) => {
+            return  arr1.indexOf(prev) - arr1.indexOf(next);
+        })
+        let firstArr = ["un","deux","trois"];
+        let secondArr = ["deux", "trois", "un"];
+        let thirdArr = ["zwei", "drei", "eins"];
+        let nested = [firstArr, secondArr, thirdArr];
+        
+        //let nested = [[2, 3, 1],["deux", "trois", "un"],["zwei", "drei", "eins"]];
+        console.log("nested: ", nested);
+          let srcArr;
+          nested = nested.map((arr, i) => {
+            if (i === 0) { // the reference
+              srcArr = arr.slice(0); // take a copy of first array
+              console.log("srcArr: ", srcArr);
+              arr.sort((a, b) => a - b); // sort the nested verions of first array
+              console.log("arr: ", arr);
+              return arr;
+            }
+            return arr.map((item, i) => arr[
+              srcArr.indexOf(nested[0][i]) // return in the order of the reference 
+            ]);
+          })
+          console.log("nested: ", nested);
+          let lastArr;
+          lastArr = nested.slice(2);
+          console.log("lastArr: ", lastArr);
         //get the list of robots from the db
         $.getJSON("/getAllRobots")
             .done ( function(robots) {
@@ -122,6 +150,7 @@ jQuery(document).ready(function( $ ){
         // }
         // try using .forEach
 
+
         // then using .map
         const newArr = allRobotImageIds.map(myFunction); //array.map(function(currentValue, index, arr), thisValue)
         function myFunction(item, index) {
@@ -137,7 +166,7 @@ jQuery(document).ready(function( $ ){
                 // console.log("wrongOrderIds[" + secondIndex + "]: " + secondItem);
                 // console.log("wrongOrderIds[" + secondIndex + "]: " + wrongOrderIds[secondIndex]);
                 if ( item = secondItem ) {
-                    //console.log("condition satisfied, allRobotImagesIds["+ index + "] = wrongOrderIds[" + secondIndex + "]");
+                    console.log("condition satisfied, allRobotImagesIds["+ index + "] = wrongOrderIds[" + secondIndex + "]");
                     console.log("condition satisfied, does item = secondItem? item = "+ item + "  secondItem = " + secondItem);
                     $("#currentRobots").append("<div class='robotTitles'><h3>" + allRobotNameswithImages[index] + "</h3><br>" + allImagesOfRobots[secondIndex] + "</div>");
                     // allRobotImageIds.splice(index, 1);
