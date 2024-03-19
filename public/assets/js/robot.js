@@ -28,9 +28,9 @@ jQuery(document).ready(function( $ ){
         //empty out the current div
         $("#currentRobots").empty();
         // test to see what an array looks like:
-        arr2.sort((prev, next) => {
-            return  arr1.indexOf(prev) - arr1.indexOf(next);
-        })
+        // arr2.sort((prev, next) => {
+        //     return  arr1.indexOf(prev) - arr1.indexOf(next);
+        // })
         let firstArr = ["un","deux","trois"];
         let secondArr = ["deux", "trois", "un"];
         let thirdArr = ["zwei", "drei", "eins"];
@@ -39,16 +39,17 @@ jQuery(document).ready(function( $ ){
         //let nested = [[2, 3, 1],["deux", "trois", "un"],["zwei", "drei", "eins"]];
         console.log("nested: ", nested);
           let srcArr;
-          nested = nested.map((arr, i) => {
-            if (i === 0) { // the reference
-              srcArr = arr.slice(0); // take a copy of first array
+          nested = nested.map((arr2, i) => {
+            if (i === 1) { // the reference
+              srcArr = arr2.slice(1); // take a copy of second array
               console.log("srcArr: ", srcArr);
-              arr.sort((a, b) => a - b); // sort the nested verions of first array
-              console.log("arr: ", arr);
-              return arr;
+              arr2.sort((prev, next) => {
+                 return  firstArr.indexOf(prev) - firstArr.indexOf(next);
+                 })  // sort the nested verions of third array
+              console.log("arr2: ", arr2);
             }
-            return arr.map((item, i) => arr[
-              srcArr.indexOf(nested[0][i]) // return in the order of the reference 
+            return arr2.map((item, i) => arr2[
+              srcArr.indexOf(nested[1][i]) // return in the order of the reference 
             ]);
           })
           console.log("nested: ", nested);
