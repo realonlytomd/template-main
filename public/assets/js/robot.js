@@ -7,8 +7,8 @@ var allImagesOfRobots = [];
 var allImageDataId = [];
 var sortedAllImageDataId = [];
 var wrongOrderIds = [];
-var item = "";
-var index = 0;
+// var item = "";
+// var index = 0;
 var secondItem = "";
 var secondIndex = 0;
 
@@ -31,31 +31,53 @@ jQuery(document).ready(function( $ ){
         // arr2.sort((prev, next) => {
         //     return  arr1.indexOf(prev) - arr1.indexOf(next);
         // })
-        let firstArr = ["un","deux","trois"];
+        let firstArr = [2,3,1];
         let secondArr = ["deux", "trois", "un"];
         let thirdArr = ["zwei", "drei", "eins"];
         let nested = [firstArr, secondArr, thirdArr];
-        
-        //let nested = [[2, 3, 1],["deux", "trois", "un"],["zwei", "drei", "eins"]];
         console.log("nested: ", nested);
+        console.log("nested[0][0]: ", nested[2][1]);
           let srcArr;
-          nested = nested.map((arr2, i) => {
-            if (i === 1) { // the reference
-              srcArr = arr2.slice(1); // take a copy of second array
+          nested = nested.map((arr, i) => {
+            if (i === 0) { // the reference
+              srcArr = arr.slice(0); // take a copy
               console.log("srcArr: ", srcArr);
-              arr2.sort((prev, next) => {
-                 return  firstArr.indexOf(prev) - firstArr.indexOf(next);
-                 })  // sort the nested verions of third array
-              console.log("arr2: ", arr2);
+              arr.sort((a, b) => a - b); // sort the first nested array
+              console.log("arr: ", arr);
+              return arr;
             }
-            return arr2.map((item, i) => arr2[
-              srcArr.indexOf(nested[1][i]) // return in the order of the reference 
+            console.log("srcArr.indexOf(nested[0][0]): ", srcArr.indexOf(nested[0][0]));
+            console.log("srcArr.indexOf(nested[0][1]): ", srcArr.indexOf(nested[0][1]));
+            console.log("srcArr.indexOf(nested[0][2]): ", srcArr.indexOf(nested[0][2]));
+            return arr.map((item, i) => arr[
+              srcArr.indexOf(nested[0][i]) // return in the order of the reference 
             ]);
           })
           console.log("nested: ", nested);
-          let lastArr;
-          lastArr = nested.slice(2);
-          console.log("lastArr: ", lastArr);
+        // doing it with arrays like my 3
+          let myFirstArr = ["un","deux","trois"];
+          let mySecondArr = ["deux", "trois", "un"];
+          let myThirdArr = ["zwei", "drei", "eins"];
+          let myNested = [myFirstArr, mySecondArr, myThirdArr];
+          console.log("myNested: ", myNested);
+          let mySrcArr;
+          myNested = myNested.map((myArr, myI) => {
+            if (myI === 1) { // the reference
+                mySrcArr = myArr.slice(0); // take a copy of the second array
+                console.log("HEY!!! mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+                mySecondArr.sort((prev, next) => {
+                    return myFirstArr.indexOf(prev) - myFirstArr.indexOf(next);
+                });
+                console.log("mySecondArr: ", mySecondArr);
+                }
+                console.log("mySrcArr.indexOf(myNested[1][0]: ", mySrcArr.indexOf(myNested[1][0]));
+                console.log("mySrcArr.indexOf(myNested[1][1]: ", mySrcArr.indexOf(myNested[1][1]));
+                console.log("mySrcArr.indexOf(myNested[1][2]: ", mySrcArr.indexOf(myNested[1][2]));
+                // return mySecondArr.map((myItem, myI) => mySecondArr[
+                //     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
+                // ]);
+          })
+          console.log("myNested: ", myNested);
         //get the list of robots from the db
         $.getJSON("/getAllRobots")
             .done ( function(robots) {
