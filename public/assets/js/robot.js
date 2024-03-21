@@ -16,68 +16,72 @@ jQuery.noConflict();
 jQuery(document).ready(function( $ ){
     // initialize variables
     var currentRobotId = "";
-
+    // lets put the test sort things here
+    
+        // arr2.sort((prev, next) => {
+        //     return  arr1.indexOf(prev) - arr1.indexOf(next);
+        // })
+        
+    let firstArr = [2,3,1];
+    let secondArr = ["deux", "trois", "un"];
+    let thirdArr = ["zwei", "drei", "eins"];
+    let nested = [firstArr, secondArr, thirdArr];
+    // console.log("nested: ", nested);
+    let srcArr;
+    let newNested;
+    newNested = nested.map((arr, i) => {
+        if (i === 0) { // the reference
+            srcArr = arr.slice(0); // take a copy
+            //console.log("srcArr: ", srcArr);
+            arr.sort((a, b) => a - b); // sort the first nested array
+            //console.log("arr: ", arr);
+            return arr;
+        }
+        console.log("example, outside of if: arr: ", arr);
+        console.log("example, nested[1][0]: " + nested[1][0]);
+        return arr.map((item, i) => arr[
+            srcArr.indexOf(nested[0][i]) // return in the order of the reference 
+        ]);
+    });
+    console.log("newNested: ", newNested);
+        // doing it with arrays like my 3
+    let myFirstArr = ["un","deux","trois"];
+    let mySecondArr = ["deux", "trois", "un"];
+    let myThirdArr = ["zwei", "drei", "eins"];
+    let myNested = [myFirstArr, mySecondArr, myThirdArr];
+    console.log("myNested: ", myNested);
+    let mySrcArr;
+    let myNewNested;
+    myNewNested = myNested.map((myArr, myI) => {
+        if (myI === 1) { // the reference
+            mySrcArr = myArr.slice(0); // take a copy of the second array
+            //console.log("inside if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+            mySecondArr.sort((prev, next) => {
+                return myFirstArr.indexOf(prev) - myFirstArr.indexOf(next);
+            })
+            console.log("after sort, mySecondArr: ", mySecondArr);
+        }
+        console.log("again, outside of if: mySecondArr: ", mySecondArr);
+        console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+        console.log("myNested[1][0]: " + myNested[1][0]);
+        // return mySecondArr.map((myItem, myI) => mySecondArr[
+        //     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
+        // ]);
+    });
+    console.log("myNewNested: ", myNewNested);
+    // to here.
     // Need to add the inital load code that shows the user the robot's currently in the db.
-    getAllData();
+    //getAllData();
 
     //Code to get all the robots in the db listed 
     // then go through each robot, and create in the currentRobots div a name and 1st image of that robot.
     // Make that pic clickable to bring up other biography and other pictures down below.
     // This should be visible to all users.
     function getAllData() {
+        
         //empty out the current div
         $("#currentRobots").empty();
-        // test to see what an array looks like:
-        // arr2.sort((prev, next) => {
-        //     return  arr1.indexOf(prev) - arr1.indexOf(next);
-        // })
-        let firstArr = [2,3,1];
-        let secondArr = ["deux", "trois", "un"];
-        let thirdArr = ["zwei", "drei", "eins"];
-        let nested = [firstArr, secondArr, thirdArr];
-        console.log("nested: ", nested);
-        console.log("nested[0][0]: ", nested[2][1]);
-          let srcArr;
-          nested = nested.map((arr, i) => {
-            if (i === 0) { // the reference
-              srcArr = arr.slice(0); // take a copy
-              console.log("srcArr: ", srcArr);
-              arr.sort((a, b) => a - b); // sort the first nested array
-              console.log("arr: ", arr);
-              return arr;
-            }
-            console.log("srcArr.indexOf(nested[0][0]): ", srcArr.indexOf(nested[0][0]));
-            console.log("srcArr.indexOf(nested[0][1]): ", srcArr.indexOf(nested[0][1]));
-            console.log("srcArr.indexOf(nested[0][2]): ", srcArr.indexOf(nested[0][2]));
-            return arr.map((item, i) => arr[
-              srcArr.indexOf(nested[0][i]) // return in the order of the reference 
-            ]);
-          })
-          console.log("nested: ", nested);
-        // doing it with arrays like my 3
-          let myFirstArr = ["un","deux","trois"];
-          let mySecondArr = ["deux", "trois", "un"];
-          let myThirdArr = ["zwei", "drei", "eins"];
-          let myNested = [myFirstArr, mySecondArr, myThirdArr];
-          console.log("myNested: ", myNested);
-          let mySrcArr;
-          myNested = myNested.map((myArr, myI) => {
-            if (myI === 1) { // the reference
-                mySrcArr = myArr.slice(0); // take a copy of the second array
-                console.log("HEY!!! mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
-                mySecondArr.sort((prev, next) => {
-                    return myFirstArr.indexOf(prev) - myFirstArr.indexOf(next);
-                });
-                console.log("mySecondArr: ", mySecondArr);
-                }
-                console.log("mySrcArr.indexOf(myNested[1][0]: ", mySrcArr.indexOf(myNested[1][0]));
-                console.log("mySrcArr.indexOf(myNested[1][1]: ", mySrcArr.indexOf(myNested[1][1]));
-                console.log("mySrcArr.indexOf(myNested[1][2]: ", mySrcArr.indexOf(myNested[1][2]));
-                // return mySecondArr.map((myItem, myI) => mySecondArr[
-                //     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
-                // ]);
-          })
-          console.log("myNested: ", myNested);
+        
         //get the list of robots from the db
         $.getJSON("/getAllRobots")
             .done ( function(robots) {
