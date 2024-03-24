@@ -44,6 +44,7 @@ jQuery(document).ready(function( $ ){
         ]);
     });
     console.log("newNested: ", newNested);
+
         // doing it with arrays like my 3
     let myFirstArr = ["un","deux","trois"];
     let mySecondArr = ["deux", "trois", "un"];
@@ -52,23 +53,46 @@ jQuery(document).ready(function( $ ){
     console.log("myNested: ", myNested);
     let mySrcArr;
     let myNewNested;
+
     myNewNested = myNested.map((myArr, myI) => {
+        if (myI === 0) {
+            mySrcArr = myArr.slice(0);
+        }
         if (myI === 1) { // the reference
             mySrcArr = myArr.slice(0); // take a copy of the second array
             //console.log("inside if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
-            mySecondArr.sort((prev, next) => {
+            myArr.sort((prev, next) => {
                 return myFirstArr.indexOf(prev) - myFirstArr.indexOf(next);
-            })
-            console.log("after sort, mySecondArr: ", mySecondArr);
+            });
         }
         console.log("again, outside of if: mySecondArr: ", mySecondArr);
         console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
         console.log("myNested[1][0]: " + myNested[1][0]);
-        // return mySecondArr.map((myItem, myI) => mySecondArr[
-        //     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
-        // ]);
+        return myArr.map((myItem, myI) => myArr[
+            mySrcArr.indexOf(myNested[0][myI]) // return in the order of the reference
+        ]);
     });
     console.log("myNewNested: ", myNewNested);
+    // to here.
+    // another try, without them being in an overall array
+    let first = ["un","deux","trois"];
+    let second = ["deux", "trois", "un"];
+    let third = ["zwei", "drei", "eins"];
+    console.log("first: ", first);
+    console.log("second: ", second);
+    console.log("third: ", third);
+    let snapshotArr;
+    snapshotArr = second.slice(0);
+    second.sort((prev, next) => {
+        return first.indexOf(prev) - first.indexOf(next);
+    });
+    console.log("snapshotArr: ", snapshotArr);
+    console.log("second: ", second);
+    
+    return third.map((item, i) => third[
+            snapshotArr.indexOf(second[i]) // return in the order of the reference
+        ]);
+    console.log("third: ", third);
     // to here.
     // Need to add the inital load code that shows the user the robot's currently in the db.
     //getAllData();
