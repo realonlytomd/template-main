@@ -22,28 +22,28 @@ jQuery(document).ready(function( $ ){
         //     return  arr1.indexOf(prev) - arr1.indexOf(next);
         // })
         
-    let firstArr = [2,3,1];
-    let secondArr = ["deux", "trois", "un"];
-    let thirdArr = ["zwei", "drei", "eins"];
-    let nested = [firstArr, secondArr, thirdArr];
-    // console.log("nested: ", nested);
-    let srcArr;
-    let newNested;
-    newNested = nested.map((arr, i) => {
-        if (i === 0) { // the reference
-            srcArr = arr.slice(0); // take a copy
-            //console.log("srcArr: ", srcArr);
-            arr.sort((a, b) => a - b); // sort the first nested array
-            //console.log("arr: ", arr);
-            return arr;
-        }
-        console.log("example, outside of if: arr: ", arr);
-        console.log("example, nested[1][0]: " + nested[1][0]);
-        return arr.map((item, i) => arr[
-            srcArr.indexOf(nested[0][i]) // return in the order of the reference 
-        ]);
-    });
-    console.log("newNested: ", newNested);
+    // let firstArr = [2,3,1];
+    // let secondArr = ["deux", "trois", "un"];
+    // let thirdArr = ["zwei", "drei", "eins"];
+    // let nested = [firstArr, secondArr, thirdArr];
+    // // console.log("nested: ", nested);
+    // let srcArr;
+    // let newNested;
+    // newNested = nested.map((arr, i) => {
+    //     if (i === 0) { // the reference
+    //         srcArr = arr.slice(0); // take a copy
+    //         //console.log("srcArr: ", srcArr);
+    //         arr.sort((a, b) => a - b); // sort the first nested array
+    //         //console.log("arr: ", arr);
+    //         return arr;
+    //     }
+    //     console.log("example, outside of if: arr: ", arr);
+    //     console.log("example, nested[1][0]: " + nested[1][0]);
+    //     return arr.map((item, i) => arr[
+    //         srcArr.indexOf(nested[0][i]) // return in the order of the reference 
+    //     ]);
+    // });
+    // console.log("newNested: ", newNested);
         // doing it with arrays like my 3
     let myFirstArr = ["un","deux","trois"];
     let mySecondArr = ["deux", "trois", "un"];
@@ -54,6 +54,7 @@ jQuery(document).ready(function( $ ){
     let myNewNested;
     myNewNested = myNested.map((myArr, myI) => {
         if (myI === 0) {
+            console.log("Inside myI ===0, myArr: ", myArr);
             return myArr;
         } else if (myI === 1) { // the reference  ... Sat. night: this just needs to be done once!
                 mySrcArr = myArr.slice(0); // take a copy of the second array
@@ -64,9 +65,11 @@ jQuery(document).ready(function( $ ){
         }
             console.log("again, outside of if: myArr: ", myArr);
             console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
-            console.log("myNested[1][0]: " + myNested[1][0]);
-            // sat. night: I just need to do this .map over the 2nd array and the 3rd array. so use it twice instead
-            // of part of the previous .map that had to be gone through 3 times.
+            console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
+            if (myI === 1) {
+                return myArr;
+            }
+            console.log("this should be myI === 2, myArr: ", myArr);
             return myArr.map((myItem, myI) => myArr[
                 mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
             ]);
@@ -75,7 +78,7 @@ jQuery(document).ready(function( $ ){
     // to here.
     
     // Need to add the inital load code that shows the user the robot's currently in the db.
-    //getAllData();
+    getAllData();
 
     //Code to get all the robots in the db listed 
     // then go through each robot, and create in the currentRobots div a name and 1st image of that robot.
@@ -109,12 +112,12 @@ jQuery(document).ready(function( $ ){
                         //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                     } else {
                         console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
-                        allRobotImageIds.push(robots[i].image[0]);
+                        allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
                         $.ajax({
                         method: "GET",
                         url: "/getImages/" + robots[i].image[0]
                         })
-                        .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
+                        .then(function(dataGetImages) { // dataGetImages is formatted Images from api-routes.js
                             // attach this specific image to the name span created above, and join them.
                             // console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
                             allImagesOfRobots.push(dataGetImages);
@@ -122,7 +125,7 @@ jQuery(document).ready(function( $ ){
                             const myDataId = myArray[1].split(" ", 1);
                             console.log("myDataId: ", myDataId);
                             // this was to "flatten" the array to become just an array of strings instead of array of array
-                            wrongOrderIds.push.apply(wrongOrderIds, myDataId);
+                            wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
                             
                             
                             //$("#currentRobots").append(dataGetImages);
@@ -133,86 +136,8 @@ jQuery(document).ready(function( $ ){
                 console.log("outside of loop, allImagesOfRobots(dataGetImages): ", allImagesOfRobots);
                 console.log("outside loop, allRobotImageIds: ", allRobotImageIds);
                 console.log("wrongOrderIds: ", wrongOrderIds);
-                // call the showAllRobots() funtion to run for loop out of this function
-                //showAllRobots();
-                //now do a nested loop to reorder dataGetImages to match the original order
-                // of the names and id's of the Robots, allRobotNameswithImages and allRobotImageIds 
-                // for (let j = 0; j < allRobotImageIds.length; j++) {
-                //     for (let k = 0; k < wrongOrderIds.length; k++) {
-                //         if (allRobotImageIds[j] = wrongOrderIds[k]) {
-                //             console.log("condition satisfied, allRobotImagesIds["+ j + "] = wrongOrderIds[" + k + "]");
-                //             $("#currentRobots").append("<div class='robotTitles'><h3>" + allRobotNameswithImages[j] + "</h3><br>" + dataGetImages[k]);
-                //             break;
-                //         }
-                //     }
-                // }
-
             });            
     }
-
-    // when button to show all Robots is clicked.  already removed button from html
-    $(document).on("click", "#revealRobots", function(event) {
-        event.preventDefault();
-        showAllRobots();
-    });
-
-    // show completed robots
-    function showAllRobots() {
-        
-        console.log("inside function showAllRobots()");
-        console.log("inside function showAllRobots(), allRobotNameswithImages: ", allRobotNameswithImages); // array of robot names, correct order
-        console.log("inside function showAllRobots(), allRobotImageIds: ", allRobotImageIds); // array of robot image data-ids, same correct order as names
-        console.log("typeof allRobotImageIds: ", typeof allRobotImageIds);
-        console.log("inside function showAllRobots(), allImagesOfRobots: ", allImagesOfRobots);// array of robot image objects in incorrect order from db
-        console.log("inside function showAllRobots(), wrongOrderIds: ", wrongOrderIds);
-        console.log("typeof wrongOrderIds: ", typeof wrongOrderIds);
-        // using for loops
-        // for (var j = 0; j < allRobotImageIds.length; j++) {
-        //     for (var k = 0; k < wrongOrderIds.length; k++) {
-        //         if (allRobotImageIds[j] = wrongOrderIds[k]) {
-        //             console.log("condition satisfied, allRobotImagesIds["+ j + "] = wrongOrderIds[" + k + "]");
-        //             $("#currentRobots").append("<div class='robotTitles'><h3>" + allRobotNameswithImages[j] + "</h3><br>" + allImagesOfRobots[k] + "</div>");
-        //             // remove these elements from the arrays
-        //             allRobotImageIds.splice(j, 1);
-        //             wrongOrderIds.splice(k, 1);
-                    
-        //         }
-        //     }
-        // }
-        // try using .forEach
-
-
-        // then using .map
-        const newArr = allRobotImageIds.map(myFunction); //array.map(function(currentValue, index, arr), thisValue)
-        function myFunction(item, index) {
-            // console.log("inside myFunction, item: " + item);
-            // console.log("inside myFunction, index: " + index);
-            // console.log("allRobotImageIds[" + index + "]: " + item);
-            // console.log("allRobotImageIds[" + index + "]: " + allRobotImageIds[index]);
-
-            const secondArr = wrongOrderIds.map(anotherFunction);
-            function anotherFunction(secondItem, secondIndex) {
-                // console.log("inside anotherFuntion, secondItem: " + secondItem);
-                // console.log("inside anotherFunction, secondIndex: " + secondIndex);
-                // console.log("wrongOrderIds[" + secondIndex + "]: " + secondItem);
-                // console.log("wrongOrderIds[" + secondIndex + "]: " + wrongOrderIds[secondIndex]);
-                if ( item = secondItem ) {
-                    console.log("condition satisfied, allRobotImagesIds["+ index + "] = wrongOrderIds[" + secondIndex + "]");
-                    console.log("condition satisfied, does item = secondItem? item = "+ item + "  secondItem = " + secondItem);
-                    $("#currentRobots").append("<div class='robotTitles'><h3>" + allRobotNameswithImages[index] + "</h3><br>" + allImagesOfRobots[secondIndex] + "</div>");
-                    // allRobotImageIds.splice(index, 1);
-                    // wrongOrderIds.splice(secondIndex, 1);
-                }
-            }
-        }
-
-        //saving from a failed attempt, but liked finding the data-id from img#robotImg
-        //now, make an array of data-ids from this INCORRECT order of images
-        // allImageDataId = $("img#robotImg").map(function () {
-        //     return $(this).attr("data-id");
-        // }).get();
-    }
-
     // this function happens when Mark clicks the submit a new robot button
     $(document).on("click", "#submitNewRobot", function(event) {
         event.preventDefault();
