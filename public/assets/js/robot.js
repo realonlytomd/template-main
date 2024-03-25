@@ -45,36 +45,36 @@ jQuery(document).ready(function( $ ){
     // });
     // console.log("newNested: ", newNested);
         // doing it with arrays like my 3
-    let myFirstArr = ["un","deux","trois"];
-    let mySecondArr = ["deux", "trois", "un"];
-    let myThirdArr = ["zwei", "drei", "eins"];
-    let myNested = [myFirstArr, mySecondArr, myThirdArr];
-    console.log("myNested: ", myNested);
-    let mySrcArr;
-    let myNewNested;
-    myNewNested = myNested.map((myArr, myI) => {
-        if (myI === 0) {
-            console.log("Inside myI ===0, myArr: ", myArr);
-            return myArr;
-        } else if (myI === 1) { // the reference  ... Sat. night: this just needs to be done once!
-                mySrcArr = myArr.slice(0); // take a copy of the second array
-                console.log("inside if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
-                myArr.sort((prev, next) => {
-                    return myFirstArr.indexOf(prev) - myFirstArr.indexOf(next);
-                });
-        }
-            console.log("again, outside of if: myArr: ", myArr);
-            console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
-            console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
-            if (myI === 1) {
-                return myArr;
-            }
-            console.log("this should be myI === 2, myArr: ", myArr);
-            return myArr.map((myItem, myI) => myArr[
-                mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
-            ]);
-    });
-    console.log("myNewNested: ", myNewNested);
+    // let myFirstArr = ["un","deux","trois"];
+    // let mySecondArr = ["deux", "trois", "un"];
+    // let myThirdArr = ["zwei", "drei", "eins"];
+    // let myNested = [myFirstArr, mySecondArr, myThirdArr];
+    // console.log("myNested: ", myNested);
+    // let mySrcArr;
+    // let myNewNested;
+    // myNewNested = myNested.map((myArr, myI) => {
+    //     if (myI === 0) {
+    //         console.log("Inside myI ===0, myArr: ", myArr);
+    //         return myArr;
+    //     } else if (myI === 1) { // the reference  ... Sat. night: this just needs to be done once!
+    //             mySrcArr = myArr.slice(0); // take a copy of the second array
+    //             console.log("inside if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+    //             myArr.sort((prev, next) => {
+    //                 return myFirstArr.indexOf(prev) - myFirstArr.indexOf(next);
+    //             });
+    //     }
+    //         console.log("again, outside of if: myArr: ", myArr);
+    //         console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+    //         console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
+    //         if (myI === 1) {
+    //             return myArr;
+    //         }
+    //         console.log("this should be myI === 2, myArr: ", myArr);
+    //         return myArr.map((myItem, myI) => myArr[
+    //             mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
+    //         ]);
+    // });
+    // console.log("myNewNested: ", myNewNested);
     // to here.
     
     // Need to add the inital load code that shows the user the robot's currently in the db.
@@ -129,15 +129,55 @@ jQuery(document).ready(function( $ ){
                             
                             
                             //$("#currentRobots").append(dataGetImages);
-                        });    
+                        }); 
                     }
                 }
                 console.log("outside loop, allRobotNameswithImages: ", allRobotNameswithImages);
                 console.log("outside of loop, allImagesOfRobots(dataGetImages): ", allImagesOfRobots);
                 console.log("outside loop, allRobotImageIds: ", allRobotImageIds);
                 console.log("wrongOrderIds: ", wrongOrderIds);
-            });            
+            });       
     }
+    $(document).on("click", "#revealRobots", function(event) {
+        event.preventDefault();
+        //exercise from above
+        let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
+        console.log("myNested: ", myNested);
+        let mySrcArr;
+        let myNewNested;
+        myNewNested = myNested.map((myArr, myI) => {
+            if (myI === 0) {
+                console.log("Inside myI ===0, myArr: ", myArr);
+                return myArr;
+            } else if (myI === 1) { // the reference  ... Sat. night: this just needs to be done once!
+                    mySrcArr = myArr.slice(0); // take a copy of the second array
+                    console.log("inside if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+                    myArr.sort((prev, next) => {
+                        return allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
+                    });
+            }
+                console.log("again, outside of if: myArr: ", myArr);
+                console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+                console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
+                if (myI === 1) {
+                    return myArr;
+                }
+                console.log("this should be myI === 2, myArr: ", myArr);
+                return myArr.map((myItem, myI) => myArr[
+                    mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
+                ]);
+        });
+        console.log("myNewNested: ", myNewNested);
+        console.log("myNewNested[2].length = " + myNewNested[2].length);
+                // to here
+                // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
+        for (let i=0; i<myNewNested[2].length; i++) {
+            $("#currentRobots").append ("<div class=robotTitles><h4>" + allRobotNameswithImages[i] + "</h4><br>" + myNewNested[2][i] + "</div>");       
+        }
+    
+    });
+    // Put the sorting code into this function after user presses Reveal Robot button
+
     // this function happens when Mark clicks the submit a new robot button
     $(document).on("click", "#submitNewRobot", function(event) {
         event.preventDefault();
