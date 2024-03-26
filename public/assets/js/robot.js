@@ -168,7 +168,7 @@ jQuery(document).ready(function( $ ){
                 ]);
         });
         console.log("myNewNested: ", myNewNested);
-        console.log("myNewNested[2].length = " + myNewNested[2].length);
+        console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
         for (let i=0; i<myNewNested[2].length; i++) {
