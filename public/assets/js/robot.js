@@ -126,9 +126,6 @@ jQuery(document).ready(function( $ ){
                             console.log("myDataId: ", myDataId);
                             // this was to "flatten" the array to become just an array of strings instead of array of array
                             wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
-                            
-                            
-                            //$("#currentRobots").append(dataGetImages);
                         }); 
                     }
                 }
@@ -138,6 +135,7 @@ jQuery(document).ready(function( $ ){
                 console.log("wrongOrderIds: ", wrongOrderIds);
             });       
     }
+    // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
         //exercise from above
@@ -174,9 +172,7 @@ jQuery(document).ready(function( $ ){
         for (let i=0; i<myNewNested[2].length; i++) {
             $("#currentRobots").append ("<div class=robotTitles><h4>" + allRobotNameswithImages[i] + "</h4><br>" + myNewNested[2][i] + "</div>");       
         }
-    
     });
-    // Put the sorting code into this function after user presses Reveal Robot button
 
     // this function happens when Mark clicks the submit a new robot button
     $(document).on("click", "#submitNewRobot", function(event) {
@@ -249,7 +245,9 @@ jQuery(document).ready(function( $ ){
             $("#newRobotImageModal").modal("hide");
             //reload the current robot div showing the changes
             $("#imageDiv").empty();
-            writeRobotDom();
+            //decide what needs to happen after creating a new robot - maybe ask for further images?
+            // use this function call to write the newly created robot into the #currentRobots div
+            //writeRobotDom();
           });
     });
 

@@ -181,7 +181,7 @@ module.exports = function(router) {
                 console.log("inside /getImages/, records[0].title: " + records[0].title);
                 const formattedImages = imagesHold.map(buffer => {
                     //return `<img data-title=` + records[0].title + ` data-id=` + records[0]._id + ` class="theImages" title=` + records[0].title + ` src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
-                    return `<div class="robotTitles"><img data-id=` + records[0]._id + ` id="robotImg" class="theImages" title="` + records[0].title + `" alt="robotpic" src="data:image/jpeg;base64,${buffer.toString("base64")}"/></div>`
+                    return `<img data-id=` + records[0]._id + ` id="robotImg" class="theImages" title="` + records[0].title + `" alt="robotpic" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
                 });
                 res.send(formattedImages)  //this should be going back to robots.js
                 //empty out arrays
