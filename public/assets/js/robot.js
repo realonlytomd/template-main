@@ -58,7 +58,7 @@ jQuery(document).ready(function( $ ){
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
-        $("#currentRobots").empty();
+        // $("#currentRobots").empty();
         //exercise from above
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
         console.log("myNested: ", myNested);
@@ -121,8 +121,14 @@ jQuery(document).ready(function( $ ){
             //Now add a button to add the main image for the new robot
             $("#mainImageButtonSpace").append("<button type='button' data-toggle='modal' " +
                 "data-target='#newRobotImageModal' id='createImageRobot'" + 
-                ">Add Main Image for Robot</button>");
+                ">Add Main Image for Robot</button><button type='button' id='noImageYet'>No Image Yet</button>");
         });
+    });
+
+    // function to refresh Dom if no image is uploaded to a new robot yet
+    $(document).on("click", "#noImageYet", function(event) {
+        event.preventDefault();
+        window.location.replace("/");
     });
 
     // this function is after Mark clicks the add image button. A modal appears for him to
@@ -166,7 +172,7 @@ jQuery(document).ready(function( $ ){
             $("#newRobotImageModal").modal("hide");
             //reload the current robot div showing the changes
             $("#imageDiv").empty();
-            //refresh the DOM
+            //refresh the DOM after adding a new robot with new image
             window.location.replace("/");
           });
     });

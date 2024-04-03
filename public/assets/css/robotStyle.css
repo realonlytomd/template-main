@@ -40,6 +40,10 @@ body {
     padding-left: 0px;
 }
 
+#rowCreateRobot {
+    margin-top: 40px;
+}
+
 #unitButton, #unitSizeButton {
     margin-top: 25px;
 }
