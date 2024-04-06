@@ -7,6 +7,7 @@ jQuery(document).ready(function( $ ){
     var allImagesOfRobots = [];
     var wrongOrderIds = [];
     // Need to add the inital load code that shows the user the robot's currently in the db.
+    //getAllData();
     getAllData();
     //Code to get all the robots in the db listed 
     // then go through each robot, and create in the currentRobots div a name and 1st image of that robot.
@@ -16,50 +17,50 @@ jQuery(document).ready(function( $ ){
         //empty out the current div
         $("#currentRobots").empty();
         //get the list of robots from the db
-        $.getJSON("/getAllRobots")
-            .then ( function(robots) {
-                console.log("robots array, from getAllData function", robots);
-                for (i=0; i<robots.length; i++) {
-                    allRobotNameswithImages.push(robots[i].name);
-                    //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
-                    //put all the robot names in an array?????it alreay is
-                    //now get just the FIRST image for each robot
-                    if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
-                        $("#currentRobots").append ("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
-                        //remove THIS robot from allRobotNameswithImages array
-                        allRobotNameswithImages.pop();
-                        //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
-                    } else {
-                        console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
-                        allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
-                        $.ajax({
-                        method: "GET",
-                        url: "/getImages/" + robots[i].image[0]
-                        })
-                        .then(function(dataGetImages) { // dataGetImages is formatted Images from api-routes.js
-                            // attach this specific image to the name span created above, and join them.
-                            // console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
-                            allImagesOfRobots.push(dataGetImages);
-                            const myArray = dataGetImages[0].split("data-id=", 6);
-                            const myDataId = myArray[1].split(" ", 1);
-                            console.log("myDataId: ", myDataId);
-                            // this was to "flatten" the array to become just an array of strings instead of array of array
-                            wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
-                        });
-                    }
+        $.getJSON("/getAllRobots", function(robots) {
+            console.log("robots array, from getAllData function", robots);
+            for (i=0; i<robots.length; i++) {
+                allRobotNameswithImages.push(robots[i].name);
+                //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
+                //put all the robot names in an array?????it alreay is
+                //now get just the FIRST image for each robot
+                if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
+                    $("#currentRobots").append ("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
+                    //remove THIS robot from allRobotNameswithImages array
+                    allRobotNameswithImages.pop();
+                    //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
+                } else {
+                    console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
+                    allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
+                    $.ajax({
+                    method: "GET",
+                    url: "/getImages/" + robots[i].image[0]
+                    })
+                    .then(function(dataGetImages) { // dataGetImages is formatted Images from api-routes.js
+                        // attach this specific image to the name span created above, and join them.
+                        // console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
+                        allImagesOfRobots.push(dataGetImages);
+                        const myArray = dataGetImages[0].split("data-id=", 6);
+                        const myDataId = myArray[1].split(" ", 1);
+                        console.log("myDataId: ", myDataId);
+                        // this was to "flatten" the array to become just an array of strings instead of array of array
+                        wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
+                    });
                 }
-                console.log("after the for loop for robots, wrongOrderIds: ", wrongOrderIds);
-            })
-            .then(function() {
-                console.log("After all the .done for getting robots? wrongOrderIds: ", wrongOrderIds);
-            });
-            console.log("outside of the getAllDataFunctin? wrongOrderIds: ", wrongOrderIds);     
+            }
+            console.log("after the for loop for robots, wrongOrderIds: ", wrongOrderIds);
+        })
+        .then(function() {
+            console.log("After all the .getJson for getting robots? wrongOrderIds: ", wrongOrderIds);
+            //revealRobots();
+        });
+        console.log("outside of the getAllDataFunctin? wrongOrderIds: ", wrongOrderIds);
     }
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
-        // $("#currentRobots").empty();
-        //exercise from above
+        // function revealRobots() {
+        //     console.log("Second Function start");
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
         console.log("myNested: ", myNested);
         let mySrcArr;
@@ -68,15 +69,15 @@ jQuery(document).ready(function( $ ){
             if (myI === 0) {
                 console.log("Inside myI ===0, myArr: ", myArr);
                 return myArr;
-            } else if (myI === 1) { // the reference  ... Sat. night: this just needs to be done once!
+            } else if (myI === 1) { // the reference, this just needs to be done once!
                     mySrcArr = myArr.slice(0); // take a copy of the second array
-                    console.log("inside if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+                    console.log("inside if, mySrcArr: ", mySrcArr);
                     myArr.sort((prev, next) => {
                         return allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
                     });
             }
                 console.log("again, outside of if: myArr: ", myArr);
-                console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr); // should be ["deux", "trois", "un"];
+                console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr);
                 console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
                 if (myI === 1) {
                     return myArr;
