@@ -25,7 +25,7 @@ jQuery(document).ready(function( $ ){
                 //put all the robot names in an array?????it alreay is
                 //now get just the FIRST image for each robot
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
-                    $("#currentRobots").append ("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
+                    $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
                     //remove THIS robot from allRobotNameswithImages array
                     allRobotNameswithImages.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
