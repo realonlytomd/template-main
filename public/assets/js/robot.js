@@ -3,6 +3,7 @@ jQuery(document).ready(function( $ ){
     // initialize variables
     var currentRobotId;
     var allRobotNameswithImages = [];
+    var allRobotBios = [];
     var allRobotImageIds = [];
     var allImagesOfRobots = [];
     var wrongOrderIds = [];
@@ -21,6 +22,7 @@ jQuery(document).ready(function( $ ){
             console.log("robots array, from getAllData function", robots);
             for (i=0; i<robots.length; i++) {
                 allRobotNameswithImages.push(robots[i].name);
+                allRobotBios.push(robots[i].bio);
                 //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
                 //put all the robot names in an array?????it alreay is
                 //now get just the FIRST image for each robot
@@ -28,6 +30,7 @@ jQuery(document).ready(function( $ ){
                     $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
                     //remove THIS robot from allRobotNameswithImages array
                     allRobotNameswithImages.pop();
+                    allRobotBios.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                 } else {
                     console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
@@ -48,13 +51,7 @@ jQuery(document).ready(function( $ ){
                     });
                 }
             }
-            console.log("after the for loop for robots, wrongOrderIds: ", wrongOrderIds);
-        })
-        .then(function() {
-            console.log("After all the .getJson for getting robots? wrongOrderIds: ", wrongOrderIds);
-            //revealRobots();
         });
-        console.log("outside of the getAllDataFunctin? wrongOrderIds: ", wrongOrderIds);
     }
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
@@ -92,8 +89,29 @@ jQuery(document).ready(function( $ ){
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
         for (let i=0; i<myNewNested[2].length; i++) {
-            $("#currentRobots").append ("<div class=robotTitles><h4>" + allRobotNameswithImages[i] + "</h4><br>" + myNewNested[2][i] + "</div>");       
+            $("#currentRobots").append ("<div class=robotTitles data-name='" + allRobotNameswithImages[i] + "' data-bio='" + allRobotBios[i] + "'><h4>" + allRobotNameswithImages[i] + "</h4><br>" + myNewNested[2][i] + "</div>");
         }
+    });
+
+    //clicking on the picture of a robot displays all the information for that robot
+    $(document).on("click", "#robotImg", function(event) {
+        event.preventDefault();
+        console.log("I clicked on a specific robot");
+        $("#specificRobot").empty();
+        // loads the main image, as wide as the screen
+        var imgSrc = $(this).attr("src");
+        var bigImage = $("<img>");
+        bigImage.addClass("bigImageinModal");
+        bigImage.attr("src", imgSrc);
+        $("#specificRobot").append(bigImage);
+        // labels this image with the name of the robot
+        var specificRobotName = $("<h2>");
+        //specificRobotName.addClass("editKittenImageTitle");
+        //specificRobotName.attr("data-id", currentImage[0]._id);  thisTitleId = $(this).attr("data-id");
+        var name = $(this).parent().data("name");
+        console.log("name: ", name);
+        specificRobotName.text(name);
+        $("#specificRobot").append(specificRobotName);
     });
 
     // this function happens when Mark clicks the submit a new robot button
