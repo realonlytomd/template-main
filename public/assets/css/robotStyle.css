@@ -85,8 +85,8 @@ body {
     box-shadow: 5px 10px 18px #1a4863;
 }
 
-.bigImageinModal {
-    width: 100%;
+.bigRobotImage {
+    width: 90%;
 }
 
 button#signAdvice {

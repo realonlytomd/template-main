@@ -19,7 +19,7 @@ jQuery(document).ready(function( $ ){
         $("#currentRobots").empty();
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
-            console.log("robots array, from getAllData function", robots);
+            //console.log("robots array, from getAllData function", robots);
             for (i=0; i<robots.length; i++) {
                 allRobotNameswithImages.push(robots[i].name);
                 allRobotBios.push(robots[i].bio);
@@ -33,7 +33,7 @@ jQuery(document).ready(function( $ ){
                     allRobotBios.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                 } else {
-                    console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
+                    //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
                     $.ajax({
                     method: "GET",
@@ -45,7 +45,7 @@ jQuery(document).ready(function( $ ){
                         allImagesOfRobots.push(dataGetImages);
                         const myArray = dataGetImages[0].split("data-id=", 6);
                         const myDataId = myArray[1].split(" ", 1);
-                        console.log("myDataId: ", myDataId);
+                        //console.log("myDataId: ", myDataId);
                         // this was to "flatten" the array to become just an array of strings instead of array of array
                         wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
                     });
@@ -59,12 +59,12 @@ jQuery(document).ready(function( $ ){
         // function revealRobots() {
         //     console.log("Second Function start");
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
-        console.log("myNested: ", myNested);
+        //console.log("myNested: ", myNested);
         let mySrcArr;
         let myNewNested;
         myNewNested = myNested.map((myArr, myI) => {
             if (myI === 0) {
-                console.log("Inside myI ===0, myArr: ", myArr);
+                //console.log("Inside myI ===0, myArr: ", myArr);
                 return myArr;
             } else if (myI === 1) { // the reference, this just needs to be done once!
                     mySrcArr = myArr.slice(0); // take a copy of the second array
@@ -73,23 +73,25 @@ jQuery(document).ready(function( $ ){
                         return allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
                     });
             }
-                console.log("again, outside of if: myArr: ", myArr);
-                console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr);
-                console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
+                // console.log("again, outside of if: myArr: ", myArr);
+                // console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr);
+                // console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
                 if (myI === 1) {
                     return myArr;
                 }
-                console.log("this should be myI === 2, myArr: ", myArr);
+                //console.log("this should be myI === 2, myArr: ", myArr);
                 return myArr.map((myItem, myI) => myArr[
                     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
                 ]);
         });
-        console.log("myNewNested: ", myNewNested);
-        console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
+        // console.log("myNewNested: ", myNewNested);
+        // console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
         for (let i=0; i<myNewNested[2].length; i++) {
-            $("#currentRobots").append ("<div class=robotTitles data-name='" + allRobotNameswithImages[i] + "' data-bio='" + allRobotBios[i] + "'><h4>" + allRobotNameswithImages[i] + "</h4><br>" + myNewNested[2][i] + "</div>");
+            $("#currentRobots").append ("<div class=robotTitles data-name='" + allRobotNameswithImages[i] + 
+            "' data-bio='" + allRobotBios[i] + "'><h4>" + allRobotNameswithImages[i] + 
+            "</h4><br>" + myNewNested[2][i] + "</div>");  //
         }
     });
 
@@ -98,20 +100,42 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         console.log("I clicked on a specific robot");
         $("#specificRobot").empty();
-        // loads the main image, as wide as the screen
-        var imgSrc = $(this).attr("src");
-        var bigImage = $("<img>");
-        bigImage.addClass("bigImageinModal");
-        bigImage.attr("src", imgSrc);
-        $("#specificRobot").append(bigImage);
-        // labels this image with the name of the robot
-        var specificRobotName = $("<h2>");
-        //specificRobotName.addClass("editKittenImageTitle");
+        // labels the image with the name of the robot
+        // specificRobotName = $("<h2>");
+        //specificRobotName.addClass("lightText");
         //specificRobotName.attr("data-id", currentImage[0]._id);  thisTitleId = $(this).attr("data-id");
         var name = $(this).parent().data("name");
         console.log("name: ", name);
-        specificRobotName.text(name);
-        $("#specificRobot").append(specificRobotName);
+        //specificRobotName.text(name);
+        $("#individRobot").text(name);
+        //$("#specificRobot").append(specificRobotName);
+        // put the biography here
+        var specificRobotBio = $("<h4>");
+        specificRobotBio.addClass("lightText");
+        var bio = $(this).parent().data("bio");
+        console.log("bio: ", bio);
+        specificRobotBio.text(bio);
+        $("#specificRobot").append(specificRobotBio);
+        // loads the main image, as wide as the screen
+        var imgSrc = $(this).attr("src");
+        var bigImage = $("<img>");
+        bigImage.addClass("bigRobotImage");
+        bigImage.attr("src", imgSrc);
+        $("#specificRobot").append(bigImage);
+        // put the title of this picture underneath
+        var specificRobotPicTitle = $("<h3>");
+        specificRobotPicTitle.addClass("lightText");
+        var title = $(this).attr("title");
+        console.log("title: ", title);
+        specificRobotPicTitle.text(title);
+        $("#specificRobot").append(specificRobotPicTitle);
+        // put the desc of this picture underneath that
+        var specificRobotPicDesc = $("<h3>");
+        specificRobotPicDesc.addClass("lightText");
+        var desc = $(this).data("desc");
+        console.log("desc: ", desc);
+        specificRobotPicDesc.text(desc);
+        $("#specificRobot").append(specificRobotPicDesc);
     });
 
     // this function happens when Mark clicks the submit a new robot button
