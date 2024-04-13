@@ -2,7 +2,10 @@ jQuery.noConflict();
 jQuery(document).ready(function( $ ){
     // initialize variables
     var currentRobotId;
+    var robots = [];
+    var allRobotIds = [];
     var allRobotNameswithImages = [];
+    var numberOfImages = [];
     var allRobotBios = [];
     var allRobotImageIds = [];
     var allImagesOfRobots = [];
@@ -17,10 +20,13 @@ jQuery(document).ready(function( $ ){
     function getAllData() {
         //empty out the current div
         $("#currentRobots").empty();
+        // empty out robots from the db
+        robots = [];
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
-            //console.log("robots array, from getAllData function", robots);
+            console.log("robots array, from getAllData function", robots);
             for (i=0; i<robots.length; i++) {
+                allRobotIds.push (robots[i]._id);
                 allRobotNameswithImages.push(robots[i].name);
                 allRobotBios.push(robots[i].bio);
                 //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
@@ -29,12 +35,16 @@ jQuery(document).ready(function( $ ){
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
                     $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
                     //remove THIS robot from allRobotNameswithImages array
+                    allRobotIds.pop();
                     allRobotNameswithImages.pop();
                     allRobotBios.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                 } else {
                     //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
+                    console.log("robots[" + i + "].image.length: ", robots[i].image.length);
+                    //make an array of the number of images for each robot
+                    numberOfImages.push(robots[i].image.length);
                     $.ajax({
                     method: "GET",
                     url: "/getImages/" + robots[i].image[0]
@@ -68,7 +78,7 @@ jQuery(document).ready(function( $ ){
                 return myArr;
             } else if (myI === 1) { // the reference, this just needs to be done once!
                     mySrcArr = myArr.slice(0); // take a copy of the second array
-                    console.log("inside if, mySrcArr: ", mySrcArr);
+                    //console.log("inside if, mySrcArr: ", mySrcArr);
                     myArr.sort((prev, next) => {
                         return allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
                     });
@@ -89,13 +99,14 @@ jQuery(document).ready(function( $ ){
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
         for (let i=0; i<myNewNested[2].length; i++) {
-            $("#currentRobots").append ("<div class=robotTitles data-name='" + allRobotNameswithImages[i] + 
-            "' data-bio='" + allRobotBios[i] + "'><h4>" + allRobotNameswithImages[i] + 
+            $("#currentRobots").append ("<div class=robotTitles data-robotid='" + allRobotIds[i] + "' data-name='" + allRobotNameswithImages[i] + 
+            "' data-bio='" + allRobotBios[i] + "' data-noofimages='" + numberOfImages[i] + "'><h4>" + allRobotNameswithImages[i] + 
             "</h4><br>" + myNewNested[2][i] + "</div>");  //
         }
     });
 
-    //clicking on the picture of a robot displays all the information for that robot
+    //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
+    // adding the display of additional pictures
     $(document).on("click", "#robotImg", function(event) {
         event.preventDefault();
         console.log("I clicked on a specific robot");
@@ -117,10 +128,20 @@ jQuery(document).ready(function( $ ){
         specificRobotBio.text(bio);
         $("#specificRobot").append(specificRobotBio);
         // loads the main image, as wide as the screen
+        // currently adding the number of images
+        var datanoofimages = $(this).parent().data("noofimages");
+        console.log("datanoofimages: " + datanoofimages);
+        var dataRobotId = $(this).parent().data("robotid");
+        //setting the currentRobotId to dataRobotId for retrieving additional pics later
+        currentRobotId = dataRobotId;
+        console.log("id of robot in database: " + dataRobotId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("bigRobotImage");
+        bigImage.attr("data-robotid", dataRobotId);
         bigImage.attr("src", imgSrc);
+        bigImage.attr("data-toggle", "modal");
+        bigImage.attr("data-target", "#newRobotImageModal");
         $("#specificRobot").append(bigImage);
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
@@ -136,6 +157,47 @@ jQuery(document).ready(function( $ ){
         console.log("desc: ", desc);
         specificRobotPicDesc.text(desc);
         $("#specificRobot").append(specificRobotPicDesc);
+        if (datanoofimages > 1) {
+            $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
+            ">Additional Images</button>");
+        }
+    });
+
+    //click on the enlarged pic of an individual robot brings up a modal to add more images
+    // will later have to be available only to Mark in an "edit" mode
+    // in addition to bringing up the modal, currentRobotId is set, but the big image is not pressed by a regular user
+    $(document).on("click", ".bigRobotImage", function(event) {
+        event.preventDefault();
+        currentRobotId = $(this).data("robotid"); 
+        console.log("currentRobotId of big Image just clicked: " + currentRobotId);
+        
+    });
+
+    // when Additional Images button (#showAdditionalImages) is clicked
+    // go to db and retrieve addtional images from the correct robot
+    $(document).on("click", "#showAdditionalImages", function(event) {
+        event.preventDefault();
+        console.log("currentRobotId: ", currentRobotId);
+        // get the images, but don't print out the first one again
+        $.getJSON("/getARobot/" + currentRobotId, function(currob) {
+            currob[0].image.forEach(innerImageForEach);
+
+            function innerImageForEach(innerItem, innerIndex) { //innerItem here is id of images
+                console.log("THIS INNER image, innerIndex and innerItem: " + innerIndex + " and " + innerItem);
+                $.ajax({
+                method: "GET",
+                url: "/getImages/" + innerItem
+                })
+                .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
+                    // this is the current image data
+                    // console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
+                    // then dataGetImages should be something I can send to index.html through jQuery
+                    $("#specificRobot").append(dataGetImages);
+                    //console.log("currentRobotId: " + currentRobotId);
+                });
+            }
+        });
+
     });
 
     // this function happens when Mark clicks the submit a new robot button
