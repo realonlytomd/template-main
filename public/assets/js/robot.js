@@ -50,8 +50,7 @@ jQuery(document).ready(function( $ ){
                     url: "/getImages/" + robots[i].image[0]
                     })
                     .then(function(dataGetImages) { // dataGetImages is formatted Images from api-routes.js
-                        // attach this specific image to the name span created above, and join them.
-                        // console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
+                        console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
                         allImagesOfRobots.push(dataGetImages);
                         const myArray = dataGetImages[0].split("data-id=", 6);
                         const myDataId = myArray[1].split(" ", 1);
@@ -177,27 +176,59 @@ jQuery(document).ready(function( $ ){
     // go to db and retrieve addtional images from the correct robot
     $(document).on("click", "#showAdditionalImages", function(event) {
         event.preventDefault();
+        // hide the addtl images button
+        $("#showAdditionalImages").hide();
         console.log("currentRobotId: ", currentRobotId);
         // get the images, but don't print out the first one again
         $.getJSON("/getARobot/" + currentRobotId, function(currob) {
             currob[0].image.forEach(innerImageForEach);
 
             function innerImageForEach(innerItem, innerIndex) { //innerItem here is id of images
-                console.log("THIS INNER image, innerIndex and innerItem: " + innerIndex + " and " + innerItem);
-                $.ajax({
-                method: "GET",
-                url: "/getImages/" + innerItem
-                })
-                .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
-                    // this is the current image data
-                    // console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
-                    // then dataGetImages should be something I can send to index.html through jQuery
-                    $("#specificRobot").append(dataGetImages);
-                    //console.log("currentRobotId: " + currentRobotId);
-                });
+                if (innerIndex !== 0){ //excluding the first image id because we don't need to show the main image again
+                    console.log("THIS INNER image, innerIndex and innerItem: " + innerIndex + " and " + innerItem);
+                    $.ajax({
+                    method: "GET",
+                    url: "/getImages/" + innerItem
+                    })
+                    .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
+                        $("#additionalImages").append(dataGetImages);
+                        // change the id from robotImg to addtlImg?
+                        $("div#additionalImages img").attr("id", "addtlImg");
+                    });
+                }
             }
         });
+    });
 
+    // display the additional images
+    $(document).on("click", "#addtlImg", function(event) {
+        event.preventDefault();
+        console.log("I clicked on an additional image");
+        $("#largeAddtlImages").empty();
+        
+        // loads the main image, as wide as the screen
+        
+        var imgSrc = $(this).attr("src");
+        var bigImage = $("<img>");
+        bigImage.addClass("bigRobotImage");
+        bigImage.attr("src", imgSrc);
+        $("#largeAddtlImages").append(bigImage);
+
+        // put the title of this picture underneath
+        var specificRobotPicTitle = $("<h3>");
+        specificRobotPicTitle.addClass("lightText");
+        var title = $(this).attr("title");
+        console.log("title: ", title);
+        specificRobotPicTitle.text(title);
+        $("#largeAddtlImages").append(specificRobotPicTitle);
+
+        // put the desc of this picture underneath that
+        var specificRobotPicDesc = $("<h3>");
+        specificRobotPicDesc.addClass("lightText");
+        var desc = $(this).data("desc");
+        console.log("desc: ", desc);
+        specificRobotPicDesc.text(desc);
+        $("#largeAddtlImages").append(specificRobotPicDesc);
     });
 
     // this function happens when Mark clicks the submit a new robot button
