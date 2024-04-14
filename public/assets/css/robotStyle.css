@@ -30,7 +30,7 @@ body {
 }
 
 .footer, .push {
-    height: 50px;
+    height: 100px;
 }
 
 .no-gutters {
@@ -87,6 +87,14 @@ body {
 
 .bigRobotImage {
     width: 90%;
+}
+
+#additionalImages {
+    margin-top: 30px;
+}
+
+#largeAddtlImages {
+    margin-top: 30px;
 }
 
 button#signAdvice {

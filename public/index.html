@@ -12,7 +12,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-4 text-center">
-                        <button id="topicButton"><a href="/topic">Topics</a></button>
                     </div>
                     <div class="col-xs-4 text-center">
                         <h3><span>Mark's Robots</span></h3>
@@ -69,7 +68,7 @@
                         <div id="currentRobots"></div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="exploreRobots">
                     <div class="col-xs-12 text-center">
                         <h2 class="lightText" id="individRobot"></h2>
                         <div id="specificRobot"></div>
@@ -121,11 +120,16 @@
             </div>
             <!--footer with copyright-->
             <div class="row">
-                <div class="col-xs-12 no-gutters text-center">
-                    <footer>
-                        <h5><span>&#169; 2024 Tom McLaughlin - Houston, TX</span></h5>
-                    </footer>
-                </div>
+                <footer class="col-xs-12 no-gutters footer">
+                    <div class="col-xs-4 text-center">
+                        <h6 class="lightText">Web Developer<a href="https://www.buymeacoffee.com/tommcl" target="_blank">
+                            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
+                            alt="Buy Me A Coffee" style="height: 30px;" ></a></h6>
+                    </div>
+                    <div class="col-xs-8">
+                      <h5 class="lightText"><span>&#169; 2023 Mark Serafin - Houston, TX</span></h5>
+                    </div>
+                </footer>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

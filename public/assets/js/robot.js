@@ -100,7 +100,7 @@ jQuery(document).ready(function( $ ){
         for (let i=0; i<myNewNested[2].length; i++) {
             $("#currentRobots").append ("<div class=robotTitles data-robotid='" + allRobotIds[i] + "' data-name='" + allRobotNameswithImages[i] + 
             "' data-bio='" + allRobotBios[i] + "' data-noofimages='" + numberOfImages[i] + "'><h4>" + allRobotNameswithImages[i] + 
-            "</h4><br>" + myNewNested[2][i] + "</div>");  //
+            "</h4><br>" + myNewNested[2][i] + "</div>");  //<a href="#about" target="_self">About</a>
         }
     });
 
