@@ -65,8 +65,7 @@ jQuery(document).ready(function( $ ){
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
-        // function revealRobots() {
-        //     console.log("Second Function start");
+        $("#currentRobots").empty();
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
         //console.log("myNested: ", myNested);
         let mySrcArr;
