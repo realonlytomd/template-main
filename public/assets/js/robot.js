@@ -29,10 +29,9 @@ jQuery(document).ready(function( $ ){
                 allRobotIds.push (robots[i]._id);
                 allRobotNameswithImages.push(robots[i].name);
                 allRobotBios.push(robots[i].bio);
-                //$("#currentRobots").append("<h4>" + robots[i].name + "</h4>");
-                //put all the robot names in an array?????it alreay is
-                //now get just the FIRST image for each robot
+                //this is a list of all the robots without a main image
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
+                    // The following should be written to the DOM ONLY when Mark is in edit mode
                     $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
                     //remove THIS robot from allRobotNameswithImages array
                     allRobotIds.pop();
@@ -66,6 +65,8 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
         $("#currentRobots").empty();
+        $("#exploreRobots").empty();
+        $("#additionalImages").empty();
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
         //console.log("myNested: ", myNested);
         let mySrcArr;
