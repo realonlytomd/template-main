@@ -65,8 +65,10 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
         $("#currentRobots").empty();
-        $("#exploreRobots").empty();
+        $("h2#individRobot").empty();
+        $("#specificRobot").empty();
         $("#additionalImages").empty();
+        $("#largeAddtlImages").empty();
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
         //console.log("myNested: ", myNested);
         let mySrcArr;
@@ -110,6 +112,9 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         console.log("I clicked on a specific robot");
         $("#specificRobot").empty();
+        $("h2#individRobot").empty();
+        $("#additionalImages").empty();
+        $("#largeAddtlImages").empty();
         // labels the image with the name of the robot
         // specificRobotName = $("<h2>");
         //specificRobotName.addClass("lightText");
