@@ -10,6 +10,9 @@ jQuery(document).ready(function( $ ){
     var allRobotImageIds = [];
     var allImagesOfRobots = [];
     var wrongOrderIds = [];
+
+    // variables for editing data
+    var thisTitleId;
     // Need to add the inital load code that shows the user the robot's currently in the db.
     //getAllData();
     getAllData();
@@ -149,14 +152,14 @@ jQuery(document).ready(function( $ ){
         $("#specificRobot").append(bigImage);
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
-        specificRobotPicTitle.addClass("lightText");
+        specificRobotPicTitle.addClass("imageTitleEdit");
         var title = $(this).attr("title");
         console.log("title: ", title);
         specificRobotPicTitle.text(title);
         $("#specificRobot").append(specificRobotPicTitle);
         // put the desc of this picture underneath that
         var specificRobotPicDesc = $("<h3>");
-        specificRobotPicDesc.addClass("lightText");
+        specificRobotPicDesc.addClass("imageDescEdit");
         var desc = $(this).data("desc");
         console.log("desc: ", desc);
         specificRobotPicDesc.text(desc);
@@ -212,16 +215,19 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").empty();
         
         // loads the main image, as wide as the screen
-        
+        var thisDataId = $(this).data("id");
+        console.log("image data-id of the clicked pic: ", thisDataId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("bigRobotImage");
+        bigImage.data("id", thisDataId);
         bigImage.attr("src", imgSrc);
         $("#largeAddtlImages").append(bigImage);
 
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
-        specificRobotPicTitle.addClass("lightText");
+        specificRobotPicTitle.addClass("imageTitleEdit");
+        specificRobotPicTitle.data("id", thisDataId);
         var title = $(this).attr("title");
         console.log("title: ", title);
         specificRobotPicTitle.text(title);
@@ -229,9 +235,10 @@ jQuery(document).ready(function( $ ){
 
         // put the desc of this picture underneath that
         var specificRobotPicDesc = $("<h3>");
-        specificRobotPicDesc.addClass("lightText");
+        specificRobotPicDesc.addClass("imageDescEdit");
         var desc = $(this).data("desc");
         console.log("desc: ", desc);
+        specificRobotPicDesc.data("id", thisDataId);
         specificRobotPicDesc.text(desc);
         $("#largeAddtlImages").append(specificRobotPicDesc);
     });
@@ -316,6 +323,44 @@ jQuery(document).ready(function( $ ){
             //refresh the DOM after adding a new robot with new image
             window.location.replace("/");
           });
+    });
+
+    // This function shows the form for a user to edit the Title
+    // of an image, either the main one or additional pics
+    $(document).on("click", ".imageTitleEdit", function(event) {
+        event.preventDefault();
+        var thisTitle = $(this).text();
+        console.log("thisTitle: " + thisTitle);
+        thisTitleId = $(this).attr("data-id");
+        console.log("the id of the image for this title: ", thisTitleId);
+        // show the div to edit the current title
+        $("h3.imageTitleEdit").append("<div class='form-group'>" +
+        "<label for='editTitle'>New Title of Image</label>" +
+        "<input type='text' id='editTitle' name='editTitle'>" +
+        "</div>" +
+        "<button type='submit' id='submitEditedImageTitle'>Submit</button><br>");
+        $("#editTitle").val(thisTitle);
+    });
+
+    //After user clicks Submit, this function changes the title 
+    // of the image in the db
+    $(document).on("click", "#submitEditedImageTitle", function(event) {
+        event.preventDefault();
+        $.ajax({
+        method: "POST",
+        url: "/editImageTitle/" + thisTitleId,
+        data: {
+            title: $("#editTitle").val().trim()
+        }
+        })
+        .then(function(editedImagedb) {
+            //console.log("Imagedb after title edit (editedImagedb) in user.js: ", editedImagedb);
+            // empty out the input fields
+            $("#editTitle").val("");
+            // then hide the div to edit and this modal
+            $("#bigImageEditTitle").empty();
+            $("#bigImageModal").modal("hide");
+        });
     });
 
         // function called after a particular robot button is clicked - gets and displays robot data

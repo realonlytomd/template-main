@@ -165,4 +165,29 @@ module.exports = function(router) {
         
     });
 
+    // changing the title of an image in the db
+       //Route to edit the title of a kitten's image
+    router.post("/editImageTitle/:imageId", function(req, res) {
+        console.log("req.params.imageId: ", req.params.imageId);
+        //console.log("req.body: ", req.body);
+        console.log("req.body.title: ", req.body.title);
+        // find the intended image properties, and change the values accordingly
+        db.Image.findOneAndUpdate (
+            { _id: req.params.imageId },
+            {$set: { 
+                title: req.body.title, 
+            }},
+            { new: true } //send new one back
+        )
+            .then(function(dbImage) {
+                console.log("dbImage: ", dbImage);
+                // If successful, send the newly edited data back to the client
+                res.json(dbImage);
+            })
+            .catch(function(err) {
+            // but if an error occurred, send it to the client
+                res.json(err);
+            });
+    });
+    
 };

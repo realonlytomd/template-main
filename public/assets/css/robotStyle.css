@@ -48,6 +48,10 @@ body {
     margin-top: 25px;
 }
 
+.imageTitleEdit, .imageDescEdit {
+    color: white;
+}
+
 .lightText {
     color: white;
 }
