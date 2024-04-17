@@ -52,7 +52,7 @@ jQuery(document).ready(function( $ ){
                     url: "/getImages/" + robots[i].image[0]
                     })
                     .then(function(dataGetImages) { // dataGetImages is formatted Images from api-routes.js
-                        console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
+                        //console.log("after getAllRobots, then /getImages, the new dataGetImages: ", dataGetImages);
                         allImagesOfRobots.push(dataGetImages);
                         const myArray = dataGetImages[0].split("data-id=", 6);
                         const myDataId = myArray[1].split(" ", 1);
@@ -181,7 +181,7 @@ jQuery(document).ready(function( $ ){
     });
 
     // when Additional Images button (#showAdditionalImages) is clicked
-    // go to db and retrieve addtional images from the correct robot
+    // go to db and retrieve addtional images from the correct robot and display the small versions in a div
     $(document).on("click", "#showAdditionalImages", function(event) {
         event.preventDefault();
         // hide the addtl images button
@@ -208,7 +208,7 @@ jQuery(document).ready(function( $ ){
         });
     });
 
-    // display the additional images
+    // click on the additional images icon, and display the large verion alone with it's title and description
     $(document).on("click", "#addtlImg", function(event) {
         event.preventDefault();
         console.log("I clicked on an additional image");
@@ -216,7 +216,7 @@ jQuery(document).ready(function( $ ){
         
         // loads the main image, as wide as the screen
         var thisDataId = $(this).data("id");
-        console.log("image data-id of the clicked pic: ", thisDataId);
+        console.log("image data-id of the clicked pic (id of the image): ", thisDataId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("bigRobotImage");
@@ -227,9 +227,9 @@ jQuery(document).ready(function( $ ){
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
         specificRobotPicTitle.addClass("imageTitleEdit");
-        specificRobotPicTitle.data("id", thisDataId);
-        var title = $(this).attr("title");
+        specificRobotPicTitle.attr("data-id", thisDataId);
         console.log("title: ", title);
+        var title = $(this).attr("title");
         specificRobotPicTitle.text(title);
         $("#largeAddtlImages").append(specificRobotPicTitle);
 
@@ -238,7 +238,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicDesc.addClass("imageDescEdit");
         var desc = $(this).data("desc");
         console.log("desc: ", desc);
-        specificRobotPicDesc.data("id", thisDataId);
+        specificRobotPicDesc.attr("data-id", thisDataId);
         specificRobotPicDesc.text(desc);
         $("#largeAddtlImages").append(specificRobotPicDesc);
     });
@@ -334,10 +334,9 @@ jQuery(document).ready(function( $ ){
         thisTitleId = $(this).attr("data-id");
         console.log("the id of the image for this title: ", thisTitleId);
         // show the div to edit the current title
-        $("h3.imageTitleEdit").append("<div class='form-group'>" +
+        $(".imageTitleEdit").append("<div class='form-group'>" +
         "<label for='editTitle'>New Title of Image</label>" +
-        "<input type='text' id='editTitle' name='editTitle'>" +
-        "</div>" +
+        "<input type='text' id='editTitle' name='editTitle'></div>" +
         "<button type='submit' id='submitEditedImageTitle'>Submit</button><br>");
         $("#editTitle").val(thisTitle);
     });
@@ -358,8 +357,7 @@ jQuery(document).ready(function( $ ){
             // empty out the input fields
             $("#editTitle").val("");
             // then hide the div to edit and this modal
-            $("#bigImageEditTitle").empty();
-            $("#bigImageModal").modal("hide");
+            $("div.form-group").empty();
         });
     });
 
