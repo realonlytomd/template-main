@@ -12,7 +12,7 @@ jQuery(document).ready(function( $ ){
     var wrongOrderIds = [];
 
     // variables for editing data
-    var thisTitleId;
+    var thisTitleId; //data-id of image
     // Need to add the inital load code that shows the user the robot's currently in the db.
     //getAllData();
     getAllData();
@@ -121,7 +121,8 @@ jQuery(document).ready(function( $ ){
         // labels the image with the name of the robot
         // specificRobotName = $("<h2>");
         //specificRobotName.addClass("lightText");
-        //specificRobotName.attr("data-id", currentImage[0]._id);  thisTitleId = $(this).attr("data-id");
+        //specificRobotName.attr("data-id", currentImage[0]._id);  
+        thisTitleId = $(this).attr("data-id");
         var name = $(this).parent().data("name");
         console.log("name: ", name);
         //specificRobotName.text(name);
@@ -151,8 +152,10 @@ jQuery(document).ready(function( $ ){
         bigImage.attr("data-target", "#newRobotImageModal");
         $("#specificRobot").append(bigImage);
         // put the title of this picture underneath
+
         var specificRobotPicTitle = $("<h3>");
         specificRobotPicTitle.addClass("imageTitleEdit");
+        specificRobotPicTitle.attr("data-id", thisTitleId);
         var title = $(this).attr("title");
         console.log("title: ", title);
         specificRobotPicTitle.text(title);
@@ -228,8 +231,9 @@ jQuery(document).ready(function( $ ){
         var specificRobotPicTitle = $("<h3>");
         specificRobotPicTitle.addClass("imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisDataId);
-        console.log("title: ", title);
+        console.log("title before: ", title);
         var title = $(this).attr("title");
+        console.log("title after: ", title);
         specificRobotPicTitle.text(title);
         $("#largeAddtlImages").append(specificRobotPicTitle);
 
@@ -334,11 +338,10 @@ jQuery(document).ready(function( $ ){
         thisTitleId = $(this).attr("data-id");
         console.log("the id of the image for this title: ", thisTitleId);
         // show the div to edit the current title
-        $(".imageTitleEdit").append("<div class='form-group'>" +
+        $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
         "<label for='editTitle'>New Title of Image</label>" +
-        "<input type='text' id='editTitle' name='editTitle'></div>" +
-        "<button type='submit' id='submitEditedImageTitle'>Submit</button><br>");
-        $("#editTitle").val(thisTitle);
+        "<input type='text' id='editTitle' name='editTitle'>" +
+        "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
     });
 
     //After user clicks Submit, this function changes the title 
@@ -357,7 +360,7 @@ jQuery(document).ready(function( $ ){
             // empty out the input fields
             $("#editTitle").val("");
             // then hide the div to edit and this modal
-            $("div.form-group").empty();
+            $("div#editTitleForm").empty();
         });
     });
 

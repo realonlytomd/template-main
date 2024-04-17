@@ -52,6 +52,14 @@ body {
     color: white;
 }
 
+#editTitle, #editTitleForm {
+    color: white;
+}
+
+button, input#editTitle {
+    color: black;
+}
+
 .lightText {
     color: white;
 }
