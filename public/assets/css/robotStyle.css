@@ -54,9 +54,6 @@ body {
 
 #editTitle, #editTitleForm {
     color: white;
-    position: relative;
-    z-index: 10;
-    height:100%;
 }
 
 button, input#editTitle {
@@ -259,11 +256,4 @@ button#loadTopics {
         margin-top: 10px;
     }
     
-}
-
-@supports (-webkit-overflow-scrolling: touch) {
-    /* CSS specific to iOS devices */
-    input, textarea {
-        transform: translateZ(0px) !important;
-    }
 }
