@@ -151,8 +151,8 @@ jQuery(document).ready(function( $ ){
         bigImage.attr("data-toggle", "modal");
         bigImage.attr("data-target", "#newRobotImageModal");
         $("#specificRobot").append(bigImage);
-        // put the title of this picture underneath
 
+        // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
         specificRobotPicTitle.addClass("imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisTitleId);
@@ -361,6 +361,7 @@ jQuery(document).ready(function( $ ){
             $("#editTitle").val("");
             // then hide the div to edit and this modal
             $("div#editTitleForm").empty();
+            window.location.replace("/");
         });
     });
 
