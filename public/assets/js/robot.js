@@ -154,7 +154,7 @@ jQuery(document).ready(function( $ ){
 
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
-        specificRobotPicTitle.addClass("imageTitleEdit");
+        specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisTitleId);
         var title = $(this).attr("title");
         console.log("title: ", title);
@@ -229,7 +229,7 @@ jQuery(document).ready(function( $ ){
 
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
-        specificRobotPicTitle.addClass("imageTitleEdit");
+        specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisDataId);
         console.log("title before: ", title);
         var title = $(this).attr("title");
@@ -331,17 +331,20 @@ jQuery(document).ready(function( $ ){
 
     // This function shows the form for a user to edit the Title
     // of an image, either the main one or additional pics
-    $(document).on("click", ".imageTitleEdit", function(event) {
+    $(document).on("click", "#imageTitleEdit", function(event) {
         event.preventDefault();
         var thisTitle = $(this).text();
         console.log("thisTitle: " + thisTitle);
         thisTitleId = $(this).attr("data-id");
         console.log("the id of the image for this title: ", thisTitleId);
         // show the div to edit the current title
-        $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
-        "<label for='editTitle'>New Title of Image</label>" +
-        "<input type='text' id='editTitle' name='editTitle'>" +
-        "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
+        
+        $("#editTitleForm").modal("show");
+        $("#editTitle").val(thisTitle);
+        // $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
+        // "<label for='editTitle'>New Title of Image</label>" +
+        // "<input type='text' id='editTitle' name='editTitle'>" +
+        // "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
     });
 
     //After user clicks Submit, this function changes the title 
@@ -360,7 +363,7 @@ jQuery(document).ready(function( $ ){
             // empty out the input fields
             $("#editTitle").val("");
             // then hide the div to edit and this modal
-            $("div#editTitleForm").empty();
+            $("#editTitleForm").modal("hide");
             window.location.replace("/");
         });
     });

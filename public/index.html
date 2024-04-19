@@ -52,6 +52,28 @@
                     </div>
                 </div>
                 <!-- End of Bootstrap modal code -->
+                <!-- Modal for editing an image's title -->
+                <div class="modal fade" id="editTitleForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Title of Image</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="editTitle">New Title of Image:</label>
+                                    <input type="text" class="form-control" name="editTitle" id="editTitle" placeholder="">
+                                </div>
+                                <button type="submit" id="submitEditedImageTitle">Submit</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      <!-- End of Bootstrap modal code -->
                 <!-- What Mark sees while editing or adding robots-->
                 <div id="rowCreateRobot" class="row">
                     <div class="col-xs-12 text-center">

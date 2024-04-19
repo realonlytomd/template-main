@@ -48,12 +48,12 @@ body {
     margin-top: 25px;
 }
 
-.imageTitleEdit, .imageDescEdit {
+#imageTitleEdit, .imageDescEdit {
     color: white;
 }
 
 #editTitle, #editTitleForm {
-    color: white;
+    color: black;
 }
 
 button, input#editTitle {
