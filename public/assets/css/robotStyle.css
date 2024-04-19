@@ -54,6 +54,8 @@ body {
 
 #editTitle, #editTitleForm {
     color: white;
+    position: relative;
+    z-index: 1;
 }
 
 button, input#editTitle {
