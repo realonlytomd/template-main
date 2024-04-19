@@ -338,7 +338,7 @@ jQuery(document).ready(function( $ ){
         thisTitleId = $(this).attr("data-id");
         console.log("the id of the image for this title: ", thisTitleId);
         // show the div to edit the current title
-        $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
+        $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group tdp_row_fullwidth center-yes light-no'>" +
         "<label for='editTitle'>New Title of Image</label>" +
         "<input type='text' id='editTitle' name='editTitle'>" +
         "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
