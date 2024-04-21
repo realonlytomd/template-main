@@ -12,7 +12,7 @@ jQuery(document).ready(function( $ ){
     var wrongOrderIds = [];
 
     // variables for editing data
-    var thisTitleId; //data-id of image
+    var thisImageId; //data-id of image
     // Need to add the inital load code that shows the user the robot's currently in the db.
     //getAllData();
     getAllData();
@@ -122,7 +122,7 @@ jQuery(document).ready(function( $ ){
         // specificRobotName = $("<h2>");
         //specificRobotName.addClass("lightText");
         //specificRobotName.attr("data-id", currentImage[0]._id);  
-        thisTitleId = $(this).attr("data-id");
+        thisImageId = $(this).attr("data-id");
         var name = $(this).parent().data("name");
         console.log("name: ", name);
         //specificRobotName.text(name);
@@ -155,18 +155,21 @@ jQuery(document).ready(function( $ ){
         // put the title of this picture underneath
         var specificRobotPicTitle = $("<h3>");
         specificRobotPicTitle.attr("id", "imageTitleEdit");
-        specificRobotPicTitle.attr("data-id", thisTitleId);
+        specificRobotPicTitle.attr("data-id", thisImageId);
         var title = $(this).attr("title");
         console.log("title: ", title);
         specificRobotPicTitle.text(title);
         $("#specificRobot").append(specificRobotPicTitle);
+
         // put the desc of this picture underneath that
         var specificRobotPicDesc = $("<h3>");
-        specificRobotPicDesc.addClass("imageDescEdit");
+        specificRobotPicDesc.attr("id", "imageDescEdit");
+        specificRobotPicDesc.attr("data-id", thisImageId);
         var desc = $(this).data("desc");
         console.log("desc: ", desc);
         specificRobotPicDesc.text(desc);
         $("#specificRobot").append(specificRobotPicDesc);
+        
         if (datanoofimages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
             ">Additional Images</button>");
@@ -239,10 +242,11 @@ jQuery(document).ready(function( $ ){
 
         // put the desc of this picture underneath that
         var specificRobotPicDesc = $("<h3>");
-        specificRobotPicDesc.addClass("imageDescEdit");
-        var desc = $(this).data("desc");
-        console.log("desc: ", desc);
+        specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisDataId);
+        console.log("desc before: ", desc);
+        var desc = $(this).data("desc");
+        console.log("desc after: ", desc);
         specificRobotPicDesc.text(desc);
         $("#largeAddtlImages").append(specificRobotPicDesc);
     });
@@ -335,12 +339,30 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         var thisTitle = $(this).text();
         console.log("thisTitle: " + thisTitle);
-        thisTitleId = $(this).attr("data-id");
-        console.log("the id of the image for this title: ", thisTitleId);
+        thisImageId = $(this).attr("data-id");
+        console.log("the id of the image for this title: ", thisImageId);
         // show the div to edit the current title
         
         $("#editTitleForm").modal("show");
         $("#editTitle").val(thisTitle);
+        // $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
+        // "<label for='editTitle'>New Title of Image</label>" +
+        // "<input type='text' id='editTitle' name='editTitle'>" +
+        // "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
+    });
+
+    // This function shows the form for Mark to edit the Description
+    // of an image, either the main one or additional pics
+    $(document).on("click", "#imageDescEdit", function(event) {
+        event.preventDefault();
+        var thisDesc = $(this).text();
+        console.log("thisDesc: " + thisDesc);
+        thisImageId = $(this).attr("data-id");
+        console.log("the id of the image for this description: ", thisImageId);
+        // show the div to edit the current title
+        
+        $("#editDescForm").modal("show");
+        $("#editDesc").val(thisDesc);
         // $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
         // "<label for='editTitle'>New Title of Image</label>" +
         // "<input type='text' id='editTitle' name='editTitle'>" +
@@ -353,7 +375,7 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         $.ajax({
         method: "POST",
-        url: "/editImageTitle/" + thisTitleId,
+        url: "/editImageTitle/" + thisImageId,
         data: {
             title: $("#editTitle").val().trim()
         }
@@ -364,6 +386,27 @@ jQuery(document).ready(function( $ ){
             $("#editTitle").val("");
             // then hide the div to edit and this modal
             $("#editTitleForm").modal("hide");
+            window.location.replace("/");
+        });
+    });
+
+    //After user clicks Submit, this function changes the description
+    // of the image in the db
+    $(document).on("click", "#submitEditedImageDesc", function(event) {
+        event.preventDefault();
+        $.ajax({
+        method: "POST",
+        url: "/editImageDesc/" + thisImageId,
+        data: {
+            desc: $("#editDesc").val().trim()
+        }
+        })
+        .then(function(editedImagedb) {
+            //console.log("Imagedb after desc edit (editedImagedb) in user.js: ", editedImagedb);
+            // empty out the input fields
+            $("#editDesc").val("");
+            // then hide the div to edit and this modal
+            $("#editDescForm").modal("hide");
             window.location.replace("/");
         });
     });

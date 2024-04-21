@@ -135,7 +135,7 @@ module.exports = function(router) {
             });
     });
     
-    // the GET route for getting all the images from the db
+    // the GET route for getting all the images from one robot in the db
     router.get("/getImages/:id" , (req, res) => {
         console.log("in /getImages/, req.params.id: ", req.params.id );
             db.Image.find({ _id: req.params.id})
@@ -176,6 +176,31 @@ module.exports = function(router) {
             { _id: req.params.imageId },
             {$set: { 
                 title: req.body.title, 
+            }},
+            { new: true } //send new one back
+        )
+            .then(function(dbImage) {
+                console.log("dbImage: ", dbImage);
+                // If successful, send the newly edited data back to the client
+                res.json(dbImage);
+            })
+            .catch(function(err) {
+            // but if an error occurred, send it to the client
+                res.json(err);
+            });
+    });
+
+    // changing the description of an image in the db
+       //Route to edit the description of a kitten's image
+       router.post("/editImageDesc/:imageId", function(req, res) {
+        console.log("req.params.imageId: ", req.params.imageId);
+        //console.log("req.body: ", req.body);
+        console.log("req.body.desc: ", req.body.desc);
+        // find the intended image properties, and change the values accordingly
+        db.Image.findOneAndUpdate (
+            { _id: req.params.imageId },
+            {$set: { 
+                desc: req.body.desc, 
             }},
             { new: true } //send new one back
         )
