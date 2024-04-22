@@ -118,35 +118,43 @@ jQuery(document).ready(function( $ ){
         $("h2#individRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
-        // labels the image with the name of the robot
-        // specificRobotName = $("<h2>");
-        //specificRobotName.addClass("lightText");
-        //specificRobotName.attr("data-id", currentImage[0]._id);  
+
+        // retrieve the id of the robot whose image was clicked. Used in edits of name and bio.
+        thisRobotId = $(this).parent().data("robotid");
+        console.log("thisRobotId: ", thisRobotId);
+
+        // retrieve the id of the clicked image from the db. Used in any of the edits of title and desc.
         thisImageId = $(this).attr("data-id");
+        console.log("thisImageId: ", thisImageId);
+
+        //retrieve the name of the robot and write to DOM
         var name = $(this).parent().data("name");
         console.log("name: ", name);
-        //specificRobotName.text(name);
         $("#individRobot").text(name);
-        //$("#specificRobot").append(specificRobotName);
+        $("#individRobot").attr("data-id", thisRobotId);
+        $("#individRobot").attr("id", "editRobotName");
+        
         // put the biography here
         var specificRobotBio = $("<h4>");
+        specificRobotBio.attr("data-id", thisRobotId);
+        specificRobotBio.attr("id", "editRobotBio");
         specificRobotBio.addClass("lightText");
         var bio = $(this).parent().data("bio");
         console.log("bio: ", bio);
         specificRobotBio.text(bio);
         $("#specificRobot").append(specificRobotBio);
+
         // loads the main image, as wide as the screen
         // currently adding the number of images
-        var datanoofimages = $(this).parent().data("noofimages");
-        console.log("datanoofimages: " + datanoofimages);
-        var dataRobotId = $(this).parent().data("robotid");
-        //setting the currentRobotId to dataRobotId for retrieving additional pics later
-        currentRobotId = dataRobotId;
-        console.log("id of robot in database: " + dataRobotId);
+        var dataNoOfImages = $(this).parent().data("noofimages");
+        console.log("dataNoOfImages: " + dataNoOfImages);
+        //setting the currentRobotId to thisRobotId for retrieving additional pics later
+        currentRobotId = thisRobotId;
+        console.log("id of robot in database: " + thisRobotId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("bigRobotImage");
-        bigImage.attr("data-robotid", dataRobotId);
+        bigImage.attr("data-robotid", thisRobotId);
         bigImage.attr("src", imgSrc);
         bigImage.attr("data-toggle", "modal");
         bigImage.attr("data-target", "#newRobotImageModal");
@@ -169,7 +177,7 @@ jQuery(document).ready(function( $ ){
         console.log("desc: ", desc);
         specificRobotPicDesc.text(desc);
         $("#specificRobot").append(specificRobotPicDesc);
-        
+
         if (datanoofimages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
             ">Additional Images</button>");
@@ -183,7 +191,7 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         currentRobotId = $(this).data("robotid"); 
         console.log("currentRobotId of big Image just clicked: " + currentRobotId);
-        
+        // the calling of the modal to add an image is built into the large pic - modal target, etc.
     });
 
     // when Additional Images button (#showAdditionalImages) is clicked
@@ -206,7 +214,7 @@ jQuery(document).ready(function( $ ){
                     })
                     .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
                         $("#additionalImages").append(dataGetImages);
-                        // change the id from robotImg to addtlImg?
+                        // change the id from robotImg to addtlImg. It was robotImg from db retrieval in the api-routes file.
                         $("div#additionalImages img").attr("id", "addtlImg");
                     });
                 }
@@ -251,7 +259,7 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").append(specificRobotPicDesc);
     });
 
-    // this function happens when Mark clicks the submit a new robot button
+    // this function happens when Mark clicks the submit a new robot button, info is stored in the appropriate robot db
     $(document).on("click", "#submitNewRobot", function(event) {
         event.preventDefault();
         console.log("name: ", $("#robotNameInput").val().trim());
@@ -281,7 +289,7 @@ jQuery(document).ready(function( $ ){
         });
     });
 
-    // function to refresh Dom if no image is uploaded to a new robot yet
+    // function to refresh Dom if no image is initially given to a new robot, the No Image button is clicked by Mark
     $(document).on("click", "#noImageYet", function(event) {
         event.preventDefault();
         window.location.replace("/");
@@ -333,7 +341,15 @@ jQuery(document).ready(function( $ ){
           });
     });
 
-    // This function shows the form for a user to edit the Title
+    // This function shows the form for Mark to edit the Name of a Robot - after it's been displayed 
+    // as a large pic.
+    $(document).on("click", "#editRobotName", function(event) {});
+
+    // This function shows the form for Mark to edit the Bio of a Robot - after it's been displayed 
+    // as a large pic.
+    $(document).on("click", "#editRobotBio", function(event) {});
+
+    // This function shows the form for Mark to edit the Title
     // of an image, either the main one or additional pics
     $(document).on("click", "#imageTitleEdit", function(event) {
         event.preventDefault();
@@ -342,13 +358,8 @@ jQuery(document).ready(function( $ ){
         thisImageId = $(this).attr("data-id");
         console.log("the id of the image for this title: ", thisImageId);
         // show the div to edit the current title
-        
         $("#editTitleForm").modal("show");
         $("#editTitle").val(thisTitle);
-        // $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
-        // "<label for='editTitle'>New Title of Image</label>" +
-        // "<input type='text' id='editTitle' name='editTitle'>" +
-        // "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
     });
 
     // This function shows the form for Mark to edit the Description
