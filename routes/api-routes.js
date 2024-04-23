@@ -165,6 +165,56 @@ module.exports = function(router) {
         
     });
 
+    // changing the name of a robot in the db
+       
+       router.post("/editRobotName/:robotId", function(req, res) {
+        console.log("req.params.robotId: ", req.params.robotId);
+        //console.log("req.body: ", req.body);
+        console.log("req.body.name: ", req.body.name);
+        // find the intended robot properties, and change the values accordingly
+        db.Robot.findOneAndUpdate (
+            { _id: req.params.robotId },
+            {$set: { 
+                name: req.body.name, 
+            }},
+            { new: true } //send new one back
+        )
+            .then(function(dbRobot) {
+                console.log("dbRobot: ", dbRobot);
+                // If successful, send the newly edited data back to the client
+                res.json(dbRobot);
+            })
+            .catch(function(err) {
+            // but if an error occurred, send it to the client
+                res.json(err);
+            });
+    });
+
+    // changing the bio of a robot in the db
+       
+       router.post("/editRobotBio/:robotId", function(req, res) {
+        console.log("req.params.robotId: ", req.params.robotId);
+        //console.log("req.body: ", req.body);
+        console.log("req.body.bio: ", req.body.bio);
+        // find the intended robot properties, and change the values accordingly
+        db.Robot.findOneAndUpdate (
+            { _id: req.params.robotId },
+            {$set: { 
+                bio: req.body.bio, 
+            }},
+            { new: true } //send new one back
+        )
+            .then(function(dbRobot) {
+                console.log("dbImage: ", dbRobot);
+                // If successful, send the newly edited data back to the client
+                res.json(dbRobot);
+            })
+            .catch(function(err) {
+            // but if an error occurred, send it to the client
+                res.json(err);
+            });
+    });
+
     // changing the title of an image in the db
        //Route to edit the title of a kitten's image
     router.post("/editImageTitle/:imageId", function(req, res) {

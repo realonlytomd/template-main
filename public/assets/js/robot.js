@@ -178,7 +178,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicDesc.text(desc);
         $("#specificRobot").append(specificRobotPicDesc);
 
-        if (datanoofimages > 1) {
+        if (dataNoOfImages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
             ">Additional Images</button>");
         }
@@ -343,11 +343,29 @@ jQuery(document).ready(function( $ ){
 
     // This function shows the form for Mark to edit the Name of a Robot - after it's been displayed 
     // as a large pic.
-    $(document).on("click", "#editRobotName", function(event) {});
+    $(document).on("click", "#editRobotName", function(event) {
+        event.preventDefault();
+        var thisRobotName = $(this).text();
+        console.log("thisRobotName: ", thisRobotName);
+        thisRobotId = $(this).attr("data-id");
+        console.log("thisRobotId: ", thisRobotId);
+        // show the modal to edit the current robot name
+        $("#editNameForm").modal("show");
+        $("#editName").val(thisRobotName);
+    });
 
     // This function shows the form for Mark to edit the Bio of a Robot - after it's been displayed 
     // as a large pic.
-    $(document).on("click", "#editRobotBio", function(event) {});
+    $(document).on("click", "#editRobotBio", function(event) {
+        event.preventDefault();
+        var thisRobotBio = $(this).text();
+        console.log("thisRobotBio: ", thisRobotBio);
+        thisRobotId = $(this).attr("data-id");
+        console.log("thisRobotId: ", thisRobotId);
+        // show the modal to edit the current robot Bio
+        $("#editBioForm").modal("show");
+        $("#editBio").val(thisRobotBio);
+    });
 
     // This function shows the form for Mark to edit the Title
     // of an image, either the main one or additional pics
@@ -357,7 +375,7 @@ jQuery(document).ready(function( $ ){
         console.log("thisTitle: " + thisTitle);
         thisImageId = $(this).attr("data-id");
         console.log("the id of the image for this title: ", thisImageId);
-        // show the div to edit the current title
+        // show the modal to edit the current title
         $("#editTitleForm").modal("show");
         $("#editTitle").val(thisTitle);
     });
@@ -374,10 +392,46 @@ jQuery(document).ready(function( $ ){
         
         $("#editDescForm").modal("show");
         $("#editDesc").val(thisDesc);
-        // $("#largeAddtlImages").append("<div id='editTitleForm' class='form-group'>" +
-        // "<label for='editTitle'>New Title of Image</label>" +
-        // "<input type='text' id='editTitle' name='editTitle'>" +
-        // "<button type='submit' id='submitEditedImageTitle'>Submit</button></div>");
+    });
+
+    //After user clicks Submit, this function changes the Robot's Name in the db
+    $(document).on("click", "#submitEditedRobotName", function(event) {
+        event.preventDefault();
+        $.ajax({
+        method: "POST",
+        url: "/editRobotName/" + thisRobotId,
+        data: {
+            name: $("#editName").val().trim()
+        }
+        })
+        .then(function(editedRobotdb) {
+            console.log("Robotdb after Name edit (editedRobotdb) in robot.js: ", editedRobotdb);
+            // empty out the input fields
+            $("#editName").val("");
+            // then hide the div to edit and this modal
+            $("#editNameForm").modal("hide");
+            window.location.replace("/");
+        });
+    });
+
+    //After user clicks Submit, this function changes the Robot's Bio in the db
+    $(document).on("click", "#submitEditedRobotBio", function(event) {
+        event.preventDefault();
+        $.ajax({
+        method: "POST",
+        url: "/editRobotBio/" + thisRobotId,
+        data: {
+            bio: $("#editBio").val().trim()
+        }
+        })
+        .then(function(editedRobotdb) {
+            console.log("Robotdb after Bio edit (editedRobotdb) in robot.js: ", editedRobotdb);
+            // empty out the input fields
+            $("#editBio").val("");
+            // then hide the div to edit and this modal
+            $("#editBioForm").modal("hide");
+            window.location.replace("/");
+        });
     });
 
     //After user clicks Submit, this function changes the title 
