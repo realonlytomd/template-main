@@ -40,7 +40,7 @@ module.exports = function(router) {
     router.get("/getAllRobots", function(req, res) {
         db.Robot.find({})
             .then(function(dbAllRobots) {
-                console.log("dbAllRobots from /getAllRobots; ", dbAllRobots);
+                //console.log("dbAllRobots from /getAllRobots; ", dbAllRobots);
                 res.json(dbAllRobots);
             })
             .catch(function(err) {
@@ -122,7 +122,7 @@ module.exports = function(router) {
 
     //This route gets one robot document from robot collection
     router.get("/getARobot/:id", function(req, res) {
-        console.log("inside api-routes: req.params: ", req.params);
+        //console.log("inside api-routes: req.params: ", req.params);
         // need to find the correct robot, and retrieve it's data, 
         db.Robot.find({ _id: req.params.id })
             .then(function(dbARobot) {
@@ -137,7 +137,7 @@ module.exports = function(router) {
     
     // the GET route for getting all the images from one robot in the db
     router.get("/getImages/:id" , (req, res) => {
-        console.log("in /getImages/, req.params.id: ", req.params.id );
+        //console.log("in /getImages/, req.params.id: ", req.params.id );
             db.Image.find({ _id: req.params.id})
             .then((records) => {
                 // console.log("this is records from api route /getImages/: ", records);
@@ -148,8 +148,8 @@ module.exports = function(router) {
                     imgHold[i] = Buffer.from(records[i].img.data, "base64");
                     imagesHold.push(imgHold[i]);
                 }
-                console.log("inside /getImages/, records[0]._id: " + records[0]._id);
-                console.log("inside /getImages/, records[0].title: " + records[0].title);
+                //console.log("inside /getImages/, records[0]._id: " + records[0]._id);
+                //console.log("inside /getImages/, records[0].title: " + records[0].title);
                 const formattedImages = imagesHold.map(buffer => {
                     //return `<img data-title=` + records[0].title + ` data-id=` + records[0]._id + ` class="theImages" title=` + records[0].title + ` src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
                     return `<img data-id=` + records[0]._id + ` id="robotImg" class="theImages" data-desc="` + records[0].desc + `" title="` + records[0].title + `" alt="robotpic" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`

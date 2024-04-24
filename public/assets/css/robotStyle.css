@@ -26,7 +26,7 @@ body {
 .wrapper {
     min-height: 100vh;
     margin-bottom: -42px;
-    margin-top: 80px;
+    margin-top: 94px;
 }
 
 .footer, .push {
@@ -38,6 +38,10 @@ body {
     margin-right: 0px;
     padding-right: 0px;
     padding-left: 0px;
+}
+
+#revealRobots {
+    cursor: pointer;
 }
 
 #rowCreateRobot {
@@ -82,12 +86,12 @@ button, input#editTitle {
     cursor: pointer;
     margin-right: 25px;
     margin-bottom: 10px;
-    margin-top: 0px;
+    margin-top: 25px;
 }
 
 .theImages {
     height: 100px;
-    margin-top: -5px;
+    margin-top: -20px;
     margin-right: 10px;
     margin-bottom: 0px;
     border: 0;

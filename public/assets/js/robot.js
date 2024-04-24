@@ -22,6 +22,7 @@ jQuery(document).ready(function( $ ){
     // This should be visible to all users.
     function getAllData() {
         //empty out the current div
+        $("#revealRobots").show();
         $("#currentRobots").empty();
         // empty out robots from the db
         robots = [];
@@ -35,7 +36,8 @@ jQuery(document).ready(function( $ ){
                 //this is a list of all the robots without a main image
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
                     // The following should be written to the DOM ONLY when Mark is in edit mode
-                    $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + "</h4><br><h5 class=noImage>No Image</h5></div>");
+                    $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + 
+                    "</h4><br><h5 class=noImage data-robotid=" + robots[i]._id + " data-toggle='modal' data-target='#newRobotImageModal'>No Image</h5></div>");
                     //remove THIS robot from allRobotNameswithImages array
                     allRobotIds.pop();
                     allRobotNameswithImages.pop();
@@ -67,6 +69,7 @@ jQuery(document).ready(function( $ ){
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
+        $("#revealRobots").hide();
         $("#currentRobots").empty();
         $("h2#individRobot").empty();
         $("#specificRobot").empty();
@@ -150,11 +153,12 @@ jQuery(document).ready(function( $ ){
         console.log("dataNoOfImages: " + dataNoOfImages);
         //setting the currentRobotId to thisRobotId for retrieving additional pics later
         currentRobotId = thisRobotId;
-        console.log("id of robot in database: " + thisRobotId);
+        console.log("id of thisRobotId: " + thisRobotId);
+        console.log("id of currentRobotId: ", currentRobotId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("bigRobotImage");
-        bigImage.attr("data-robotid", thisRobotId);
+        bigImage.attr("data-robotid", currentRobotId);
         bigImage.attr("src", imgSrc);
         bigImage.attr("data-toggle", "modal");
         bigImage.attr("data-target", "#newRobotImageModal");
@@ -295,11 +299,32 @@ jQuery(document).ready(function( $ ){
         window.location.replace("/");
     });
 
+     // this function is after Mark clicks the noimage label under a previously created robot
+     // but with no image added.. A modal appears for him to
+    // enter the title, description and browse for an image,
+    // but first the individual robot must be found and populated to accept an array of images
+    $(document).on("click", ".noImage", function(event) {
+        event.preventDefault();
+        currentRobotId = $(this).data("robotid");
+        console.log("inside noImage class click, currentRobotId: ", currentRobotId);
+        // make an ajax call for the robot to be populated
+            $.ajax({
+                method: "GET",
+                url: "/popRobot/" + currentRobotId
+                })
+                .then(function(dataAddImage) {
+                // this sets up the fields populated to receive robot name and image data
+                console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
+                });
+        });
+
     // this function is after Mark clicks the add image button. A modal appears for him to
     // enter the title, description and browse for an image,
     // but first the individual robot must be found and populated to accept an array of images
     $(document).on("click", "#createImageRobot", function(event) {
     event.preventDefault();
+    //currentRobotId is already set from Mark entering a new robot
+    console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
     // make an ajax call for the robot to be populated
         $.ajax({
             method: "GET",
@@ -311,10 +336,11 @@ jQuery(document).ready(function( $ ){
             });
     });
 
-    // this function enters the robot image into the correct robot in the db
+    // this function enters the robot image into the correct robot in the db after data entered into the modal
     $(document).on("click", "#submitNewRobotImage", function(event) {
         event.preventDefault();
         //get form from html
+        console.log("inside 'submitNewRobotImage' click, currentRobotId: ", currentRobotId);
         var imageform = $("#RobotImageInputForm")[0];
         // Create an FormData object called imageData
         var imageData = new FormData(imageform);
