@@ -66,6 +66,29 @@ jQuery(document).ready(function( $ ){
             }
         });
     }
+    //function for Mark to log in to see editable sections
+    $(document).on("click", "#markserafin", function(event) {
+        event.preventDefault();
+        console.log("Mark has clicked log in!");
+        $("#loginMark").modal("show");
+    });
+
+    // after Mark enters his password and clicks submit
+    $(document).on("click", "#submitPassword", function(event) {
+        event.preventDefault();
+        var password = $("#enterPass").val();
+        console.log("password: " + password);
+        if (password === "marshaandrob") {
+            console.log("password is correct!");
+            $("#enterPass").val("");
+            $("#loginMark").modal("hide");
+            // now enter functions that are called to show Mark what he can edit.
+        } else {
+            console.log("wrong password!");
+            $("#enterPass").val("enter correct password");
+        }
+    });
+
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
