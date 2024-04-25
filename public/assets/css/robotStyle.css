@@ -78,12 +78,12 @@ button, input#editTitle {
 
 .noImage {
     margin-top: -5px;
+    cursor: pointer;
 }
 
 .robotTitles {
     color: white;
     display: inline-block;
-    cursor: pointer;
     margin-right: 25px;
     margin-bottom: 10px;
     margin-top: 25px;
@@ -99,6 +99,7 @@ button, input#editTitle {
     outline-color: rgb(47, 63, 80);
     outline-style: groove;
     box-shadow: 5px 10px 18px #1a4863;
+    cursor: pointer;
 }
 
 .bigRobotImage {
