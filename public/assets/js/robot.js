@@ -10,11 +10,11 @@ jQuery(document).ready(function( $ ){
     var allRobotImageIds = [];
     var allImagesOfRobots = [];
     var wrongOrderIds = [];
+    var markLoggedIn = false;
 
     // variables for editing data
     var thisImageId; //data-id of image
     // Need to add the inital load code that shows the user the robot's currently in the db.
-    //getAllData();
     getAllData();
     //Code to get all the robots in the db listed 
     // then go through each robot, and create in the currentRobots div a name and 1st image of that robot.
@@ -22,8 +22,21 @@ jQuery(document).ready(function( $ ){
     // This should be visible to all users.
     function getAllData() {
         //empty out the current div
+        $("#logoutButton").hide();
+        $("button#createRobot").hide();
         $("#revealRobots").show();
         $("#currentRobots").empty();
+        $("#currentRobots").hide();
+        $("#robotHeader").hide();
+        $("h2#individRobot").empty();
+        $("#specificRobot").empty();
+        $("#additionalImages").empty();
+        $("#largeAddtlImages").empty();
+        console.log("markLoggedIn: " + markLoggedIn);
+        if (markLoggedIn === true) {
+            $("#logoutButton").show();
+            $("button#createRobot").show();
+        }
         // empty out robots from the db
         robots = [];
         //get the list of robots from the db
@@ -46,7 +59,7 @@ jQuery(document).ready(function( $ ){
                 } else {
                     //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
-                    console.log("robots[" + i + "].image.length: ", robots[i].image.length);
+                    //console.log("robots[" + i + "].image.length: ", robots[i].image.length);
                     //make an array of the number of images for each robot
                     numberOfImages.push(robots[i].image.length);
                     $.ajax({
@@ -80,21 +93,39 @@ jQuery(document).ready(function( $ ){
         console.log("password: " + password);
         if (password === "marshaandrob") {
             console.log("password is correct!");
+            markLoggedIn = true;
+            console.log("markLoggedIn: " + markLoggedIn);
             $("#enterPass").val("");
             $("#loginMark").modal("hide");
             // now enter functions that are called to show Mark what he can edit.
+            $("#logoutButton").show();
+            $("button#createRobot").show();
         } else {
             console.log("wrong password!");
-            $("#enterPass").val("enter correct password");
+            alert("wrong password!");
+            $("#enterPass").val("");
         }
+    });
+
+    // when Mark clicks the Logout Button
+    $(document).on("click", "#logoutButton", function(event) {
+        event.preventDefault();
+        markLoggedIn = false;
+        console.log("markLoggedIn: " + markLoggedIn);
+        $("#logoutButton").hide();
+        $("button#createRobot").hide();
+        window.location.replace("/");
     });
 
     // function to show the robots from the databas, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
+        $("#currentRobots").show();
+        $("#robotHeader").show();
         $("#revealRobots").hide();
         $("#currentRobots").empty();
         $("h2#individRobot").empty();
+        $("#exploreRobots").empty();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
@@ -319,7 +350,8 @@ jQuery(document).ready(function( $ ){
     // function to refresh Dom if no image is initially given to a new robot, the No Image button is clicked by Mark
     $(document).on("click", "#noImageYet", function(event) {
         event.preventDefault();
-        window.location.replace("/");
+        //window.location.replace("/");
+        getAllData();
     });
 
      // this function is after Mark clicks the noimage label under a previously created robot
@@ -386,7 +418,8 @@ jQuery(document).ready(function( $ ){
             //reload the current robot div showing the changes
             $("#imageDiv").empty();
             //refresh the DOM after adding a new robot with new image
-            window.location.replace("/");
+            //window.location.replace("/");
+            getAllData();
           });
     });
 
@@ -459,7 +492,8 @@ jQuery(document).ready(function( $ ){
             $("#editName").val("");
             // then hide the div to edit and this modal
             $("#editNameForm").modal("hide");
-            window.location.replace("/");
+            //window.location.replace("/");
+            getAllData();
         });
     });
 
@@ -479,7 +513,8 @@ jQuery(document).ready(function( $ ){
             $("#editBio").val("");
             // then hide the div to edit and this modal
             $("#editBioForm").modal("hide");
-            window.location.replace("/");
+            //window.location.replace("/");
+            getAllData();
         });
     });
 
@@ -500,7 +535,8 @@ jQuery(document).ready(function( $ ){
             $("#editTitle").val("");
             // then hide the div to edit and this modal
             $("#editTitleForm").modal("hide");
-            window.location.replace("/");
+            //window.location.replace("/");
+            getAllData();
         });
     });
 
@@ -521,7 +557,8 @@ jQuery(document).ready(function( $ ){
             $("#editDesc").val("");
             // then hide the div to edit and this modal
             $("#editDescForm").modal("hide");
-            window.location.replace("/");
+            //window.location.replace("/");
+            getAllData();
         });
     });
 
