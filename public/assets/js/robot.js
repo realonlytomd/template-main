@@ -28,7 +28,7 @@ jQuery(document).ready(function( $ ){
         $("#currentRobots").empty();
         $("#currentRobots").hide();
         $("#robotHeader").hide();
-        $("h2#individRobot").empty();
+        $("#editRobotName").empty();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
@@ -124,8 +124,8 @@ jQuery(document).ready(function( $ ){
         $("#robotHeader").show();
         $("#revealRobots").hide();
         $("#currentRobots").empty();
-        $("h2#individRobot").empty();
-        $("#exploreRobots").empty();
+        //$("h2#editRobotName").empty();
+        //$("#exploreRobots").empty();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
@@ -172,7 +172,7 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         console.log("I clicked on a specific robot");
         $("#specificRobot").empty();
-        $("h2#individRobot").empty();
+        $("#editRobotName").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
 
@@ -187,9 +187,8 @@ jQuery(document).ready(function( $ ){
         //retrieve the name of the robot and write to DOM
         var name = $(this).parent().data("name");
         console.log("name: ", name);
-        $("#individRobot").text(name);
-        $("#individRobot").attr("data-id", thisRobotId);
-        $("#individRobot").attr("id", "editRobotName");
+        $("#editRobotName").text(name);
+        $("#editRobotName").attr("data-id", thisRobotId);
         
         // put the biography here
         var specificRobotBio = $("<h4>");
