@@ -358,9 +358,11 @@ jQuery(document).ready(function( $ ){
         });
     });
 
-    // function to refresh Dom if no image is initially given to a new robot, the No Image button is clicked by Mark
+    // function to re-retrieve getAllData if no image is initially given to a new robot, the No Image button is clicked by Mark
     $(document).on("click", "#noImageYet", function(event) {
         event.preventDefault();
+        $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
+        $("#noImageYet").hide();
         //window.location.replace("/");
         getAllData();
     });
@@ -384,11 +386,13 @@ jQuery(document).ready(function( $ ){
                 });
         });
 
-    // this function is after Mark clicks the add image button. A modal appears for him to
+    // this function is after Mark clicks the add main image button. A modal appears for him to
     // enter the title, description and browse for an image,
     // but first the individual robot must be found and populated to accept an array of images
     $(document).on("click", "#createImageRobot", function(event) {
     event.preventDefault();
+    $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
+    $("#noImageYet").hide();
     //currentRobotId is already set from Mark entering a new robot
     console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
     // make an ajax call for the robot to be populated
@@ -572,55 +576,4 @@ jQuery(document).ready(function( $ ){
             getAllData();
         });
     });
-
-        // function called after a particular robot button is clicked - gets and displays robot data
-    function writeRobotDom() {
-        console.log("currentRobotId inside writeRobotdom: " + currentRobotId);
-        $("#specificRobot").empty(); // empties out the div containing robot data and images. 
-        // gets the array of metrics associated with the current kitten
-        $.getJSON("/getARobot/" + currentRobotId, function(currob) {
-            console.log("WHAT'S IN HERE currob[0]: ", currob[0]);
-            console.log("more specific, currob[0].name is: ", currob[0].name);
-            // strings with multiple words are not being assigned.
-            // try to to write the h5 element with data attributes instead.
-            var showSpan = $("<span>");
-            showSpan.attr("id", "editThisRobot");
-            showSpan.css("color","red");
-            showSpan.attr("data-name", currob[0].name);
-            showSpan.attr("data-breed", currob[0].bio);
-            showSpan.text("HERE");
-            //this works!
-            // appends the name of the current robot and other constants
-            $("#specificRobot").append("<p class='keepInline'>(CLICK</p>");
-            $("#specificRobot").append(showSpan);
-            $("#specificRobot").append("<p class='keepInline'> to Edit or Delete " +
-            currob[0].name + ")</p><h4>Robot: " + 
-            currob[0].name + "<br>Bio: " +
-            currob[0].bio + "</h4>");
-            //
-            // Add new images Button - to add more picture of the robot
-            $("#specificRobot").append("<button type='button' data-toggle='modal' " +
-            "data-target='#newRobotImageModal' id='createImageRobot'" + 
-            ">Add Image for Robot</button>");
-            // So HERE is where the div of the current robot's images will go.
-            $("#specificRobot").append("<div id='imageDiv'></div>");
-            //go through the array of images for this kitten
-            currob[0].image.forEach(innerImageForEach);
-
-            function innerImageForEach(innerItem, innerIndex) { //innerItem here is id of images
-                console.log("THIS INNER image, innerIndex and innerItem: " + innerIndex + " and " + innerItem);
-                $.ajax({
-                method: "GET",
-                url: "/getImages/" + innerItem
-                })
-                .then(function(dataGetImages) { // dataGetImages should be formattedImages from api-routes.js
-                    // this is the current image data
-                    // console.log("in robot.js, after each get images dataGetImages: ", dataGetImages);
-                    // then dataGetImages should be something I can send to index.html through jQuery
-                    $("#imageDiv").append(dataGetImages);
-                    //console.log("currentRobotId: " + currentRobotId);
-                });
-            }
-        });
-    }
 });
