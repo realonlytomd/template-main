@@ -37,8 +37,16 @@ jQuery(document).ready(function( $ ){
             $("#logoutButton").show();
             $("button#createRobot").show();
         }
-        // empty out robots from the db
+        // empty out robots from the db, and overall arrays since page isn't reloaded to keep 
+        // whether Mark is logged in or not
         robots = [];
+        allRobotIds = [];
+        allRobotNameswithImages = [];
+        numberOfImages = [];
+        allRobotBios = [];
+        allRobotImageIds = [];
+        allImagesOfRobots = [];
+        wrongOrderIds = [];
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
             console.log("robots array, from getAllData function", robots);
