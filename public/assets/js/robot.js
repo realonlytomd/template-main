@@ -129,15 +129,18 @@ jQuery(document).ready(function( $ ){
     // function to show the robots from the database, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
+
         $("#currentRobots").show();
         $("#robotHeader").show();
         $("#revealRobots").hide();
-        $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         //$("h2#editRobotName").empty();
         //$("#exploreRobots").empty();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
+        if (markLoggedIn === false) {
+            $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
+        }
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
         //console.log("myNested: ", myNested);
         let mySrcArr;
