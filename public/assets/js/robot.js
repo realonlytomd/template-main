@@ -21,7 +21,7 @@ jQuery(document).ready(function( $ ){
     // Make that pic clickable to bring up other biography and other pictures down below.
     // This should be visible to all users.
     function getAllData() {
-        //empty out the current div
+        //empty out the current divs
         $("#logoutButton").hide();
         $("button#createRobot").hide();
         $("#revealRobots").show();
@@ -36,8 +36,9 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             $("#logoutButton").show();
             $("button#createRobot").show();
+            $("#currentRobots").show();
         }
-        // empty out robots from the db, and overall arrays since page isn't reloaded to keep 
+        // empty out robots previously retrieved from the db, and overall arrays since page isn't reloaded to keep 
         // whether Mark is logged in or not
         robots = [];
         allRobotIds = [];
@@ -125,13 +126,13 @@ jQuery(document).ready(function( $ ){
         window.location.replace("/");
     });
 
-    // function to show the robots from the databas, sorted to match names with images
+    // function to show the robots from the database, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
         $("#currentRobots").show();
         $("#robotHeader").show();
         $("#revealRobots").hide();
-        $("#currentRobots").empty();
+        $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         //$("h2#editRobotName").empty();
         //$("#exploreRobots").empty();
         $("#specificRobot").empty();
