@@ -64,7 +64,7 @@ jQuery(document).ready(function( $ ){
                     allRobotIds.pop();
                     allRobotNameswithImages.pop();
                     allRobotBios.pop();
-                    //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
+                    console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
                 } else {
                     //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
@@ -129,7 +129,6 @@ jQuery(document).ready(function( $ ){
     // function to show the robots from the database, sorted to match names with images
     $(document).on("click", "#revealRobots", function(event) {
         event.preventDefault();
-
         $("#currentRobots").show();
         $("#robotHeader").show();
         $("#revealRobots").hide();
@@ -176,6 +175,7 @@ jQuery(document).ready(function( $ ){
             "' data-bio='" + allRobotBios[i] + "' data-noofimages='" + numberOfImages[i] + "'><h4>" + allRobotNameswithImages[i] + 
             "</h4><br>" + myNewNested[2][i] + "</div>");  //<a href="#about" target="_self">About</a>
         }
+        // need to figure out how to not split strings up
     });
 
     //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
