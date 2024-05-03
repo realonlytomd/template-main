@@ -175,7 +175,8 @@ jQuery(document).ready(function( $ ){
                 `" data-bio="` + allRobotBios[i] + `" data-noofimages="` + numberOfImages[i] + `"><h4>` + allRobotNameswithImages[i] + 
                 `</h4><br>` + myNewNested[2][i] + `</div>`);  //<a href="#about" target="_self">About</a>
             }
-        // commented out is a learning lessin in template literals
+
+        // commented out is a learning lesson in template literals
         // for (let i=0; i<myNewNested[2].length; i++) { 
         //     $("#currentRobots").append(`<div class="robotTitles" data-robotid=${allRobotIds[i]} 
         //     data-name=${allRobotNameswithImages[i]} data-bio=${allRobotBios[i]} data-noofimages${numberOfImages[i]}>
@@ -209,6 +210,13 @@ jQuery(document).ready(function( $ ){
         var name = $(this).parent().data("name");
         console.log("name: ", name);
         $("#editRobotName").text(name);
+        if (markLoggedIn === true) {
+            $("#editRobotName").css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        }
         $("#editRobotName").attr("data-id", thisRobotId);
         
         // put the biography here
@@ -219,6 +227,13 @@ jQuery(document).ready(function( $ ){
         var bio = $(this).parent().data("bio");
         console.log("bio: ", bio);
         specificRobotBio.text(bio);
+        if (markLoggedIn === true) {
+            specificRobotBio.css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        }
         $("#specificRobot").append(specificRobotBio);
 
         // loads the main image, as wide as the screen
@@ -234,8 +249,6 @@ jQuery(document).ready(function( $ ){
         bigImage.addClass("bigRobotImage");
         bigImage.attr("data-robotid", currentRobotId);
         bigImage.attr("src", imgSrc);
-        bigImage.attr("data-toggle", "modal");
-        bigImage.attr("data-target", "#newRobotImageModal");
         $("#specificRobot").append(bigImage);
 
         // put the title of this picture underneath
@@ -245,6 +258,13 @@ jQuery(document).ready(function( $ ){
         var title = $(this).attr("title");
         console.log("title: ", title);
         specificRobotPicTitle.text(title);
+        if (markLoggedIn === true) {
+            specificRobotPicTitle.css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        }
         $("#specificRobot").append(specificRobotPicTitle);
 
         // put the desc of this picture underneath that
@@ -254,6 +274,13 @@ jQuery(document).ready(function( $ ){
         var desc = $(this).data("desc");
         console.log("desc: ", desc);
         specificRobotPicDesc.text(desc);
+        if (markLoggedIn === true) {
+            specificRobotPicDesc.css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        }
         $("#specificRobot").append(specificRobotPicDesc);
 
         if (dataNoOfImages > 1) {
@@ -262,14 +289,16 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    //click on the enlarged pic of an individual robot brings up a modal to add more images
-    // will later have to be available only to Mark in an "edit" mode
-    // in addition to bringing up the modal, currentRobotId is set, but the big image is not pressed by a regular user
+    //click on the enlarged pic of an individual robot
+    // available only to Mark in an "edit" mode
     $(document).on("click", ".bigRobotImage", function(event) {
         event.preventDefault();
-        currentRobotId = $(this).data("robotid"); 
-        console.log("currentRobotId of big Image just clicked: " + currentRobotId);
-        // the calling of the modal to add an image is built into the large pic - modal target, etc.
+        if (markLoggedIn === true) {
+            // bring up the modal to enter info for a new image for the robot
+            $("#newRobotImageModal").modal("show");
+            currentRobotId = $(this).data("robotid"); 
+            console.log("currentRobotId of big Image just clicked: " + currentRobotId);
+        }
     });
 
     // when Additional Images button (#showAdditionalImages) is clicked
@@ -300,7 +329,7 @@ jQuery(document).ready(function( $ ){
         });
     });
 
-    // click on the additional images icon, and display the large verion alone with it's title and description
+    // click on one of the additional images icons, and display the large verion alone with it's title and description
     $(document).on("click", "#addtlImg", function(event) {
         event.preventDefault();
         console.log("I clicked on an additional image");
@@ -324,6 +353,13 @@ jQuery(document).ready(function( $ ){
         var title = $(this).attr("title");
         console.log("title after: ", title);
         specificRobotPicTitle.text(title);
+        if (markLoggedIn === true) {
+            specificRobotPicTitle.css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        }
         $("#largeAddtlImages").append(specificRobotPicTitle);
 
         // put the desc of this picture underneath that
@@ -334,6 +370,13 @@ jQuery(document).ready(function( $ ){
         var desc = $(this).data("desc");
         console.log("desc after: ", desc);
         specificRobotPicDesc.text(desc);
+        if (markLoggedIn === true) {
+            specificRobotPicDesc.css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        }
         $("#largeAddtlImages").append(specificRobotPicDesc);
     });
 
@@ -361,8 +404,7 @@ jQuery(document).ready(function( $ ){
             // Hide the current modal
             $("#newRobotModal").modal("hide");
             //Now add a button to add the main image for the new robot
-            $("#mainImageButtonSpace").append("<button type='button' data-toggle='modal' " +
-                "data-target='#newRobotImageModal' id='createImageRobot'" + 
+            $("#mainImageButtonSpace").append("<button type='button' id='createImageRobot'" + 
                 ">Add Main Image for Robot</button><button type='button' id='noImageYet'>No Image Yet</button>");
         });
     });
@@ -400,19 +442,22 @@ jQuery(document).ready(function( $ ){
     // but first the individual robot must be found and populated to accept an array of images
     $(document).on("click", "#createImageRobot", function(event) {
     event.preventDefault();
-    $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
-    $("#noImageYet").hide();
-    //currentRobotId is already set from Mark entering a new robot
-    console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
-    // make an ajax call for the robot to be populated
-        $.ajax({
-            method: "GET",
-            url: "/popRobot/" + currentRobotId
-            })
-            .then(function(dataAddImage) {
-            // this sets up the fields populated to receive robot name and image data
-            console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
-            });
+    if (markLoggedIn === true) {
+        $("#newRobotImageModal").modal("show");
+        $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
+        $("#noImageYet").hide();
+        //currentRobotId is already set from Mark entering a new robot
+        console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
+        // make an ajax call for the robot to be populated
+            $.ajax({
+                method: "GET",
+                url: "/popRobot/" + currentRobotId
+                })
+                .then(function(dataAddImage) {
+                // this sets up the fields populated to receive robot name and image data
+                console.log("in robot.js, dataAddImage, after Robot is populated: ", dataAddImage);
+                });
+    }
     });
 
     // this function enters the robot image into the correct robot in the db after data entered into the modal
@@ -451,53 +496,60 @@ jQuery(document).ready(function( $ ){
     // as a large pic.
     $(document).on("click", "#editRobotName", function(event) {
         event.preventDefault();
-        var thisRobotName = $(this).text();
-        console.log("thisRobotName: ", thisRobotName);
-        thisRobotId = $(this).attr("data-id");
-        console.log("thisRobotId: ", thisRobotId);
-        // show the modal to edit the current robot name
-        $("#editNameForm").modal("show");
-        $("#editName").val(thisRobotName);
+        if (markLoggedIn === true) {
+            var thisRobotName = $(this).text();
+            console.log("thisRobotName: ", thisRobotName);
+            thisRobotId = $(this).attr("data-id");
+            console.log("thisRobotId: ", thisRobotId);
+            // show the modal to edit the current robot name
+            $("#editNameForm").modal("show");
+            $("#editName").val(thisRobotName);
+        }
     });
 
     // This function shows the form for Mark to edit the Bio of a Robot - after it's been displayed 
     // as a large pic.
     $(document).on("click", "#editRobotBio", function(event) {
         event.preventDefault();
-        var thisRobotBio = $(this).text();
-        console.log("thisRobotBio: ", thisRobotBio);
-        thisRobotId = $(this).attr("data-id");
-        console.log("thisRobotId: ", thisRobotId);
-        // show the modal to edit the current robot Bio
-        $("#editBioForm").modal("show");
-        $("#editBio").val(thisRobotBio);
+        if (markLoggedIn === true) {
+            var thisRobotBio = $(this).text();
+            console.log("thisRobotBio: ", thisRobotBio);
+            thisRobotId = $(this).attr("data-id");
+            console.log("thisRobotId: ", thisRobotId);
+            // show the modal to edit the current robot Bio
+            $("#editBioForm").modal("show");
+            $("#editBio").val(thisRobotBio);
+        }
     });
 
     // This function shows the form for Mark to edit the Title
     // of an image, either the main one or additional pics
     $(document).on("click", "#imageTitleEdit", function(event) {
         event.preventDefault();
-        var thisTitle = $(this).text();
-        console.log("thisTitle: " + thisTitle);
-        thisImageId = $(this).attr("data-id");
-        console.log("the id of the image for this title: ", thisImageId);
-        // show the modal to edit the current title
-        $("#editTitleForm").modal("show");
-        $("#editTitle").val(thisTitle);
+        if (markLoggedIn === true) {
+            var thisTitle = $(this).text();
+            console.log("thisTitle: " + thisTitle);
+            thisImageId = $(this).attr("data-id");
+            console.log("the id of the image for this title: ", thisImageId);
+            // show the modal to edit the current title
+            $("#editTitleForm").modal("show");
+            $("#editTitle").val(thisTitle);
+        }
     });
 
     // This function shows the form for Mark to edit the Description
     // of an image, either the main one or additional pics
     $(document).on("click", "#imageDescEdit", function(event) {
         event.preventDefault();
-        var thisDesc = $(this).text();
-        console.log("thisDesc: " + thisDesc);
-        thisImageId = $(this).attr("data-id");
-        console.log("the id of the image for this description: ", thisImageId);
-        // show the div to edit the current title
-        
-        $("#editDescForm").modal("show");
-        $("#editDesc").val(thisDesc);
+        if (markLoggedIn === true) {
+            var thisDesc = $(this).text();
+            console.log("thisDesc: " + thisDesc);
+            thisImageId = $(this).attr("data-id");
+            console.log("the id of the image for this description: ", thisImageId);
+            // show the div to edit the current title
+            $("#editDescForm").modal("show");
+            $("#editDesc").val(thisDesc);
+        }
     });
 
     //After user clicks Submit, this function changes the Robot's Name in the db
