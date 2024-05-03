@@ -170,25 +170,23 @@ jQuery(document).ready(function( $ ){
         // console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
-        // for (let i=0; i<myNewNested[2].length; i++) {
-        //     $("#currentRobots").append ("<div class=robotTitles data-robotid='" + allRobotIds[i] + "' data-name='" + allRobotNameswithImages[i] + 
-        //     "' data-bio='" + allRobotBios[i] + "' data-noofimages='" + numberOfImages[i] + "'><h4>" + allRobotNameswithImages[i] + 
-        //     "</h4><br>" + myNewNested[2][i] + "</div>");  //<a href="#about" target="_self">About</a>
+            for (let i=0; i<myNewNested[2].length; i++) {
+                $(`#currentRobots`).append (`<div class="robotTitles" data-robotid="` + allRobotIds[i] + `" data-name="` + allRobotNameswithImages[i] + 
+                `" data-bio="` + allRobotBios[i] + `" data-noofimages="` + numberOfImages[i] + `"><h4>` + allRobotNameswithImages[i] + 
+                `</h4><br>` + myNewNested[2][i] + `</div>`);  //<a href="#about" target="_self">About</a>
+            }
+        // commented out is a learning lessin in template literals
+        // for (let i=0; i<myNewNested[2].length; i++) { 
+        //     $("#currentRobots").append(`<div class="robotTitles" data-robotid=${allRobotIds[i]} 
+        //     data-name=${allRobotNameswithImages[i]} data-bio=${allRobotBios[i]} data-noofimages${numberOfImages[i]}>
+        //     <h4>${allRobotNameswithImages[i]}</h4><br>${myNewNested[2][i]}</div>`);
         // }
-        // need to figure out how to not split strings up
-        
-        for (let i=0; i<myNewNested[2].length; i++) {
-            $("#currentRobots").append (`<div class=robotTitles data-robotid=${allRobotIds[i]} 
-            data-name=${allRobotNameswithImages[i]} data-bio=${allRobotBios[i]} data-noofimages${numberOfImages[i]}>
-            <h4>${allRobotNameswithImages[i]}</h4><br>${myNewNested[2][i]} </div>`);
-        }
-        let greeting = "hello, I'm a dude and";
-        let namer = `you're the "bully", and Joshua`;
-        let aboutMe = "programmer of some 'note'.";
-        $("#currentRobots").append (`${greeting} ${namer} is a ${aboutMe}`);
-        
+        // let greeting = "hello, I'm a dude and";
+        // let namer = `you're the "bully", and Joshua`;
+        // let aboutMe = "programmer of some 'note'.";
+        // $("#specificRobot").append(`<div class="lightText"> Greet: ${greeting} ${namer} is a ${aboutMe}</div>`);
+        // console.log(`Greet: ${greeting} ${namer} is a ${aboutMe}`);
     });
-
     //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
     // adding the display of additional pictures
     $(document).on("click", "#robotImg", function(event) {
