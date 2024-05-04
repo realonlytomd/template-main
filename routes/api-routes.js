@@ -91,6 +91,14 @@ module.exports = function(router) {
     // 
     router.post("/createImageRobot/:id", upload.single("robotImageInput"), (req, res, next) => {
         console.log("from api-routes step 8, req.file.filename: ", req.file.filename);
+        console.log("req.body.title: ", req.body.title);
+        console.log("req.body.desc: ", req.body.desc);
+        if (req.body.title === "") {
+            req.body.title = "None";
+        }
+        if (req.body.desc === "") {
+            req.body.desc = "None";
+        }
         var obj = {
             title: req.body.title,
             desc: req.body.desc,

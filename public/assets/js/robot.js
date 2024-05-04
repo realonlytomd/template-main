@@ -385,12 +385,17 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         console.log("name: ", $("#robotNameInput").val().trim());
         console.log("bio: ", $("#robotBioInput").val().trim());
+        var name = $("#robotNameInput").val().trim();
+        var bio = $("#robotBioInput").val().trim();
+        if (bio === "") {
+            bio = "None";
+        }
         $.ajax({
             method: "GET",
             url: "/createRobot/",
             data: {
-                name: $("#robotNameInput").val().trim(),
-                bio: $("#robotBioInput").val().trim()
+                name: name,
+                bio: bio
             }
         })
         .then(function(dataRobot) {
