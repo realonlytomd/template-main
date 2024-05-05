@@ -233,6 +233,10 @@ jQuery(document).ready(function( $ ){
                 'border-width': '1px',
                 'border-color': 'white'
               });
+        } else {
+            if (bio === "None") {
+                specificRobotBio.text("");
+            }
         }
         $("#specificRobot").append(specificRobotBio);
 
@@ -264,6 +268,10 @@ jQuery(document).ready(function( $ ){
                 'border-width': '1px',
                 'border-color': 'white'
               });
+        } else {
+            if (title === "None") {
+                specificRobotPicTitle.text("");
+            }
         }
         $("#specificRobot").append(specificRobotPicTitle);
 
@@ -280,7 +288,11 @@ jQuery(document).ready(function( $ ){
                 'border-width': '1px',
                 'border-color': 'white'
               });
-        }
+        } else {
+                if (desc === "None") {
+                    specificRobotPicDesc.text("");
+                }
+            }
         $("#specificRobot").append(specificRobotPicDesc);
 
         if (dataNoOfImages > 1) {
@@ -359,7 +371,11 @@ jQuery(document).ready(function( $ ){
                 'border-width': '1px',
                 'border-color': 'white'
               });
-        }
+        } else {
+                if (title === "None") {
+                    specificRobotPicTitle.text("");
+                }
+            }
         $("#largeAddtlImages").append(specificRobotPicTitle);
 
         // put the desc of this picture underneath that
@@ -376,7 +392,11 @@ jQuery(document).ready(function( $ ){
                 'border-width': '1px',
                 'border-color': 'white'
               });
-        }
+        } else {
+                if (desc === "None") {
+                    specificRobotPicDesc.text("");
+                }
+            }
         $("#largeAddtlImages").append(specificRobotPicDesc);
     });
 

@@ -41,6 +41,7 @@ body {
 }
 
 #revealRobots {
+    width: 50%;
     cursor: pointer;
 }
 

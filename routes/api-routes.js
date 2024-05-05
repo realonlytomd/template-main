@@ -180,6 +180,10 @@ module.exports = function(router) {
         console.log("req.params.robotId: ", req.params.robotId);
         //console.log("req.body: ", req.body);
         console.log("req.body.name: ", req.body.name);
+        // if the name has been emptied out by mistake, "None" should be entered insted of blank
+        if (req.body.name === "") {
+            req.body.name = "None";
+        }
         // find the intended robot properties, and change the values accordingly
         db.Robot.findOneAndUpdate (
             { _id: req.params.robotId },
@@ -205,6 +209,10 @@ module.exports = function(router) {
         console.log("req.params.robotId: ", req.params.robotId);
         //console.log("req.body: ", req.body);
         console.log("req.body.bio: ", req.body.bio);
+        // if bio has been emptied out, "None" should be entered insted of blank
+        if (req.body.bio === "") {
+            req.body.bio = "None";
+        }
         // find the intended robot properties, and change the values accordingly
         db.Robot.findOneAndUpdate (
             { _id: req.params.robotId },
@@ -230,6 +238,10 @@ module.exports = function(router) {
         console.log("req.params.imageId: ", req.params.imageId);
         //console.log("req.body: ", req.body);
         console.log("req.body.title: ", req.body.title);
+        // if title has been emptied out, "None" should be entered insted of blank
+        if (req.body.title === "") {
+            req.body.title = "None";
+        }
         // find the intended image properties, and change the values accordingly
         db.Image.findOneAndUpdate (
             { _id: req.params.imageId },
@@ -255,6 +267,10 @@ module.exports = function(router) {
         console.log("req.params.imageId: ", req.params.imageId);
         //console.log("req.body: ", req.body);
         console.log("req.body.desc: ", req.body.desc);
+        // if desc has been emptied out, "None" should be entered insted of blank
+        if (req.body.desc === "") {
+            req.body.desc = "None";
+        }
         // find the intended image properties, and change the values accordingly
         db.Image.findOneAndUpdate (
             { _id: req.params.imageId },
