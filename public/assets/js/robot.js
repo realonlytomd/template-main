@@ -28,7 +28,7 @@ jQuery(document).ready(function( $ ){
         $("#currentRobots").empty();
         $("#currentRobots").hide();
         $("#robotHeader").hide();
-        $("#editRobotName").empty();
+        $("#editRobotName").hide();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
@@ -132,7 +132,7 @@ jQuery(document).ready(function( $ ){
         $("#currentRobots").show();
         $("#robotHeader").show();
         $("#revealRobots").hide();
-        //$("h2#editRobotName").empty();
+        $("#editRobotName").hide();
         //$("#exploreRobots").empty();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
@@ -195,6 +195,7 @@ jQuery(document).ready(function( $ ){
         console.log("I clicked on a specific robot");
         $("#specificRobot").empty();
         $("#editRobotName").empty();
+        $("#editRobotName").show();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
 

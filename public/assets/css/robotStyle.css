@@ -25,7 +25,7 @@ body {
 
 .wrapper {
     min-height: 100vh;
-    margin-bottom: -42px;
+    margin-bottom: -100px;
     margin-top: 94px;
 }
 
@@ -184,6 +184,16 @@ span#editThisRobot {
 
 .editRobotImageTitle, .editRobotImageDesc {
     cursor: pointer;
+}
+
+#markCopy {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+#webDev {
+    margin-top: 0px;
+    margin-bottom: 10px
 }
 
 #submitEditedImageTitle {
