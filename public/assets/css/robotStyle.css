@@ -27,6 +27,7 @@ body {
     min-height: 100vh;
     margin-bottom: -100px;
     margin-top: 94px;
+    position: relative;
 }
 
 .footer, .push {
@@ -47,6 +48,7 @@ body {
 
 #rowCreateRobot {
     margin-top: 40px;
+    position: absolute;
 }
 
 #unitButton, #unitSizeButton {
@@ -101,6 +103,11 @@ button, input#editTitle {
     outline-style: groove;
     box-shadow: 5px 10px 18px #1a4863;
     cursor: pointer;
+}
+
+#addtlImg {
+    margin-right: 36px;
+    margin-bottom: 36px;
 }
 
 .bigRobotImage {
@@ -165,8 +172,8 @@ input#feedRobot {
     margin-top: 5px;
 }
 
-button#createRobot, button#submitRobotMetrics, button#submitEditedRobotMetrics{
-    margin-top: 10px;
+#rowCreateRobot {
+    position: relative;
 }
 
 button.RobotButtons {
