@@ -190,6 +190,7 @@ jQuery(document).ready(function( $ ){
     });
     //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
     // adding the display of additional pictures
+    // will probably offer Mark an alternative to this, and make it look like WordPress
     $(document).on("click", "#robotImg", function(event) {
         event.preventDefault();
         console.log("I clicked on a specific robot");
@@ -221,7 +222,8 @@ jQuery(document).ready(function( $ ){
         $("#editRobotName").attr("data-id", thisRobotId);
         
         // put the biography here
-        var specificRobotBio = $("<h4>");
+        var justH4 = $("<h4>");
+        var specificRobotBio = $("<span>");
         specificRobotBio.attr("data-id", thisRobotId);
         specificRobotBio.attr("id", "editRobotBio");
         specificRobotBio.addClass("lightText");
@@ -239,7 +241,8 @@ jQuery(document).ready(function( $ ){
                 specificRobotBio.text("");
             }
         }
-        $("#specificRobot").append(specificRobotBio);
+        justH4.append(specificRobotBio);
+        $("#specificRobot").append(justH4);
 
         // loads the main image, as wide as the screen
         // currently adding the number of images
