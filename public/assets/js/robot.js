@@ -674,4 +674,11 @@ jQuery(document).ready(function( $ ){
             getAllData();
         });
     });
+
+    //This puts a little red "x" on a large displayed image for Mark to click to delete just that image
+    // And any associated Titles or Descriptions.
+
+    // This function will delete the image after Mark clicks the little red X
+    // Associated Titles or Descriptions for that image are also removed from db.
+    
 });
