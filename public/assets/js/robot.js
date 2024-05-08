@@ -260,7 +260,8 @@ jQuery(document).ready(function( $ ){
         $("#specificRobot").append(bigImage);
 
         // put the title of this picture underneath
-        var specificRobotPicTitle = $("<h3>");
+        var justH3 = $("<h3>");
+        var specificRobotPicTitle = $("<span>");
         specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisImageId);
         var title = $(this).attr("title");
@@ -277,10 +278,12 @@ jQuery(document).ready(function( $ ){
                 specificRobotPicTitle.text("");
             }
         }
-        $("#specificRobot").append(specificRobotPicTitle);
+        justH3.append(specificRobotPicTitle);
+        $("#specificRobot").append(justH3);
 
         // put the desc of this picture underneath that
-        var specificRobotPicDesc = $("<h3>");
+        var justH3 = $("<h3>");
+        var specificRobotPicDesc = $("<span>");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisImageId);
         var desc = $(this).data("desc");
@@ -293,11 +296,12 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'white'
               });
         } else {
-                if (desc === "None") {
-                    specificRobotPicDesc.text("");
-                }
+            if (desc === "None") {
+                specificRobotPicDesc.text("");
             }
-        $("#specificRobot").append(specificRobotPicDesc);
+        }
+        justH3.append(specificRobotPicDesc);
+        $("#specificRobot").append(justH3);
 
         if (dataNoOfImages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
@@ -351,7 +355,7 @@ jQuery(document).ready(function( $ ){
         console.log("I clicked on an additional image");
         $("#largeAddtlImages").empty();
         
-        // loads the main image, as wide as the screen
+        // loads the additional image that was just clicked, as wide as the screen
         var thisDataId = $(this).data("id");
         console.log("image data-id of the clicked pic (id of the image): ", thisDataId);
         var imgSrc = $(this).attr("src");
@@ -362,7 +366,8 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").append(bigImage);
 
         // put the title of this picture underneath
-        var specificRobotPicTitle = $("<h3>");
+        var justH3 = $("<h3>");
+        var specificRobotPicTitle = $("<span>");
         specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisDataId);
         console.log("title before: ", title);
@@ -376,14 +381,16 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'white'
               });
         } else {
-                if (title === "None") {
-                    specificRobotPicTitle.text("");
-                }
+            if (title === "None") {
+                specificRobotPicTitle.text("");
             }
-        $("#largeAddtlImages").append(specificRobotPicTitle);
+        }
+        justH3.append(specificRobotPicTitle);
+        $("#largeAddtlImages").append(justH3);
 
         // put the desc of this picture underneath that
-        var specificRobotPicDesc = $("<h3>");
+        var justH3 = $("<h3>");
+        var specificRobotPicDesc = $("<span>");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisDataId);
         console.log("desc before: ", desc);
@@ -401,7 +408,8 @@ jQuery(document).ready(function( $ ){
                     specificRobotPicDesc.text("");
                 }
             }
-        $("#largeAddtlImages").append(specificRobotPicDesc);
+        justH3.append(specificRobotPicDesc);   
+        $("#largeAddtlImages").append(justH3);
     });
 
     // this function happens when Mark clicks the submit a new robot button, info is stored in the appropriate robot db
