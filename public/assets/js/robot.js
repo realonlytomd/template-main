@@ -309,7 +309,7 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    //click on the enlarged pic of an individual robot
+    //click on the enlarged pic of an individual robot to add more images
     // available only to Mark in an "edit" mode
     $(document).on("click", ".bigRobotImage", function(event) {
         event.preventDefault();
@@ -360,10 +360,14 @@ jQuery(document).ready(function( $ ){
         console.log("image data-id of the clicked pic (id of the image): ", thisDataId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
-        bigImage.addClass("bigRobotImage");
+        bigImage.addClass("addtlBigRobotImage");
         bigImage.data("id", thisDataId);
         bigImage.attr("src", imgSrc);
         $("#largeAddtlImages").append(bigImage);
+        if (markLoggedIn === true) {
+            $("#largeAddtlImages").append(`<br><button type="button" class="btn btn-danger"` +
+            ` id="deleteImage" data-id="`+ thisDataId +`">Delete This Image</button>`);
+        }
 
         // put the title of this picture underneath
         var justH3 = $("<h3>");
@@ -411,6 +415,35 @@ jQuery(document).ready(function( $ ){
         justH3.append(specificRobotPicDesc);   
         $("#largeAddtlImages").append(justH3);
     });
+
+    // If Mark clicks the Delete this Image button on an additional Large Image, this function happens
+    // the image is deleted, and it's assoicated Title and Description are removed,
+    // along with the id number in the robot db
+    $(document).on("click", "#deleteImage", function(event) {
+        event.preventDefault();
+        console.log("Mark clicked the delete image button!");
+        var currentImageId = $(this).data("id");
+        console.log("currentImageId: ", currentImageId);
+        // DELETE this specific image from the Image collection
+        $.ajax({
+            method: "DELETE",
+            url: "/image/delete/" + currentImageId
+        })
+        .then (function(dbImage) {
+            console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
+            // and then delete (or "pull") the reference to that just deleted document from the user document
+            $.ajax({
+                method: "POST",
+                url: "/robot/removeRef/" + currentRobotId, //needs to be current robot id
+                data: {kittenId: currentKittenId}
+            })
+            .then (function(dbRobot){
+              //console.log("dbRobot after POST/robot/removeRef/id: ", dbRobot);
+                getAllData();
+            });
+        });
+    });
+
 
     // this function happens when Mark clicks the submit a new robot button, info is stored in the appropriate robot db
     $(document).on("click", "#submitNewRobot", function(event) {
@@ -675,10 +708,4 @@ jQuery(document).ready(function( $ ){
         });
     });
 
-    //This puts a little red "x" on a large displayed image for Mark to click to delete just that image
-    // And any associated Titles or Descriptions.
-
-    // This function will delete the image after Mark clicks the little red X
-    // Associated Titles or Descriptions for that image are also removed from db.
-    
 });

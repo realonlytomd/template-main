@@ -121,6 +121,10 @@ button, input#editTitle {
     margin-top: 30px;
 }
 
+#deleteImage {
+    margin-top: -65px;
+}
+
 button#signAdvice {
     margin-bottom: 10px;
 }

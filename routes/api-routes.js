@@ -289,5 +289,43 @@ module.exports = function(router) {
                 res.json(err);
             });
     });
+
+    // This route deletes the image Mark wants to delete
+    router.delete("/image/delete/:id", function(req, res) {
+        console.log("in image/delete, req.params: ", req.params);
+        // delete the whole metric group
+        db.Image.deleteOne(
+            { _id: req.params.id }
+        )
+        .then(function(dbImage) {
+            //  
+            console.log("delete an image, dbImage: ", dbImage);
+            res.json(dbImage);
+        })
+        .catch(function(err) {
+            // but if an error occurred, send it to the client
+            res.json(err);
+        });
+    });
+
+    // This route deletes the reference to the image document in the associated robot document
+    router.post("/robot/removeRef/:id", function(req, res) {
+        console.log("remove an image reference: robot id: ", req.params.id);
+        console.log("data transferred to remove image reference, req.body: ", req.body);
+    // delete (or pull) the id of the image and pass the req.body to the entry
+    db.Robot.findOneAndUpdate(
+        { _id: req.params.id },
+        { $pull: { image: req.body.imageId }}, // this image._id should be the image's id to be removed
+        { new: true }
+    )
+        .then(function(dbRobot) {
+            console.log("after .then db.Robot.findOneAndUpdate $pull, dbRobot: ", dbRobot);
+            res.json(dbRobot);
+        })
+        .catch(function(err) {
+        // If an error occurred, send it to the client
+            res.json(err);
+        });
+    });
     
 };
