@@ -316,7 +316,7 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             // bring up the modal to enter info for a new image for the robot
             $("#newRobotImageModal").modal("show");
-            currentRobotId = $(this).data("robotid"); 
+            currentRobotId = $(this).data("robotid"); //here is where I can get the robot id from the large picture
             console.log("currentRobotId of big Image just clicked: " + currentRobotId);
         }
     });
@@ -343,6 +343,9 @@ jQuery(document).ready(function( $ ){
                         $("#additionalImages").append(dataGetImages);
                         // change the id from robotImg to addtlImg. It was robotImg from db retrieval in the api-routes file.
                         $("div#additionalImages img").attr("id", "addtlImg");
+                        // can I just add the attribute for the currentRobotId here?
+                        console.log("inside innImageForEach large addtl images creation, currentRobotId: " + currentRobotId);
+                        $("div#additionalImages img").attr("data-robotid", currentRobotId);
                     });
                 }
             }
@@ -357,7 +360,9 @@ jQuery(document).ready(function( $ ){
         
         // loads the additional image that was just clicked, as wide as the screen
         var thisDataId = $(this).data("id");
+        var thisRobotId = $(this).data("robotid");  // or, is it .attr("data-robotid")?
         console.log("image data-id of the clicked pic (id of the image): ", thisDataId);
+        console.log("robot data-id of the clicked pic (id of the robot): ", thisRobotId);
         var imgSrc = $(this).attr("src");
         var bigImage = $("<img>");
         bigImage.addClass("addtlBigRobotImage");
@@ -366,7 +371,7 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").append(bigImage);
         if (markLoggedIn === true) {
             $("#largeAddtlImages").append(`<br><button type="button" class="btn btn-danger"` +
-            ` id="deleteImage" data-id="`+ thisDataId +`">Delete This Image</button>`);
+            ` id="deleteImage" data-robotid="` + thisRobotId + `" data-id="`+ thisDataId +`">Delete This Image</button>`);
         }
 
         // put the title of this picture underneath
@@ -423,7 +428,9 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         console.log("Mark clicked the delete image button!");
         var currentImageId = $(this).data("id");
-        console.log("currentImageId: ", currentImageId);
+        var currentRobotId = $(this).data("robotid");
+        console.log("in deleteImage function, currentImageId: ", currentImageId);
+        console.log("in deleteImage function, currentRobotId: ", currentRobotId);
         // DELETE this specific image from the Image collection
         $.ajax({
             method: "DELETE",
@@ -435,10 +442,10 @@ jQuery(document).ready(function( $ ){
             $.ajax({
                 method: "POST",
                 url: "/robot/removeRef/" + currentRobotId, //needs to be current robot id
-                data: {kittenId: currentKittenId}
+                data: {image: currentImageId}
             })
             .then (function(dbRobot){
-              //console.log("dbRobot after POST/robot/removeRef/id: ", dbRobot);
+              console.log("dbRobot after POST/robot/removeRef/id: ", dbRobot);
                 getAllData();
             });
         });

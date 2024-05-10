@@ -121,6 +121,10 @@ button, input#editTitle {
     margin-top: 30px;
 }
 
+.addtlBigRobotImage {
+    width: 90%
+}
+
 #deleteImage {
     margin-top: -65px;
 }
