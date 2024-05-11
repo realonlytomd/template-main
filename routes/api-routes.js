@@ -310,14 +310,14 @@ module.exports = function(router) {
 
     // This route deletes the reference to the image document in the associated robot document
     router.post("/robot/removeRef/:id", function(req, res) {
-        console.log("req:", req);
+        //console.log("req:", req);
         console.log("remove an image reference: robot id: ", req.params.id);
         console.log("data transferred to remove image reference, req.body: ", req.body);
         console.log("req.body.imageId: ", req.body.imageId);
     // delete (or pull) the id of the image and pass the req.body to the entry
     db.Robot.findOneAndUpdate(
         { _id: req.params.id },
-        { $pull: { image: req.body.imageId }}, // this image._id should be the image's id to be removed
+        { $pull: { image: req.body.imageId }}, // this imageid should be the image's id to be removed
         { new: true }
     )
         .then(function(dbRobot) {

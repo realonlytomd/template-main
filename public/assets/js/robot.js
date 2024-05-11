@@ -2,6 +2,7 @@ jQuery.noConflict();
 jQuery(document).ready(function( $ ){
     // initialize variables
     var currentRobotId;
+    var currentImageId;
     var robots = [];
     var allRobotIds = [];
     var allRobotNameswithImages = [];
