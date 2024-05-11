@@ -452,6 +452,26 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+    // Function to delete an entire robot
+    // the robot id, bio, and all images references, as well as images out of the Image db will be removed
+    $(document).on("click", "#deleteRobot", function(event) {
+        event.preventDefault();
+        console.log("Mark clicked the Delete Robot Button!");
+        let text = "Are you sure?!\nEither OK or Cancel.";
+        if (confirm(text) == true) {
+            $("#editNameForm").hide();
+            deleteRobot();
+        } else {
+            // hide the modal
+            $("#editNameForm").hide();
+        }
+    });
+
+    //the delete entire robot function
+    function deleteRobot() {
+        
+    }
+
 
     // this function happens when Mark clicks the submit a new robot button, info is stored in the appropriate robot db
     $(document).on("click", "#submitNewRobot", function(event) {
