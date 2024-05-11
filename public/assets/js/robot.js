@@ -442,7 +442,7 @@ jQuery(document).ready(function( $ ){
             $.ajax({
                 method: "POST",
                 url: "/robot/removeRef/" + currentRobotId, //needs to be current robot id
-                data: {image: currentImageId}
+                data: {imageId: currentImageId}
             })
             .then (function(dbRobot){
               console.log("dbRobot after POST/robot/removeRef/id: ", dbRobot);
