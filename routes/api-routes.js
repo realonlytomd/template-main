@@ -292,7 +292,7 @@ module.exports = function(router) {
 
     // This route deletes the image Mark wants to delete
     router.delete("/image/delete/:id", function(req, res) {
-        console.log("in image/delete, req.params: ", req.params);
+        console.log("in image/delete, req.params.id: ", req.params.id);
         // delete the whole metric group
         db.Image.deleteOne(
             { _id: req.params.id }
@@ -326,6 +326,24 @@ module.exports = function(router) {
         })
         .catch(function(err) {
         // If an error occurred, send it to the client
+            res.json(err);
+        });
+    });
+
+    // This route deletes the kitten the user wants to delete
+    router.delete("/robot/delete/:id", function(req, res) {
+        console.log("in /robot/delete, req.params: ", req.params);
+        console.log("in /robot/delete/, req.params.id: ", req.params.id);
+        // delete the whole robot group
+        db.Robot.deleteOne(
+            { _id: req.params.id }
+        )
+        .then(function(dbRobot) {
+            console.log("delete a robot, dbRobot: ", dbRobot);
+            res.json(dbRobot);
+        })
+        .catch(function(err) {
+            // but if an error occurred, send it to the client
             res.json(err);
         });
     });

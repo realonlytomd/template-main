@@ -429,8 +429,10 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", "#deleteImage", function(event) {
         event.preventDefault();
         console.log("Mark clicked the delete image button!");
-        var currentImageId = $(this).data("id");
-        var currentRobotId = $(this).data("robotid");
+        var thisImageId = $(this).data("id");
+        currentImageId = thisImageId;
+        var thisRobotId = $(this).data("robotid");
+        currentRobotId = thisRobotId;
         console.log("in deleteImage function, currentImageId: ", currentImageId);
         console.log("in deleteImage function, currentRobotId: ", currentRobotId);
         // DELETE this specific image from the Image collection
@@ -440,37 +442,67 @@ jQuery(document).ready(function( $ ){
         })
         .then (function(dbImage) {
             console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
-            // and then delete (or "pull") the reference to that just deleted document from the user document
+            // and then delete (or "pull") the reference to that just deleted document from the robot document
             $.ajax({
                 method: "POST",
                 url: "/robot/removeRef/" + currentRobotId, //needs to be current robot id
                 data: {imageId: currentImageId}
             })
             .then (function(dbRobot){
-              console.log("dbRobot after POST/robot/removeRef/id: ", dbRobot);
+              console.log("dbRobot after POST /robot/removeRef/id: ", dbRobot);
                 getAllData();
             });
         });
     });
 
     // Function to delete an entire robot
-    // the robot id, bio, and all images references, as well as images out of the Image db will be removed
+    // Clicking the robot id, bio, and all images references. Images out of the Image db will be removed first
+    // the /getARobot/ route will get the array of images to be removed.
     $(document).on("click", "#deleteRobot", function(event) {
         event.preventDefault();
         console.log("Mark clicked the Delete Robot Button!");
         let text = "Are you sure?!\nEither OK or Cancel.";
         if (confirm(text) == true) {
-            $("#editNameForm").hide();
+            $("#editNameForm").modal("hide");
             deleteRobot();
         } else {
-            // hide the modal
-            $("#editNameForm").hide();
+            // just hide the modal
+            $("#editNameForm").modal("hide");
         }
     });
 
-    //the delete entire robot function
+    //the delete entire robot function, first get the array of additional images to delete in image db
+    // then delete the robot id in the robot db.  currentRobotId is known from clicking on the name of
+    // the robot that brings up the #editRobotName modal, and the Delete Robot button
     function deleteRobot() {
-
+        $.getJSON("/getARobot/" + currentRobotId, function(currob) {
+            console.log("currentRobotId: ", currentRobotId);
+            console.log("currob[0]: ", currob[0]);
+            console.log("currob[0].image: ", currob[0].image);
+            console.log("currob[0].image.length: ", currob[0].image.length);
+       
+            // loop through the array of images to delete the id's from the Image collection
+            for (i = 0; i < currob[0].image.length; i++) {
+                console.log("in loop: currob[0].image[" + i + "]: ", currob[0].image[i]);
+                $.ajax({
+                    method: "DELETE",
+                    url: "/image/delete/" + currob[0].image[i]
+                })
+                .then (function(dbImage) {
+                    console.log("dbImage after delete: ", dbImage); // shows a successful delete of 1 document
+                });
+            } 
+            // now remove the entire robot from the robot db collection
+            console.log(" correct id of robot to be removed? currob[0]._id: ", currob[0]._id);
+            $.ajax({
+                method: "DELETE",
+                url: "/robot/delete/" + currentRobotId
+            })
+                .then (function(dbRobot) {
+                    console.log("after delete the robot, dbRobot: ", dbRobot);
+                });
+                getAllData();
+        });
     }
 
 
@@ -591,14 +623,16 @@ jQuery(document).ready(function( $ ){
           });
     });
 
-    // This function shows the form for Mark to edit the Name of a Robot - after it's been displayed 
-    // as a large pic.
+    // This function shows the form for Mark to edit the Name of a Robot and 
+    // includes a button to delete the entire robot - 
+    //after it's been displayed as a large pic.
     $(document).on("click", "#editRobotName", function(event) {
         event.preventDefault();
         if (markLoggedIn === true) {
             var thisRobotName = $(this).text();
             console.log("thisRobotName: ", thisRobotName);
             thisRobotId = $(this).attr("data-id");
+            currentRobotId = thisRobotId;  // currentRobotId is in all scope
             console.log("thisRobotId: ", thisRobotId);
             // show the modal to edit the current robot name
             $("#editNameForm").modal("show");
