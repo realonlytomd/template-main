@@ -174,7 +174,7 @@ jQuery(document).ready(function( $ ){
             for (let i=0; i<myNewNested[2].length; i++) {
                 $(`#currentRobots`).append (`<div class="robotTitles" data-robotid="` + allRobotIds[i] + `" data-name="` + allRobotNameswithImages[i] + 
                 `" data-bio="` + allRobotBios[i] + `" data-noofimages="` + numberOfImages[i] + `"><h4>` + allRobotNameswithImages[i] + 
-                `</h4><br>` + myNewNested[2][i] + `</div>`);  //<a href="#about" target="_self">About</a>
+                `</h4><br>` + myNewNested[2][i] + `</div>`);
             }
 
         // commented out is a learning lesson in template literals
@@ -331,6 +331,7 @@ jQuery(document).ready(function( $ ){
         console.log("currentRobotId: ", currentRobotId);
         // get the images, but don't print out the first one again
         $.getJSON("/getARobot/" + currentRobotId, function(currob) {
+            console.log("currob[0].image: ", currob[0].image);
             currob[0].image.forEach(innerImageForEach);
 
             function innerImageForEach(innerItem, innerIndex) { //innerItem here is id of images
@@ -345,7 +346,7 @@ jQuery(document).ready(function( $ ){
                         // change the id from robotImg to addtlImg. It was robotImg from db retrieval in the api-routes file.
                         $("div#additionalImages img").attr("id", "addtlImg");
                         // can I just add the attribute for the currentRobotId here?
-                        console.log("inside innImageForEach large addtl images creation, currentRobotId: " + currentRobotId);
+                        console.log("inside innerImageForEach large addtl images creation, currentRobotId: " + currentRobotId);
                         $("div#additionalImages img").attr("data-robotid", currentRobotId);
                     });
                 }
@@ -469,7 +470,7 @@ jQuery(document).ready(function( $ ){
 
     //the delete entire robot function
     function deleteRobot() {
-        
+
     }
 
 
