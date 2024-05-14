@@ -33,6 +33,8 @@ jQuery(document).ready(function( $ ){
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
+        $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
+        $("#noImageYet").hide();
         console.log("markLoggedIn: " + markLoggedIn);
         if (markLoggedIn === true) {
             $("#logoutButton").show();
@@ -614,6 +616,8 @@ jQuery(document).ready(function( $ ){
             $("#title").val("");
             $("#desc").val("");
             $("#robotImageInput").val("");
+            $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
+            $("#noImageYet").hide();
             $("#newRobotImageModal").modal("hide");
             //reload the current robot div showing the changes
             $("#imageDiv").empty();
