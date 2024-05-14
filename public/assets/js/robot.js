@@ -101,7 +101,7 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         var password = $("#enterPass").val();
         console.log("password: " + password);
-        if (password === "marshaandrob") {
+        if (password === "marsha") {
             console.log("password is correct!");
             markLoggedIn = true;
             console.log("markLoggedIn: " + markLoggedIn);
