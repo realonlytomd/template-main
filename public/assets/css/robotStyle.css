@@ -25,12 +25,12 @@ body {
 
 .wrapper {
     min-height: 100vh;
-    top: 94px;
+    top: 80px;
     position: relative;
 }
 
 .footer, .push {
-    height: 100px;
+    height: 80px;
 }
 
 .no-gutters {
@@ -41,7 +41,7 @@ body {
 }
 
 #revealRobots {
-    width: 50%;
+    width: 100%;
     cursor: pointer;
 }
 
@@ -68,10 +68,6 @@ button, input#editTitle {
 
 .lightText {
     color: white;
-}
-
-.myImage {
-    width: 100%;
 }
 
 #showImages {
@@ -129,6 +125,10 @@ button, input#editTitle {
     margin-top: -65px;
 }
 
+#logoutButton {
+    font-size: 10px;
+}
+
 button#signAdvice {
     margin-bottom: 10px;
 }
@@ -142,7 +142,7 @@ div.makeBox {
 }
 
 button#topicButton, button#signupButton, 
-button#logoutButton, button#homeButton, button#usersButton {
+button#homeButton, button#usersButton {
     font-size: 26px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -226,61 +226,7 @@ p.directions {
     margin-top: 20px;
 }
 
-.metricInfo {
-    margin-top: 8px;
-    cursor: pointer;
-    width: 130px;
-    display: inline-block;
-    border-radius: 20px;
-    border-style: solid;
-    border-width: 1px;
-}
-
-#feedTimer {
-    background-color: crimson;
-    color: white;
-}
-
-/*p#keepInline {
-    margin-left: 30px;
-    margin-right: 5px;
-}*/
-
-a.answerA{
-    display: block;
-    margin: 0px 5px 10px 30px;
-   /* margin-left: 30px;
-    margin-right: 5px;
-    margin-bottom: 10px; */
-}
-
-#chartContainerSize, #chartContainerWeight {
-    margin-top: 20px;
-}
-
-button#loadTopics {
-    margin-top: 20px;
-}
-
-.littleX, .littleXAnswer, .littleXTopic {
-    color: red;
-    margin-bottom: 5px;
-    margin-top: -5px;
-}
-
-.littleE, .littleEAnswer, .littleETopic {
-    margin-left: 40px;
-    color: red;
-    margin-bottom: 5px;
-    margin-top: -5px;
-}
-
 @media only screen and (orientation: portrait) {
-    button#topicButton, button#signupButton, button#logoutButton,
-    button#homeButton, button#usersButton {
-        font-size: 14px;
-    }
-
     h3 {
         font-size: 18px;
         margin-top: 10px;

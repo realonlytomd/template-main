@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/robotStyle.css">
     </head>
     <body>
-        <nav id="navColor" class="navbar navbar-default navbar-fixed-top">
+        <!--<nav id="navColor" class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-4 text-center">
@@ -21,11 +21,12 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav>-->
         <div class="container-fluid">
             <div class="wrapper">
-                <div class="text-center"><img id="revealRobots" src="assets/pictures/revealrobotscartoon.jpeg"
-                    alt="click 50s robot"></div>
+                <div class="no-gutters text-center">
+                    <img id="revealRobots" src="assets/pictures/prideshuttle.gif" alt="click 50s robot">
+                </div>
                 <!-- First Modal for entering new Robot-->
                 <div class="modal fade" id="newRobotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -232,12 +233,20 @@
             </div>
             <!--footer with copyright-->
             <div class="row">
-                <footer class="col-xs-12 no-gutters footer text-center">
-                    <h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark Serafin</span> - Houston, TX</h5><br>
+                <footer class="no-gutters footer">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <button id="logoutButton">Logout</button>
+                            <h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark Serafin</span> - Houston, TX</h4><br>
+                            <h6 class="lightText" id="webDev">Website Developer <a href="https://ko-fi.com/B0B259GUJ" 
+                                target="_blank"><img style="border:0px;height:25px;" 
+                                src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>
+                        </div>
+                    </div>
+                    <!--<h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark Serafin</span> - Houston, TX</h5><br>
                     <h6 class="lightText" id="webDev">Website Developer <a href="https://ko-fi.com/B0B259GUJ" 
                             target="_blank"><img style="border:0px;height:25px;" 
-                            src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>
-                    
+                            src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>-->
                 </footer>
             </div>
         </div>
