@@ -8,16 +8,20 @@ body {
     margin: 0;
     box-sizing: border-box;
     /*background-color: aliceblue;*/
-    background-color: black;
+    /*background-color: black;*/
     /*background-image: linear-gradient(0deg, #052530 0%, #032731 50%, #044c59 100%);*/
-    background-image: "assets/pictures/prideshuttle.gif";
+    background-image: url("/assets/pictures/giphymorerobots.gif");
 }
 
 #navColor {
-    background-color: aliceblue;
+    background-color: rgb(243, 164, 118);
     margin-bottom: 0px;
     /*background-color: #F7CE68;
     background-image: linear-gradient(0deg, #F7CE68 0%, #FBAB7E 50%, #f7ce68 100%);*/
+}
+
+#navbarText {
+    color: #4b413b;
 }
 
 .navbar {
@@ -42,8 +46,10 @@ body {
 }
 
 #revealRobots {
-    width: 50%;
-    cursor: pointer;
+    margin-top: 250px;
+    color: #4b413b;
+    /*width: 50%;
+    cursor: pointer;*/
 }
 
 #rowCreateRobot {

@@ -8,24 +8,41 @@
         <link rel="stylesheet" type="text/css" href="assets/css/robotStyle.css">
     </head>
     <body>
-        <!--<nav id="navColor" class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-4 text-center">
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h3><span>Mark's Robots</span></h3>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <button id="logoutButton">Logout</button>
-                    </div>
-                </div>
-            </div>
-        </nav>-->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="navColor">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					</button>
+					<h1 class="navbar-brand" id="navbarText">ReMARKableRobots</h1>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbarText">The Sculptor<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a data-toggle="collapse" data-target=".navbar-collapse.in" href="#" id="navbarText">All About Me</a></li>
+								</ul>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" id="navbarText" href="#"><span class="redBlink">Support Me</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li id="navbarText">Patreon</li>
+									<li id="navbarText">Buy Me a Coffee</li>
+									<li id="navbarText">More</li>
+								</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
         <div class="container-fluid">
             <div class="wrapper">
                 <div class="no-gutters text-center">
-                    <img id="revealRobots" src="assets/pictures/prideshuttle.gif" alt="click 50s robot">
+                    <!--<img id="revealRobots" src="assets/pictures/prideshuttle.gif" alt="click 50s robot">-->
+                    <button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>
                 </div>
                 <!-- First Modal for entering new Robot-->
                 <div class="modal fade" id="newRobotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -155,7 +172,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <h2 class="lightText" id="robotHeader">Robots</h2>
+                        <h2 class="lightText" id="robotHeader">ReMARKableRobots</h2>
                         <div class="lightText" id="currentRobots"></div>
                     </div>
                 </div>
@@ -232,23 +249,21 @@
                 <div class="push"></div>
             </div>
             <!--footer with copyright-->
-            <div class="row">
-                <footer class="no-gutters footer">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <button id="logoutButton">Logout</button>
-                            <h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark Serafin</span> - Houston, TX</h4><br>
-                            <h6 class="lightText" id="webDev">Website Developer <a href="https://ko-fi.com/B0B259GUJ" 
-                                target="_blank"><img style="border:0px;height:25px;" 
-                                src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>
-                        </div>
-                    </div>
-                    <!--<h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark Serafin</span> - Houston, TX</h5><br>
-                    <h6 class="lightText" id="webDev">Website Developer <a href="https://ko-fi.com/B0B259GUJ" 
+            <footer class="no-gutters footer">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <button id="logoutButton">Logout</button>
+                        <h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark</span> - TX</h4><br>
+                        <h6 class="lightText" id="webDev">Website Developer <a href="https://ko-fi.com/B0B259GUJ" 
                             target="_blank"><img style="border:0px;height:25px;" 
-                            src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>-->
-                </footer>
-            </div>
+                            src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>
+                    </div>
+                </div>
+                <!--<h4 class="lightText" id="markCopy">&#169; 2024 <span id="markserafin">Mark Serafin</span> - Houston, TX</h5><br>
+                <h6 class="lightText" id="webDev">Website Developer <a href="https://ko-fi.com/B0B259GUJ" 
+                        target="_blank"><img style="border:0px;height:25px;" 
+                        src="https://storage.ko-fi.com/cdn/kofi1.png?v=3" alt="Buy Me a Coffee at ko-fi.com" /></a></h6>-->
+            </footer>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
