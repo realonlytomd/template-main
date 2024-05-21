@@ -89,7 +89,23 @@ jQuery(document).ready(function( $ ){
                     });
                 }
             }
-        });
+            // this .then is added to see if it waits to take away the gif, and put in the power on button.
+            // just take it out to the ; if it doesn't.
+        }).then(function() {
+            // take away the waiting gif in html
+            $("#robotWaiting").hide();
+            // add the power on button that sorts and writes the icons
+            //<button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>
+            var button = $("<button>");
+            button.attr("type", "button");
+            button.addClass("btn");
+            button.addClass("btn-warning");
+            button.addClass("btn-primary");
+            button.addClass("btn-lg");
+            button.attr("id","revealRobots");
+            button.text("Power On");
+            $("#powerOnGoes").append(button);
+          });
     }
     //function for Mark to log in to see editable sections
     $(document).on("click", "#markserafin", function(event) {
