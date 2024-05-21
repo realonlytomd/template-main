@@ -21,6 +21,23 @@ jQuery(document).ready(function( $ ){
     // then go through each robot, and create in the currentRobots div a name and 1st image of that robot.
     // Make that pic clickable to bring up other biography and other pictures down below.
     // This should be visible to all users.
+    
+    // set a time to wait to add the power on button
+    setTimeout(waitOnPower, 8000);
+    
+    function waitOnPower() {
+        $("#robotWaiting").hide();
+        var button = $("<button>");
+        button.attr("type", "button");
+        button.addClass("btn");
+        button.addClass("btn-warning");
+        button.addClass("btn-primary");
+        button.addClass("btn-lg");
+        button.attr("id","revealRobots");
+        button.text("Power On");
+        $("#powerOnGoes").append(button);
+    }
+
     function getAllData() {
         //empty out the current divs
         $("#logoutButton").hide();
@@ -91,21 +108,22 @@ jQuery(document).ready(function( $ ){
             }
             // this .then is added to see if it waits to take away the gif, and put in the power on button.
             // just take it out to the ; if it doesn't.
-        }).then(function() {
-            // take away the waiting gif in html
-            $("#robotWaiting").hide();
-            // add the power on button that sorts and writes the icons
-            //<button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>
-            var button = $("<button>");
-            button.attr("type", "button");
-            button.addClass("btn");
-            button.addClass("btn-warning");
-            button.addClass("btn-primary");
-            button.addClass("btn-lg");
-            button.attr("id","revealRobots");
-            button.text("Power On");
-            $("#powerOnGoes").append(button);
-          });
+        });
+        // .then(function() {
+        //     // take away the waiting gif in html
+        //     $("#robotWaiting").hide();
+        //     // add the power on button that sorts and writes the icons
+        //     //<button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>
+        //     var button = $("<button>");
+        //     button.attr("type", "button");
+        //     button.addClass("btn");
+        //     button.addClass("btn-warning");
+        //     button.addClass("btn-primary");
+        //     button.addClass("btn-lg");
+        //     button.attr("id","revealRobots");
+        //     button.text("Power On");
+        //     $("#powerOnGoes").append(button);
+        //   });
     }
     //function for Mark to log in to see editable sections
     $(document).on("click", "#markserafin", function(event) {

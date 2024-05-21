@@ -45,6 +45,11 @@ body {
     padding-left: 0px;
 }
 
+#robotWaiting {
+    width: 40%;
+    margin-top: 175px;
+}
+
 #revealRobots {
     margin-top: 250px;
     color: #4b413b;
