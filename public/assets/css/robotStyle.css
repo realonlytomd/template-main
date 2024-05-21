@@ -11,6 +11,8 @@ body {
     /*background-color: black;*/
     /*background-image: linear-gradient(0deg, #052530 0%, #032731 50%, #044c59 100%);*/
     background-image: url("/assets/pictures/giphymorerobots.gif");
+    /*background-repeat: no-repeat;
+    background-size: 100% 100%;*/
 }
 
 #navColor {

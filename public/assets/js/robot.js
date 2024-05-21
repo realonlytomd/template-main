@@ -8,6 +8,7 @@ jQuery(document).ready(function( $ ){
     var allRobotNameswithImages = [];
     var numberOfImages = [];
     var allRobotBios = [];
+    var allRobotOrder = [];
     var allRobotImageIds = [];
     var allImagesOfRobots = [];
     var wrongOrderIds = [];
@@ -65,6 +66,7 @@ jQuery(document).ready(function( $ ){
         allRobotNameswithImages = [];
         numberOfImages = [];
         allRobotBios = [];
+        allRobotOrder = [];
         allRobotImageIds = [];
         allImagesOfRobots = [];
         wrongOrderIds = [];
@@ -75,6 +77,8 @@ jQuery(document).ready(function( $ ){
                 allRobotIds.push (robots[i]._id);
                 allRobotNameswithImages.push(robots[i].name);
                 allRobotBios.push(robots[i].bio);
+                allRobotOrder.push(robots[i].order);
+                console.log("allRobotOrder: ", allRobotOrder);
                 //this is a list of all the robots without a main image
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
                     // The following should be written to the DOM ONLY when Mark is in edit mode
@@ -84,7 +88,9 @@ jQuery(document).ready(function( $ ){
                     allRobotIds.pop();
                     allRobotNameswithImages.pop();
                     allRobotBios.pop();
+                    allRobotOrder.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
+                    console.log("after .pop(), allRobotOrder: ", allRobotOrder);
                 } else {
                     //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
@@ -178,7 +184,7 @@ jQuery(document).ready(function( $ ){
             $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         }
         let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
-        //console.log("myNested: ", myNested);
+        console.log("myNested: ", myNested);
         let mySrcArr;
         let myNewNested;
         myNewNested = myNested.map((myArr, myI) => {
@@ -209,7 +215,7 @@ jQuery(document).ready(function( $ ){
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
             for (let i=0; i<myNewNested[2].length; i++) {
                 $(`#currentRobots`).append (`<div class="robotTitles" data-robotid="` + allRobotIds[i] + `" data-name="` + allRobotNameswithImages[i] + 
-                `" data-bio="` + allRobotBios[i] + `" data-noofimages="` + numberOfImages[i] + `"><h4>` + allRobotNameswithImages[i] + 
+                `" data-bio="` + allRobotBios[i] + `" data-order="` + allRobotOrder[i] + `" data-noofimages="` + numberOfImages[i] + `"><h4>` + allRobotNameswithImages[i] + 
                 `</h4><br>` + myNewNested[2][i] + `</div>`);
             }
 
@@ -227,7 +233,7 @@ jQuery(document).ready(function( $ ){
     });
     //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
     // adding the display of additional pictures
-    // will probably offer Mark an alternative to this, and make it look like WordPress
+    //
     $(document).on("click", "#robotImg", function(event) {
         event.preventDefault();
         console.log("I clicked on a specific robot");
@@ -238,7 +244,7 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").empty();
 
         // retrieve the id of the robot whose image was clicked. Used in edits of name and bio.
-        thisRobotId = $(this).parent().data("robotid");
+        var thisRobotId = $(this).parent().data("robotid");
         console.log("thisRobotId: ", thisRobotId);
 
         // retrieve the id of the clicked image from the db. Used in any of the edits of title and desc.
@@ -281,10 +287,32 @@ jQuery(document).ready(function( $ ){
         justH4.append(specificRobotBio);
         $("#specificRobot").append(justH4);
 
+        // put the order number here
+        var justH4 = $("<h4>");
+        var specificRobotOrder = $("<span>");
+        specificRobotOrder.attr("data-id", thisRobotId);
+        specificRobotOrder.attr("id", "editRobotOrder");
+        specificRobotOrder.addClass("lightText");
+        var order = $(this).parent().data("order");
+        console.log("order: ", order);
+        specificRobotOrder.text(order);
+        console.log("building large image: typeof specificRobotOrder " + typeof specificRobotOrder);
+        if (markLoggedIn === true) {
+            specificRobotOrder.css({
+                'border-style': "solid",
+                'border-width': '1px',
+                'border-color': 'white'
+              });
+        } else {
+            if (order === NaN) {
+                specificRobotOrder.text("");
+            }
+        }
+        justH4.append(specificRobotOrder);
+        $("#specificRobot").append(justH4);
+
         // loads the main image, as wide as the screen
-        // currently adding the number of images
-        var dataNoOfImages = $(this).parent().data("noofimages");
-        console.log("dataNoOfImages: " + dataNoOfImages);
+        
         //setting the currentRobotId to thisRobotId for retrieving additional pics later
         currentRobotId = thisRobotId;
         console.log("id of thisRobotId: " + thisRobotId);
@@ -340,6 +368,9 @@ jQuery(document).ready(function( $ ){
         justH3.append(specificRobotPicDesc);
         $("#specificRobot").append(justH3);
 
+        // currently adding the number of images
+        var dataNoOfImages = $(this).parent().data("noofimages");
+        console.log("dataNoOfImages: " + dataNoOfImages);
         if (dataNoOfImages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
             ">Additional Images</button>");
@@ -549,15 +580,20 @@ jQuery(document).ready(function( $ ){
         console.log("bio: ", $("#robotBioInput").val().trim());
         var name = $("#robotNameInput").val().trim();
         var bio = $("#robotBioInput").val().trim();
+        var order = $("#robotOrderInput").val().trim();
         if (bio === "") {
             bio = "None";
+        }
+        if (order === "") {
+            order = "None";
         }
         $.ajax({
             method: "GET",
             url: "/createRobot/",
             data: {
                 name: name,
-                bio: bio
+                bio: bio,
+                order: order
             }
         })
         .then(function(dataRobot) {
@@ -568,6 +604,7 @@ jQuery(document).ready(function( $ ){
             // empty out the input fields
             $("#robotNameInput").val("");
             $("#robotBioInput").val("");
+            $("#robotOrderInput").val("");
             // Hide the current modal
             $("#newRobotModal").modal("hide");
             //Now add a button to add the main image for the new robot
@@ -693,6 +730,31 @@ jQuery(document).ready(function( $ ){
         }
     });
 
+    // This function shows the form for Mark to edit the Order of a Robot - after it's been displayed 
+    // as a large pic.
+    $(document).on("click", "#editRobotOrder", function(event) {
+        event.preventDefault();
+        if (markLoggedIn === true) {
+            var thisRobotOrder = $(this).text()
+            console.log("first thisRobotOrder after (this): ", thisRobotOrder);
+            console.log("typeof before parseInt(thisRobotOrder): " + typeof thisRobotOrder);
+            thisRobotOrder = parseInt(thisRobotOrder);
+            console.log("typeof after parseInt(thisRobotOrder): " + typeof thisRobotOrder);
+            console.log("after parseInt, thisRobotOrder: ", thisRobotOrder);
+            var testy = "100";
+            console.log("first testy: ", testy);
+            console.log("typeof before parseInt(testy): " + typeof testy);
+            testy = parseInt(testy);
+            console.log("typeof after parseInt(testy): " + typeof testy);
+            console.log("after parseInt, testy: ", testy);
+            thisRobotId = $(this).attr("data-id");
+            console.log("thisRobotId: ", thisRobotId);
+            // show the modal to edit the current robot Bio
+            $("#editOrderForm").modal("show");
+            $("#editOrder").val(thisRobotOrder);
+        }
+    });
+
     // This function shows the form for Mark to edit the Title
     // of an image, either the main one or additional pics
     $(document).on("click", "#imageTitleEdit", function(event) {
@@ -760,6 +822,27 @@ jQuery(document).ready(function( $ ){
             $("#editBio").val("");
             // then hide the div to edit and this modal
             $("#editBioForm").modal("hide");
+            //window.location.replace("/");
+            getAllData();
+        });
+    });
+
+    //After user clicks Submit, this function changes the Robot's Order in the db
+    $(document).on("click", "#submitEditedRobotOrder", function(event) {
+        event.preventDefault();
+        $.ajax({
+        method: "POST",
+        url: "/editRobotOrder/" + thisRobotId,
+        data: {
+            order: $("#editOrder").val().trim()
+        }
+        })
+        .then(function(editedRobotdb) {
+            console.log("Robotdb after Order edit (editedRobotdb) in robot.js: ", editedRobotdb);
+            // empty out the input fields
+            $("#editOrder").val("");
+            // then hide the div to edit and this modal
+            $("#editOrderForm").modal("hide");
             //window.location.replace("/");
             getAllData();
         });

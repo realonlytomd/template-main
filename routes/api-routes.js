@@ -205,7 +205,7 @@ module.exports = function(router) {
 
     // changing the bio of a robot in the db
        
-       router.post("/editRobotBio/:robotId", function(req, res) {
+    router.post("/editRobotBio/:robotId", function(req, res) {
         console.log("req.params.robotId: ", req.params.robotId);
         //console.log("req.body: ", req.body);
         console.log("req.body.bio: ", req.body.bio);
@@ -218,6 +218,35 @@ module.exports = function(router) {
             { _id: req.params.robotId },
             {$set: { 
                 bio: req.body.bio, 
+            }},
+            { new: true } //send new one back
+        )
+            .then(function(dbRobot) {
+                console.log("dbImage: ", dbRobot);
+                // If successful, send the newly edited data back to the client
+                res.json(dbRobot);
+            })
+            .catch(function(err) {
+            // but if an error occurred, send it to the client
+                res.json(err);
+            });
+    });
+
+    // changing the order of a robot in the db
+       
+    router.post("/editRobotOrder/:robotId", function(req, res) {
+        console.log("req.params.robotId: ", req.params.robotId);
+        //console.log("req.body: ", req.body);
+        console.log("req.body.order: ", req.body.order);
+        // if order has been emptied out, "None" should be entered insted of blank
+        if (req.body.order === "") {
+            req.body.order = "None"; //should this be something besides a string?
+        }
+        // find the intended robot properties, and change the values accordingly
+        db.Robot.findOneAndUpdate (
+            { _id: req.params.robotId },
+            {$set: { 
+                order: req.body.order, 
             }},
             { new: true } //send new one back
         )

@@ -16,6 +16,11 @@ var RobotSchema = new Schema({
     type: String,
     required: true
   },
+  // `order` of robot is required and of type Number
+  order: {
+    type: Number,
+    required: true
+  },
   // image is an array of images Mark uploads for each robot
   image: [{
     type: Schema.Types.ObjectId,
