@@ -23,9 +23,6 @@ jQuery(document).ready(function( $ ){
     // Make that pic clickable to bring up other biography and other pictures down below.
     // This should be visible to all users.
     
-    // set a time to wait to add the power on button
-    setTimeout(waitOnPower, 8000);
-    
     function waitOnPower() {
         $("#robotWaiting").hide();
         var button = $("<button>");
@@ -43,7 +40,8 @@ jQuery(document).ready(function( $ ){
         //empty out the current divs
         $("#logoutButton").hide();
         $("button#createRobot").hide();
-        $("#revealRobots").show();
+        $("#revealRobots").remove(); //what is delete the element?
+        $("#robotWaiting").show();
         $("#currentRobots").empty();
         $("#currentRobots").hide();
         $("#robotHeader").hide();
@@ -70,6 +68,10 @@ jQuery(document).ready(function( $ ){
         allRobotImageIds = [];
         allImagesOfRobots = [];
         wrongOrderIds = [];
+
+        // set a time to wait to add the power on button
+        setTimeout(waitOnPower, 8000);
+        
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
             console.log("robots array, from getAllData function", robots);
@@ -90,7 +92,8 @@ jQuery(document).ready(function( $ ){
                     allRobotBios.pop();
                     allRobotOrder.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
-                    console.log("after .pop(), allRobotOrder: ", allRobotOrder);
+                    console.log("after .pop(), allRobotOrder: ", allRobotOrder);  //need to reorder these 4 arrays to match
+                    //the correct order of robots
                 } else {
                     //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
                     allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
@@ -174,9 +177,8 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         $("#currentRobots").show();
         $("#robotHeader").show();
-        $("#revealRobots").hide();
+        $("#revealRobots").remove();
         $("#editRobotName").hide();
-        //$("#exploreRobots").empty();
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
@@ -189,18 +191,18 @@ jQuery(document).ready(function( $ ){
         let myNewNested;
         myNewNested = myNested.map((myArr, myI) => {
             if (myI === 0) {
-                //console.log("Inside myI ===0, myArr: ", myArr);
+                console.log("Inside myI ===0, myArr: ", myArr);
                 return myArr;
             } else if (myI === 1) { // the reference, this just needs to be done once!
                     mySrcArr = myArr.slice(0); // take a copy of the second array
-                    //console.log("inside if, mySrcArr: ", mySrcArr);
+                    console.log("inside if, mySrcArr: ", mySrcArr);
                     myArr.sort((prev, next) => {
                         return allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
                     });
             }
-                // console.log("again, outside of if: myArr: ", myArr);
-                // console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr);
-                // console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
+                console.log("again, outside of if: myArr: ", myArr);
+                console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr);
+                console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
                 if (myI === 1) {
                     return myArr;
                 }
@@ -209,8 +211,8 @@ jQuery(document).ready(function( $ ){
                     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
                 ]);
         });
-        // console.log("myNewNested: ", myNewNested);
-        // console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
+        console.log("myNewNested: ", myNewNested);
+        console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
             for (let i=0; i<myNewNested[2].length; i++) {
