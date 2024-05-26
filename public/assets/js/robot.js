@@ -13,6 +13,7 @@ jQuery(document).ready(function( $ ){
     var allImagesOfRobots = [];
     var wrongOrderIds = [];
     var markLoggedIn = false;
+    var robotIconArray = []; // the array built to house all the robots and info in the icon stage, to be sorted to allRobotOrder
 
     // variables for editing data
     var thisImageId; //data-id of image
@@ -80,26 +81,26 @@ jQuery(document).ready(function( $ ){
                 allRobotNameswithImages.push(robots[i].name);
                 allRobotBios.push(robots[i].bio);
                 allRobotOrder.push(robots[i].order);
-                console.log("allRobotOrder: ", allRobotOrder);
+                console.log("after just getting all robots, allRobotOrder: ", allRobotOrder);
                 //this is a list of all the robots without a main image
                 if (typeof robots[i].image[0] === "undefined") { //need to remove the names without an image
                     // The following should be written to the DOM ONLY when Mark is in edit mode
                     $("#currentRobots").append("<div class=robotTitles><h4>" + robots[i].name + 
                     "</h4><br><h5 class=noImage data-robotid=" + robots[i]._id + " data-toggle='modal' data-target='#newRobotImageModal'>No Image</h5></div>");
                     //remove THIS robot from allRobotNameswithImages array
-                    allRobotIds.pop();
-                    allRobotNameswithImages.pop();
-                    allRobotBios.pop();
+                    allRobotIds.pop();  //need to be sorted like allRobotOrder
+                    allRobotNameswithImages.pop(); //need to be sorted like allRobotOrder
+                    allRobotBios.pop(); //need to be sorted like allRobotOrder
                     allRobotOrder.pop();
                     //console.log("after .pop(), allRobotNameswithImages: ", allRobotNameswithImages);
-                    console.log("after .pop(), allRobotOrder: ", allRobotOrder);  //need to reorder these 4 arrays to match
-                    //the correct order of robots
+                    //need to reorder these 4 arrays to match
+                    //the correct order of robots, and also the allRobotImageIds array for the revealRobot function below
                 } else {
-                    //console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
-                    allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db
+                    console.log("robots[" + i + "].image[0]: " + robots[i].image[0]);
+                    allRobotImageIds.push(robots[i].image[0]); // array of image ids from 1st robot db, need to be sorted like allRobotOrder
                     //console.log("robots[" + i + "].image.length: ", robots[i].image.length);
                     //make an array of the number of images for each robot
-                    numberOfImages.push(robots[i].image.length);
+                    numberOfImages.push(robots[i].image.length); //need to be sorted like allRobotOrder
                     $.ajax({
                     method: "GET",
                     url: "/getImages/" + robots[i].image[0]
@@ -185,41 +186,179 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === false) {
             $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         }
-        let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
-        console.log("myNested: ", myNested);
+        //first sort to get the order of robots to match Mark's preferred order
+        // reorder allRobotImageIds to match the new (correct) order of allRobotOrder array.
+        console.log("after .pop(), allRobotOrder: ", allRobotOrder);
+        console.log("allRobotOrder[2] is : " + typeof allRobotOrder[2]); //making sure that the array is numbers
+        //let wrongOrderOfRobots = allRobotOrder.slice(0);
+        //allRobotOrder.sort(function(a, b){return a - b}); //puts allRobotOrder into numerical order
+        // console.log("after numeric sort, wrongOrderOfRobots: ", wrongOrderOfRobots);
+        // console.log("after numeric sort, allRobotOrder: ", allRobotOrder);
+
+        // let sourceAllRobotImageIds;
+        // let newAllRobotImageIdsNested;
+        // let imageIdsNested = [allRobotOrder, wrongOrderOfRobots, allRobotImageIds];
+
+        // newAllRobotImageIdsNested = imageIdsNested.map((myArr, myI) => {
+        //     if (myI === 0) {
+        //         return myArr;
+        //     } else if (myI === 1) { // the reference, this just needs to be done once!
+        //         sourceAllRobotImageIds = myArr.slice(0); // take a copy of the second array
+        //         myArr.sort((prev, next) => {
+        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
+        //         });
+        //     }
+        //         if (myI === 1) {
+        //             return myArr;
+        //         }
+        //         return myArr.map((myItem, myI) => myArr[
+        //             sourceAllRobotImageIds.indexOf(imageIdsNested[1][myI]) // return in the order of the reference
+        //         ]);
+        // });
+
+        
+        // let sourceAllRobotIds;
+        // let newAllRobotIdsNested;
+        // let robotIdsNested = [allRobotOrder, wrongOrderOfRobots, allRobotIds];
+
+        // newAllRobotIdsNested = robotIdsNested.map((myArr, myI) => {
+        //     if (myI === 0) {
+        //         return myArr;
+        //     } else if (myI === 1) { // the reference, this just needs to be done once!
+        //         sourceAllRobotIds = myArr.slice(0); // take a copy of the second array
+        //         myArr.sort((prev, next) => {
+        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
+        //         });
+        //     }
+        //         if (myI === 1) {
+        //             return myArr;
+        //         }
+        //         return myArr.map((myItem, myI) => myArr[
+        //             sourceAllRobotIds.indexOf(robotIdsNested[1][myI]) // return in the order of the reference
+        //         ]);
+        // });
+
+
+        // let sourceAllRobotNames;
+        // let newAllRobotNamesNested;
+        // let allRobotNamesImagesNested = [allRobotOrder, wrongOrderOfRobots, allRobotNameswithImages];
+
+        // newAllRobotNamesNested = allRobotNamesImagesNested.map((myArr, myI) => {
+        //     if (myI === 0) {
+        //         return myArr;
+        //     } else if (myI === 1) { // the reference, this just needs to be done once!
+        //         sourceAllRobotNames = myArr.slice(0); // take a copy of the second array
+        //         myArr.sort((prev, next) => {
+        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
+        //         });
+        //     }
+        //         if (myI === 1) {
+        //             return myArr;
+        //         }
+        //         return myArr.map((myItem, myI) => myArr[
+        //             sourceAllRobotNames.indexOf(allRobotNamesImagesNested[1][myI]) // return in the order of the reference
+        //         ]);
+        // });
+
+
+        // let sourceRobotBiosArr;
+        // let newRobotBios;
+        // let allRobotBiosNested = [allRobotOrder, wrongOrderOfRobots, allRobotBios];
+
+        // newRobotBios = allRobotBiosNested.map((myArr, myI) => {
+        //     if (myI === 0) {
+        //         return myArr;
+        //     } else if (myI === 1) { // the reference, this just needs to be done once!
+        //         sourceRobotBiosArr = myArr.slice(0); // take a copy of the second array
+        //         myArr.sort((prev, next) => {
+        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
+        //         });
+        //     }
+        //         if (myI === 1) {
+        //             return myArr;
+        //         }
+        //         return myArr.map((myItem, myI) => myArr[
+        //             sourceRobotBiosArr.indexOf(allRobotBiosNested[1][myI]) // return in the order of the reference
+        //         ]);
+        // });
+
+
+        // let sourceNoOfImagesArr;
+        // let newNoOfImages;
+        // let numberOfImagesNested = [allRobotOrder, wrongOrderOfRobots, numberOfImages];
+
+        // newNoOfImages = numberOfImagesNested.map((myArr, myI) => {
+        //     if (myI === 0) {
+        //         return myArr;
+        //     } else if (myI === 1) { // the reference, this just needs to be done once!
+        //         sourceNoOfImagesArr = myArr.slice(0); // take a copy of the second array
+        //         myArr.sort((prev, next) => {
+        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
+        //         });
+        //     }
+        //         if (myI === 1) {
+        //             return myArr;
+        //         }
+        //         return myArr.map((myItem, myI) => myArr[
+        //             sourceNoOfImagesArr.indexOf(numberOfImagesNested[1][myI]) // return in the order of the reference
+        //         ]);
+        // });
+
+        //final sort to get names to match first robot image
         let mySrcArr;
         let myNewNested;
+        let myNested = [allRobotImageIds, wrongOrderIds, allImagesOfRobots];
+
         myNewNested = myNested.map((myArr, myI) => {
             if (myI === 0) {
-                console.log("Inside myI ===0, myArr: ", myArr);
                 return myArr;
             } else if (myI === 1) { // the reference, this just needs to be done once!
                     mySrcArr = myArr.slice(0); // take a copy of the second array
-                    console.log("inside if, mySrcArr: ", mySrcArr);
                     myArr.sort((prev, next) => {
                         return allRobotImageIds.indexOf(prev) - allRobotImageIds.indexOf(next);
                     });
             }
-                console.log("again, outside of if: myArr: ", myArr);
-                console.log("HEY!!! outside of if, mySrcArr: ", mySrcArr);
-                console.log("outside of if: myNested[1][0]: " + myNested[1][0]);
                 if (myI === 1) {
                     return myArr;
                 }
-                //console.log("this should be myI === 2, myArr: ", myArr);
                 return myArr.map((myItem, myI) => myArr[
                     mySrcArr.indexOf(myNested[1][myI]) // return in the order of the reference
                 ]);
         });
-        console.log("myNewNested: ", myNewNested);
-        console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
+        
+        //console.log("myNewNested: ", myNewNested);
+        //console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
-            for (let i=0; i<myNewNested[2].length; i++) {
-                $(`#currentRobots`).append (`<div class="robotTitles" data-robotid="` + allRobotIds[i] + `" data-name="` + allRobotNameswithImages[i] + 
-                `" data-bio="` + allRobotBios[i] + `" data-order="` + allRobotOrder[i] + `" data-noofimages="` + numberOfImages[i] + `"><h4>` + allRobotNameswithImages[i] + 
-                `</h4><br>` + myNewNested[2][i] + `</div>`);
-            }
+        // for (let i=0; i<myNewNested[2].length; i++) {
+        //     $(`#currentRobots`).append (`<div class="robotTitles" data-robotid="` + allRobotIds[i] + 
+        //     `" data-name="` + allRobotNameswithImages[i] + `" data-bio="` + allRobotBios[i] + 
+        //     `" data-order="` + allRobotOrder[i] + `" data-noofimages="` +  numberOfImages[i] + `"><h4>` + 
+        //     allRobotNameswithImages[i] + `</h4><br>` + myNewNested[2][i] + `</div>`);
+        // }
+
+        for (let i=0; i<myNewNested[2].length; i++) {
+            var robotIcon = $("<div>");
+            robotIcon.addClass("robotTitles");
+            robotIcon.data("robotid", allRobotIds[i]);
+            robotIcon.data("name", allRobotNameswithImages[i]);
+            robotIcon.data("bio", allRobotBios[i]);
+            robotIcon.data("order", allRobotOrder[i]);
+            robotIcon.data("noofimages", numberOfImages[i]);
+            var robotName = $("<h4>");
+            robotName.text(allRobotNameswithImages[i]);
+            robotIcon.append(robotName);
+            robotIcon.append("<br>");
+            robotIcon.append(myNewNested[2][i]);
+            robotIconArray.push(robotIcon);
+            console.log("robotIconArray: ", robotIconArray);
+            console.log("robotIconArray[0]: ", robotIconArray[0]);
+        }
+
+        for (let i=0; i<robotIconArray.length; i++) {
+            $(`#currentRobots`).append(robotIconArray[i]);
+        }
+
 
         // commented out is a learning lesson in template literals
         // for (let i=0; i<myNewNested[2].length; i++) { 
@@ -235,7 +374,7 @@ jQuery(document).ready(function( $ ){
     });
     //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
     // adding the display of additional pictures
-    //
+    
     $(document).on("click", "#robotImg", function(event) {
         event.preventDefault();
         console.log("I clicked on a specific robot");
