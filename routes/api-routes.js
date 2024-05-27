@@ -109,7 +109,7 @@ module.exports = function(router) {
         }
         db.Image.create(obj)
             .then(function(dbImage) {
-                console.log("after .create Image - dbImage: ", dbImage);
+                //console.log("after .create Image - dbImage: ", dbImage);
                 //pushing the new kitten image into the document kitten array
                 return db.Robot.findOneAndUpdate(
                     { _id: req.params.id },

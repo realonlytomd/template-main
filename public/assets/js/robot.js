@@ -41,7 +41,7 @@ jQuery(document).ready(function( $ ){
         //empty out the current divs
         $("#logoutButton").hide();
         $("button#createRobot").hide();
-        $("#revealRobots").remove(); //what is delete the element?
+        $("#revealRobots").remove(); //this is supposed to delete the element, not just hide it?
         $("#robotWaiting").show();
         $("#currentRobots").empty();
         $("#currentRobots").hide();
@@ -135,6 +135,7 @@ jQuery(document).ready(function( $ ){
         //     $("#powerOnGoes").append(button);
         //   });
     }
+
     //function for Mark to log in to see editable sections
     $(document).on("click", "#markserafin", function(event) {
         event.preventDefault();
@@ -183,11 +184,12 @@ jQuery(document).ready(function( $ ){
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
+        robotIconArray = [];
         if (markLoggedIn === false) {
             $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         }
         //first sort to get the order of robots to match Mark's preferred order
-        // reorder allRobotImageIds to match the new (correct) order of allRobotOrder array.
+        // what is the allRobotOrder array?
         console.log("after .pop(), allRobotOrder: ", allRobotOrder);
         console.log("allRobotOrder[2] is : " + typeof allRobotOrder[2]); //making sure that the array is numbers
         //let wrongOrderOfRobots = allRobotOrder.slice(0);
@@ -336,25 +338,27 @@ jQuery(document).ready(function( $ ){
         //     `" data-order="` + allRobotOrder[i] + `" data-noofimages="` +  numberOfImages[i] + `"><h4>` + 
         //     allRobotNameswithImages[i] + `</h4><br>` + myNewNested[2][i] + `</div>`);
         // }
-
+        console.log("myNewNested[2].length: " + myNewNested[2].length);
         for (let i=0; i<myNewNested[2].length; i++) {
-            var robotIcon = $("<div>");
+            let robotIcon = $("<div>");
             robotIcon.addClass("robotTitles");
             robotIcon.data("robotid", allRobotIds[i]);
             robotIcon.data("name", allRobotNameswithImages[i]);
             robotIcon.data("bio", allRobotBios[i]);
             robotIcon.data("order", allRobotOrder[i]);
             robotIcon.data("noofimages", numberOfImages[i]);
-            var robotName = $("<h4>");
+            let robotName = $("<h4>");
             robotName.text(allRobotNameswithImages[i]);
             robotIcon.append(robotName);
             robotIcon.append("<br>");
             robotIcon.append(myNewNested[2][i]);
             robotIconArray.push(robotIcon);
-            console.log("robotIconArray: ", robotIconArray);
-            console.log("robotIconArray[0]: ", robotIconArray[0]);
         }
 
+        console.log("robotIconArry.length: " + robotIconArray.length);
+        console.log("robotIconArray[0]: ", robotIconArray[0]);
+        console.log("robotIconArray[0][0].jQuery331017367775229957162 " , robotIconArray[0][0].jQuery331017367775229957162);
+        
         for (let i=0; i<robotIconArray.length; i++) {
             $(`#currentRobots`).append(robotIconArray[i]);
         }
