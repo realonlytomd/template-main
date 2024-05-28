@@ -14,7 +14,17 @@ jQuery(document).ready(function( $ ){
     var wrongOrderIds = [];
     var markLoggedIn = false;
     var robotIconArray = []; // the array built to house all the robots and info in the icon stage, to be sorted to allRobotOrder
-
+    // these will be copies of the original array for robot order as the original is used 4 times to reorder other arrays
+    // and .sort() changes the original array.  I'm not sure I'll need them, but just in case.
+    var sourceOneAllRobotOrder = [];
+    var sourceTwoAllRobotOrder = [];
+    var sourceThreeAllRobotOrder = [];
+    var sourceFourAllRobotOrder = [];
+    var sourceFiveAllRobotOrder = [];
+    var sourceAllRobotIds = [];
+    var sourceAllRobotNameswithImages = [];
+    var sourceAllRobotBios = [];
+    var sourceAllRobotImagesIds = [];
     // variables for editing data
     var thisImageId; //data-id of image
     // Need to add the inital load code that shows the user the robot's currently in the db.
@@ -119,21 +129,6 @@ jQuery(document).ready(function( $ ){
             // this .then is added to see if it waits to take away the gif, and put in the power on button.
             // just take it out to the ; if it doesn't.
         });
-        // .then(function() {
-        //     // take away the waiting gif in html
-        //     $("#robotWaiting").hide();
-        //     // add the power on button that sorts and writes the icons
-        //     //<button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>
-        //     var button = $("<button>");
-        //     button.attr("type", "button");
-        //     button.addClass("btn");
-        //     button.addClass("btn-warning");
-        //     button.addClass("btn-primary");
-        //     button.addClass("btn-lg");
-        //     button.attr("id","revealRobots");
-        //     button.text("Power On");
-        //     $("#powerOnGoes").append(button);
-        //   });
     }
 
     //function for Mark to log in to see editable sections
@@ -188,123 +183,55 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === false) {
             $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         }
-        //first sort to get the order of robots to match Mark's preferred order
-        // what is the allRobotOrder array?
-        console.log("after .pop(), allRobotOrder: ", allRobotOrder);
-        console.log("allRobotOrder[2] is : " + typeof allRobotOrder[2]); //making sure that the array is numbers
-        //let wrongOrderOfRobots = allRobotOrder.slice(0);
-        //allRobotOrder.sort(function(a, b){return a - b}); //puts allRobotOrder into numerical order
-        // console.log("after numeric sort, wrongOrderOfRobots: ", wrongOrderOfRobots);
-        // console.log("after numeric sort, allRobotOrder: ", allRobotOrder);
+        //first sort to get the order of robots to match Mark's preferred order        
+        // adding a sort numerically for allRobotOrder, then sort the other 4 arrays the SAME WAY
+        // this means the wrongOrderId and allImagesOfRobots arrays will be sorted to this new order
+        // down below in the function called by clicking #revealRobots.
+        // remember, sort will get rid of original, so splice to keep copies of originals
+        sourceOneAllRobotOrder = allRobotOrder.slice(0);
+        sourceAllRobotIds = allRobotIds.slice(0);
+        sourceAllRobotNameswithImages = allRobotNameswithImages.slice(0);
+        sourceAllRobotBios = allRobotBios.slice(0);
+        sourceAllRobotImageIds = allRobotImageIds.slice(0);
+        sourceNumberOfImages = numberOfImages.slice(0);
 
-        // let sourceAllRobotImageIds;
-        // let newAllRobotImageIdsNested;
-        // let imageIdsNested = [allRobotOrder, wrongOrderOfRobots, allRobotImageIds];
+        //sort allRobotOrder and record indices
+        var indices = [...allRobotOrder.keys()].sort((a, b) => allRobotOrder[a] - allRobotOrder[b]);
+        // sort allRobotImagesIds to match
+        [allRobotOrder, allRobotImageIds] = [allRobotOrder, allRobotImageIds].map(a => indices.map(i => a[i]));
 
-        // newAllRobotImageIdsNested = imageIdsNested.map((myArr, myI) => {
-        //     if (myI === 0) {
-        //         return myArr;
-        //     } else if (myI === 1) { // the reference, this just needs to be done once!
-        //         sourceAllRobotImageIds = myArr.slice(0); // take a copy of the second array
-        //         myArr.sort((prev, next) => {
-        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
-        //         });
-        //     }
-        //         if (myI === 1) {
-        //             return myArr;
-        //         }
-        //         return myArr.map((myItem, myI) => myArr[
-        //             sourceAllRobotImageIds.indexOf(imageIdsNested[1][myI]) // return in the order of the reference
-        //         ]);
-        // });
+        //need the original allRobotOrder for each sorting
+        var sourceTwoAllRobotOrder = sourceOneAllRobotOrder.slice(0);
+        var indices = [...sourceOneAllRobotOrder.keys()].sort((a, b) => sourceOneAllRobotOrder[a] - sourceOneAllRobotOrder[b]);
+        [sourceOneAllRobotOrder, allRobotIds] = [sourceOneAllRobotOrder, allRobotIds].map(a => indices.map(i => a[i]));
 
-        
-        // let sourceAllRobotIds;
-        // let newAllRobotIdsNested;
-        // let robotIdsNested = [allRobotOrder, wrongOrderOfRobots, allRobotIds];
+        var sourceThreeAllRobotOrder = sourceTwoAllRobotOrder.slice(0);
+        var indices = [...sourceTwoAllRobotOrder.keys()].sort((a, b) => sourceTwoAllRobotOrder[a] - sourceTwoAllRobotOrder[b]);
+        [sourceTwoAllRobotOrder, allRobotNameswithImages] = [sourceTwoAllRobotOrder, allRobotNameswithImages].map(a => indices.map(i => a[i]));
 
-        // newAllRobotIdsNested = robotIdsNested.map((myArr, myI) => {
-        //     if (myI === 0) {
-        //         return myArr;
-        //     } else if (myI === 1) { // the reference, this just needs to be done once!
-        //         sourceAllRobotIds = myArr.slice(0); // take a copy of the second array
-        //         myArr.sort((prev, next) => {
-        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
-        //         });
-        //     }
-        //         if (myI === 1) {
-        //             return myArr;
-        //         }
-        //         return myArr.map((myItem, myI) => myArr[
-        //             sourceAllRobotIds.indexOf(robotIdsNested[1][myI]) // return in the order of the reference
-        //         ]);
-        // });
+        var sourceFourAllRobotOrder = sourceThreeAllRobotOrder.slice(0);
+        var indices = [...sourceThreeAllRobotOrder.keys()].sort((a, b) => sourceThreeAllRobotOrder[a] - sourceThreeAllRobotOrder[b]);
+        [sourceThreeAllRobotOrder, allRobotBios] = [sourceThreeAllRobotOrder, allRobotBios].map(a => indices.map(i => a[i]));
 
+        var sourceFiveAllRobotOrder = sourceFourAllRobotOrder.slice(0);
+        var indices = [...sourceFourAllRobotOrder.keys()].sort((a, b) => sourceFourAllRobotOrder[a] - sourceFourAllRobotOrder[b]);
+        [sourceFourAllRobotOrder, numberOfImages] = [sourceFourAllRobotOrder, numberOfImages].map(a => indices.map(i => a[i]));
 
-        // let sourceAllRobotNames;
-        // let newAllRobotNamesNested;
-        // let allRobotNamesImagesNested = [allRobotOrder, wrongOrderOfRobots, allRobotNameswithImages];
+         //originals
+        console.log("Originals sourceFiveAllRobotOrder: ", sourceFiveAllRobotOrder);
+        console.log("Originals sourceAllRobotImageIds: ", sourceAllRobotImageIds);
+        console.log("Originals sourceAllRobotIds: ", sourceAllRobotIds);
+        console.log("Originals sourceAllRobotNameswithImages: ", sourceAllRobotNameswithImages);
+        console.log("Originals sourceAllRobotBios: ", sourceAllRobotBios);
+        console.log("Originals sourceNumberOfImages: ", sourceNumberOfImages);
+        //sorted
+        console.log("sorted allRobotOrder: ", ...allRobotOrder);
+        console.log("sorted allRobotImageIds: ", ...allRobotImageIds);
+        console.log("sorted allRobotIds: ", ...allRobotIds);
+        console.log("sorted allRobotNameswithImages: ", ...allRobotNameswithImages);
+        console.log("sorted allRobotBios: ", ...allRobotBios);
+        console.log("sorted numberOfImages: ", ...numberOfImages);
 
-        // newAllRobotNamesNested = allRobotNamesImagesNested.map((myArr, myI) => {
-        //     if (myI === 0) {
-        //         return myArr;
-        //     } else if (myI === 1) { // the reference, this just needs to be done once!
-        //         sourceAllRobotNames = myArr.slice(0); // take a copy of the second array
-        //         myArr.sort((prev, next) => {
-        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
-        //         });
-        //     }
-        //         if (myI === 1) {
-        //             return myArr;
-        //         }
-        //         return myArr.map((myItem, myI) => myArr[
-        //             sourceAllRobotNames.indexOf(allRobotNamesImagesNested[1][myI]) // return in the order of the reference
-        //         ]);
-        // });
-
-
-        // let sourceRobotBiosArr;
-        // let newRobotBios;
-        // let allRobotBiosNested = [allRobotOrder, wrongOrderOfRobots, allRobotBios];
-
-        // newRobotBios = allRobotBiosNested.map((myArr, myI) => {
-        //     if (myI === 0) {
-        //         return myArr;
-        //     } else if (myI === 1) { // the reference, this just needs to be done once!
-        //         sourceRobotBiosArr = myArr.slice(0); // take a copy of the second array
-        //         myArr.sort((prev, next) => {
-        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
-        //         });
-        //     }
-        //         if (myI === 1) {
-        //             return myArr;
-        //         }
-        //         return myArr.map((myItem, myI) => myArr[
-        //             sourceRobotBiosArr.indexOf(allRobotBiosNested[1][myI]) // return in the order of the reference
-        //         ]);
-        // });
-
-
-        // let sourceNoOfImagesArr;
-        // let newNoOfImages;
-        // let numberOfImagesNested = [allRobotOrder, wrongOrderOfRobots, numberOfImages];
-
-        // newNoOfImages = numberOfImagesNested.map((myArr, myI) => {
-        //     if (myI === 0) {
-        //         return myArr;
-        //     } else if (myI === 1) { // the reference, this just needs to be done once!
-        //         sourceNoOfImagesArr = myArr.slice(0); // take a copy of the second array
-        //         myArr.sort((prev, next) => {
-        //             return allRobotOrder.indexOf(prev) - allRobotOrder.indexOf(next);
-        //         });
-        //     }
-        //         if (myI === 1) {
-        //             return myArr;
-        //         }
-        //         return myArr.map((myItem, myI) => myArr[
-        //             sourceNoOfImagesArr.indexOf(numberOfImagesNested[1][myI]) // return in the order of the reference
-        //         ]);
-        // });
 
         //final sort to get names to match first robot image
         let mySrcArr;
@@ -339,19 +266,6 @@ jQuery(document).ready(function( $ ){
         //     allRobotNameswithImages[i] + `</h4><br>` + myNewNested[2][i] + `</div>`);
         // }
 
-//         var array1 = [2, 4, -2, 4, 1, 3],
-//     array2 = ["a", "b", "c", "d", "e", "f"],
-//     indices = [...array1.keys()].sort((a, b) => array1[a] - array1[b]);
-
-// [array1, array2] = [array1, array2].map(a => indices.map(i => a[i]));
-
-// console.log(...array1);
-// console.log(...array2);
-
-// const numbers = [10, 5, 11];
-
-// numbers.sort((a, b) => a - b); // => [5, 10, 11]
-
         console.log("myNewNested[2].length: " + myNewNested[2].length);
         for (let i=0; i<myNewNested[2].length; i++) {
             let robotIcon = $("<div>");
@@ -370,28 +284,12 @@ jQuery(document).ready(function( $ ){
         }
 
         console.log("robotIconArry.length: " + robotIconArray.length);
-        
         console.log("robotIconArray[0]: ", robotIconArray[0]);
-        
-
-        
         
         for (let i=0; i<robotIconArray.length; i++) {
             $(`#currentRobots`).append(robotIconArray[i]);
         }
 
-
-        // commented out is a learning lesson in template literals
-        // for (let i=0; i<myNewNested[2].length; i++) { 
-        //     $("#currentRobots").append(`<div class="robotTitles" data-robotid=${allRobotIds[i]} 
-        //     data-name=${allRobotNameswithImages[i]} data-bio=${allRobotBios[i]} data-noofimages${numberOfImages[i]}>
-        //     <h4>${allRobotNameswithImages[i]}</h4><br>${myNewNested[2][i]}</div>`);
-        // }
-        // let greeting = "hello, I'm a dude and";
-        // let namer = `you're the "bully", and Joshua`;
-        // let aboutMe = "programmer of some 'note'.";
-        // $("#specificRobot").append(`<div class="lightText"> Greet: ${greeting} ${namer} is a ${aboutMe}</div>`);
-        // console.log(`Greet: ${greeting} ${namer} is a ${aboutMe}`);
     });
     //clicking on the picture of all the robots displayed brings up a large pic and info about that robot
     // adding the display of additional pictures
