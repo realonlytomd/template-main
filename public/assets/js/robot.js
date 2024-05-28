@@ -338,6 +338,20 @@ jQuery(document).ready(function( $ ){
         //     `" data-order="` + allRobotOrder[i] + `" data-noofimages="` +  numberOfImages[i] + `"><h4>` + 
         //     allRobotNameswithImages[i] + `</h4><br>` + myNewNested[2][i] + `</div>`);
         // }
+
+//         var array1 = [2, 4, -2, 4, 1, 3],
+//     array2 = ["a", "b", "c", "d", "e", "f"],
+//     indices = [...array1.keys()].sort((a, b) => array1[a] - array1[b]);
+
+// [array1, array2] = [array1, array2].map(a => indices.map(i => a[i]));
+
+// console.log(...array1);
+// console.log(...array2);
+
+// const numbers = [10, 5, 11];
+
+// numbers.sort((a, b) => a - b); // => [5, 10, 11]
+
         console.log("myNewNested[2].length: " + myNewNested[2].length);
         for (let i=0; i<myNewNested[2].length; i++) {
             let robotIcon = $("<div>");
@@ -356,8 +370,11 @@ jQuery(document).ready(function( $ ){
         }
 
         console.log("robotIconArry.length: " + robotIconArray.length);
+        
         console.log("robotIconArray[0]: ", robotIconArray[0]);
-        console.log("robotIconArray[0][0].jQuery331017367775229957162 " , robotIconArray[0][0].jQuery331017367775229957162);
+        
+
+        
         
         for (let i=0; i<robotIconArray.length; i++) {
             $(`#currentRobots`).append(robotIconArray[i]);
