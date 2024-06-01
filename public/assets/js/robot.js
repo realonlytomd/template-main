@@ -27,6 +27,24 @@ jQuery(document).ready(function( $ ){
     var sourceAllRobotImagesIds = [];
     // variables for editing data
     var thisImageId; //data-id of image
+
+    // code to bring up Mark's biography modal
+    $(document).on("click", "#marksBioPoint", function() {
+        $("#marksBio").modal("show");
+        if (markLoggedIn === true) {
+            $("#enterBioText").show();
+            $("#enterMarksBioText").val() = $("#showMarksBioText").val();
+            $("#showBioText").hide();
+        } else {
+            $("#enterBioText").hide();
+            $("#showBioText").show();
+        }
+    });
+    // code for mark to enter whatever he types in the bio field of his It's All About Mark modal
+    $(document).on("click", "#submitMarksBio", function() {
+        $("#showMarksBioText").val() = $("#enterMarksBioText").val();
+    });
+
     // Need to add the inital load code that shows the user the robot's currently in the db.
     getAllData();
     //Code to get all the robots in the db listed 
@@ -36,15 +54,14 @@ jQuery(document).ready(function( $ ){
     
     function waitOnPower() {
         $("#robotWaiting").hide();
-        var button = $("<button>");
-        button.attr("type", "button");
-        button.addClass("btn");
-        button.addClass("btn-warning");
-        button.addClass("btn-primary");
-        button.addClass("btn-lg");
-        button.attr("id","revealRobots");
-        button.text("Power On");
-        $("#powerOnGoes").append(button);
+        var power = $("<img>");
+        //button.attr("type", "button");
+        //needs an src of the power button
+        power.attr("src","assets/pictures/redbutton.png" );
+        
+        power.attr("id","revealRobots");
+        
+        $("#powerOnGoes").append([power]);
     }
 
     function getAllData() {

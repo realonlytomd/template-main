@@ -21,17 +21,15 @@
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbarText">The Sculptor<span class="caret"></span></a>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbarText">The Artist<span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a data-toggle="collapse" data-target=".navbar-collapse.in" href="#" id="navbarText">All About Me</a></li>
+									<li><a data-toggle="collapse" data-target=".navbar-collapse.in" href="#" id="marksBioPoint">It's All About Me</a></li>
 								</ul>
 						</li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" id="navbarText" href="#"><span class="redBlink">Support Me</span><span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li id="navbarText">Patreon</li>
 									<li id="navbarText">Buy Me a Coffee</li>
-									<li id="navbarText">More</li>
 								</ul>
 						</li>
 					</ul>
@@ -41,9 +39,35 @@
         <div class="container-fluid">
             <div class="wrapper">
                 <div class="no-gutters text-center" id="powerOnGoes">
-                    <img id="robotWaiting" src="assets/pictures/robotwaiting.gif" alt="wait gears">
+                    <img id="robotWaiting" src="assets/pictures/origtvstandby.gif" alt="wait gears">
                     <!--<button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>-->
                 </div>
+                <!-- Modal for displaying Mark's Artist information-->
+                <div class="modal fade" id="marksBio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h2 class="modal-title text-center" id="myModalLabel">It's All About Me</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group" id="enterBioText">
+                                    <label for="editMarksBio">Mark's History</label>
+                                        <textarea id="enterMarksBioText" name="editMarksBio" rows="7" placeholder=""></textarea>
+                                </div>
+                                <div class="form-group" id="showBioText">
+                                    <label for="showMarksBio">Mark's History</label>
+                                        <textarea id="showMarksBioText" name="showMarksBio" rows="7" placeholder=""></textarea>
+                                </div>
+                                <button type="submit" id="submitMarksBio">Submit</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Bootstrap modal code -->
                 <!-- First Modal for entering new Robot-->
                 <div class="modal fade" id="newRobotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
