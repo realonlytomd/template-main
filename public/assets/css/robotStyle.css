@@ -48,15 +48,15 @@ body {
 }
 
 #robotWaiting {
-    width: 40%;
+    width: 80%;
     margin-top: 175px;
 }
 
 #revealRobots {
     margin-top: 250px;
     color: #4b413b;
-    /*width: 50%;
-    cursor: pointer;*/
+    width: 30%;
+    cursor: pointer;
 }
 
 #rowCreateRobot {
@@ -102,7 +102,7 @@ button, input#editTitle {
 }
 
 .theImages {
-    height: 100px;
+    height: 120px;
     margin-top: -20px;
     margin-right: 10px;
     margin-bottom: 0px;

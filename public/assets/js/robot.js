@@ -30,19 +30,18 @@ jQuery(document).ready(function( $ ){
 
     // code to bring up Mark's biography modal
     $(document).on("click", "#marksBioPoint", function() {
-        $("#marksBio").modal("show");
         if (markLoggedIn === true) {
-            $("#enterBioText").show();
-            $("#enterMarksBioText").val() = $("#showMarksBioText").val();
-            $("#showBioText").hide();
+            $("#marksBioEnter").modal("show");
+            $("#enterMarksBioText").val() = $("#showMarksBioText").val().trim();
         } else {
-            $("#enterBioText").hide();
-            $("#showBioText").show();
+            $("#marksBioShow").modal("show");
         }
     });
     // code for mark to enter whatever he types in the bio field of his It's All About Mark modal
     $(document).on("click", "#submitMarksBio", function() {
-        $("#showMarksBioText").val() = $("#enterMarksBioText").val();
+        $("#showMarksBioText").val() = $("#enterMarksBioText").val().trim();
+        $("#marksBioEnter").modal("hide");
+        $("marksBioShow").modal("show");
     });
 
     // Need to add the inital load code that shows the user the robot's currently in the db.
@@ -61,7 +60,7 @@ jQuery(document).ready(function( $ ){
         
         power.attr("id","revealRobots");
         
-        $("#powerOnGoes").append([power]);
+        $("#powerOnGoes").append(power);
     }
 
     function getAllData() {
@@ -158,7 +157,7 @@ jQuery(document).ready(function( $ ){
     // after Mark enters his password and clicks submit
     $(document).on("click", "#submitPassword", function(event) {
         event.preventDefault();
-        var password = $("#enterPass").val();
+        var password = $("#enterPass").val().trim();
         console.log("password: " + password);
         if (password === "marsha") {
             console.log("password is correct!");
