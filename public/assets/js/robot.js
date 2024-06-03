@@ -29,19 +29,9 @@ jQuery(document).ready(function( $ ){
     var thisImageId; //data-id of image
 
     // code to bring up Mark's biography modal
-    $(document).on("click", "#marksBioPoint", function() {
-        if (markLoggedIn === true) {
-            $("#marksBioEnter").modal("show");
-            $("#enterMarksBioText").val() = $("#showMarksBioText").val().trim();
-        } else {
-            $("#marksBioShow").modal("show");
-        }
-    });
-    // code for mark to enter whatever he types in the bio field of his It's All About Mark modal
-    $(document).on("click", "#submitMarksBio", function() {
-        $("#showMarksBioText").val() = $("#enterMarksBioText").val().trim();
-        $("#marksBioEnter").modal("hide");
-        $("marksBioShow").modal("show");
+    $(document).on("click", "#marksBioPoint", function(event) {
+        event.preventDefault();
+        $("#marksBioShow").modal("show");
     });
 
     // Need to add the inital load code that shows the user the robot's currently in the db.
@@ -178,10 +168,6 @@ jQuery(document).ready(function( $ ){
     // when Mark clicks the Logout Button
     $(document).on("click", "#logoutButton", function(event) {
         event.preventDefault();
-        markLoggedIn = false;
-        console.log("markLoggedIn: " + markLoggedIn);
-        $("#logoutButton").hide();
-        $("button#createRobot").hide();
         window.location.replace("/");
     });
 
