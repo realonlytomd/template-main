@@ -198,25 +198,25 @@ jQuery(document).ready(function( $ ){
         sourceNumberOfImages = numberOfImages.slice(0);
 
         //sort allRobotOrder and record indices
-        var indices = [...allRobotOrder.keys()].sort((a, b) => allRobotOrder[a] - allRobotOrder[b]);
+        var indices = [...allRobotOrder.keys()].sort((a, b) => allRobotOrder[b] - allRobotOrder[a]);
         // sort allRobotImagesIds to match
         [allRobotOrder, allRobotImageIds] = [allRobotOrder, allRobotImageIds].map(a => indices.map(i => a[i]));
 
         //need the original allRobotOrder for each sorting
         var sourceTwoAllRobotOrder = sourceOneAllRobotOrder.slice(0);
-        var indices = [...sourceOneAllRobotOrder.keys()].sort((a, b) => sourceOneAllRobotOrder[a] - sourceOneAllRobotOrder[b]);
+        var indices = [...sourceOneAllRobotOrder.keys()].sort((a, b) => sourceOneAllRobotOrder[b] - sourceOneAllRobotOrder[a]);
         [sourceOneAllRobotOrder, allRobotIds] = [sourceOneAllRobotOrder, allRobotIds].map(a => indices.map(i => a[i]));
 
         var sourceThreeAllRobotOrder = sourceTwoAllRobotOrder.slice(0);
-        var indices = [...sourceTwoAllRobotOrder.keys()].sort((a, b) => sourceTwoAllRobotOrder[a] - sourceTwoAllRobotOrder[b]);
+        var indices = [...sourceTwoAllRobotOrder.keys()].sort((a, b) => sourceTwoAllRobotOrder[b] - sourceTwoAllRobotOrder[a]);
         [sourceTwoAllRobotOrder, allRobotNameswithImages] = [sourceTwoAllRobotOrder, allRobotNameswithImages].map(a => indices.map(i => a[i]));
 
         var sourceFourAllRobotOrder = sourceThreeAllRobotOrder.slice(0);
-        var indices = [...sourceThreeAllRobotOrder.keys()].sort((a, b) => sourceThreeAllRobotOrder[a] - sourceThreeAllRobotOrder[b]);
+        var indices = [...sourceThreeAllRobotOrder.keys()].sort((a, b) => sourceThreeAllRobotOrder[b] - sourceThreeAllRobotOrder[a]);
         [sourceThreeAllRobotOrder, allRobotBios] = [sourceThreeAllRobotOrder, allRobotBios].map(a => indices.map(i => a[i]));
 
         var sourceFiveAllRobotOrder = sourceFourAllRobotOrder.slice(0);
-        var indices = [...sourceFourAllRobotOrder.keys()].sort((a, b) => sourceFourAllRobotOrder[a] - sourceFourAllRobotOrder[b]);
+        var indices = [...sourceFourAllRobotOrder.keys()].sort((a, b) => sourceFourAllRobotOrder[b] - sourceFourAllRobotOrder[a]);
         [sourceFourAllRobotOrder, numberOfImages] = [sourceFourAllRobotOrder, numberOfImages].map(a => indices.map(i => a[i]));
 
          //originals
