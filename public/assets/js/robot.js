@@ -185,6 +185,11 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === false) {
             $("#currentRobots").empty(); // this empties out the robots without images written to DOM from getAllData()
         }
+        // change backgroud of body
+        $("body").css({
+            'background-image' : 'url("/assets/pictures/allRobots.jpg")',
+            'background-size' : '100%'
+          });
         //first sort to get the order of robots to match Mark's preferred order        
         // adding a sort numerically for allRobotOrder, then sort the other 4 arrays the SAME WAY
         // this means the wrongOrderId and allImagesOfRobots arrays will be sorted to this new order
@@ -365,13 +370,15 @@ jQuery(document).ready(function( $ ){
                 'border-width': '1px',
                 'border-color': 'white'
               });
+              justH4.append(specificRobotOrder);
+              $("#specificRobot").append(justH4);
         } else {
             if (order === NaN) {
                 specificRobotOrder.text("");
             }
         }
-        justH4.append(specificRobotOrder);
-        $("#specificRobot").append(justH4);
+        
+       
 
         // loads the main image, as wide as the screen
         

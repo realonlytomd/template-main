@@ -22,12 +22,17 @@ body {
     background-image: linear-gradient(0deg, #F7CE68 0%, #FBAB7E 50%, #f7ce68 100%);*/
 }
 
-#navbarText {
+#navbarText, #marksBioPoint{
     color: #4b413b;
+    font-size: 24px;
 }
 
 .navbar {
     min-height: 80px;
+}
+
+button.navbar-toggle {
+    margin-top: 23px;
 }
 
 .wrapper {
