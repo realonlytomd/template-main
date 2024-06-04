@@ -107,7 +107,7 @@ button, input#editTitle {
 }
 
 .theImages {
-    height: 120px;
+    height: 150px;
     margin-top: -20px;
     margin-right: 10px;
     margin-bottom: 0px;
@@ -245,10 +245,8 @@ p.directions {
     margin-top: 20px;
 }
 
-@media only screen and (orientation: portrait) {
-    h3 {
-        font-size: 18px;
-        margin-top: 10px;
+@media only screen and (orientation: landscape) {
+    .bigRobotImage, .addtlBigRobotImage {
+        width: 40%;
     }
-    
 }
