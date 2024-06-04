@@ -187,7 +187,7 @@ jQuery(document).ready(function( $ ){
         }
         // change backgroud of body
         $("body").css({
-            'background-image' : 'url("/assets/pictures/allRobots.jpg")',
+            'background-image' : 'url("/assets/pictures/IMG_2367b.jpg")',
             'background-size' : '100%'
           });
         //first sort to get the order of robots to match Mark's preferred order        
