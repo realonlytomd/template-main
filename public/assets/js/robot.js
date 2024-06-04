@@ -490,6 +490,9 @@ jQuery(document).ready(function( $ ){
                         // can I just add the attribute for the currentRobotId here?
                         console.log("inside innerImageForEach large addtl images creation, currentRobotId: " + currentRobotId);
                         $("div#additionalImages img").attr("data-robotid", currentRobotId);
+                        // add the onclick event to go to the large additional images div below
+                        $("div#additionalImages img").attr("onclick", "location.href='#largeAddtlImages'");
+                        $("div#additionalImages img").attr("target", "_self");
                     });
                 }
             }
