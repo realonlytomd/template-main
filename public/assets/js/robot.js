@@ -262,7 +262,7 @@ jQuery(document).ready(function( $ ){
                 ]);
         });
         
-        //console.log("myNewNested: ", myNewNested);
+        console.log("myNewNested: ", myNewNested);
         //console.log("myNewNested[2].length = " + myNewNested[2].length); //the third array (index 2) is the dataGetIMages 
                 // to here
                 // so, myNewNested 3rd array is the images of the robots in the same order of the names of robots
@@ -272,10 +272,12 @@ jQuery(document).ready(function( $ ){
         //     `" data-order="` + allRobotOrder[i] + `" data-noofimages="` +  numberOfImages[i] + `"><h4>` + 
         //     allRobotNameswithImages[i] + `</h4><br>` + myNewNested[2][i] + `</div>`);
         // }
-
+        //<a href="#about" target="_self">About</a>
         console.log("myNewNested[2].length: " + myNewNested[2].length);
         for (let i=0; i<myNewNested[2].length; i++) {
-            let robotIcon = $("<div>");
+            let robotIcon = $("<div>")
+            robotIcon.attr("onclick", "location.href='#specificRobot'");
+            robotIcon.attr("target", "_self");
             robotIcon.addClass("robotTitles");
             robotIcon.data("robotid", allRobotIds[i]);
             robotIcon.data("name", allRobotNameswithImages[i]);
@@ -286,6 +288,10 @@ jQuery(document).ready(function( $ ){
             robotName.text(allRobotNameswithImages[i]);
             robotIcon.append(robotName);
             robotIcon.append("<br>");
+            // let hyperlink = $("<a>");
+            // hyperlink.attr("href", "#specificRobot");
+            // hyperlink.attr("target", "_self");
+            // hyperlink.append(myNewNested[2][i])
             robotIcon.append(myNewNested[2][i]);
             robotIconArray.push(robotIcon);
         }
