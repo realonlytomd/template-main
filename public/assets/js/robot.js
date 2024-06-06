@@ -83,7 +83,7 @@ jQuery(document).ready(function( $ ){
         wrongOrderIds = [];
 
         // set a time to wait to add the power on button
-        setTimeout(waitOnPower, 8000);
+        //setTimeout(waitOnPower, 8000);
         
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
@@ -128,10 +128,10 @@ jQuery(document).ready(function( $ ){
                         //console.log("wrongOrderIds: ", wrongOrderIds);
                         console.log("wrongOrderIds.length: ", wrongOrderIds.length);
                         console.log("robots.length: ", robots.length);
-                        // if (wrongOrderIds.length === 5 && robots.length === 5) {
-                        //     console.log("wrongOrder.length = robots.length");
-                        //     setTimeout(waitOnPower, 1000);
-                        // }
+                        if (wrongOrderIds.length === robots.length) {
+                            console.log("wrongOrder.length = robots.length");
+                            setTimeout(waitOnPower, 1000);
+                        }
                     });
                 }
             }
