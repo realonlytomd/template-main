@@ -44,12 +44,8 @@ jQuery(document).ready(function( $ ){
     function waitOnPower() {
         $("#robotWaiting").hide();
         var power = $("<img>");
-        //button.attr("type", "button");
-        //needs an src of the power button
         power.attr("src","assets/pictures/redbutton.png" );
-        
         power.attr("id","revealRobots");
-        
         $("#powerOnGoes").append(power);
     }
 
@@ -87,7 +83,7 @@ jQuery(document).ready(function( $ ){
         wrongOrderIds = [];
 
         // set a time to wait to add the power on button
-        setTimeout(waitOnPower, 8000);
+        //setTimeout(waitOnPower, 8000);
         
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
@@ -129,11 +125,17 @@ jQuery(document).ready(function( $ ){
                         //console.log("myDataId: ", myDataId);
                         // this was to "flatten" the array to become just an array of strings instead of array of array
                         wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
+                        //console.log("wrongOrderIds: ", wrongOrderIds);
+                        console.log("wrongOrderIds.length: ", wrongOrderIds.length);
+                        console.log("robots.length: ", robots.length);
+                        if (wrongOrderIds.length === 5 && robots.length === 5) {
+                            console.log("wrongOrder.length = robots.length");
+                            setTimeout(waitOnPower, 1000);
+                        }
                     });
                 }
             }
-            // this .then is added to see if it waits to take away the gif, and put in the power on button.
-            // just take it out to the ; if it doesn't.
+            
         });
     }
 
@@ -187,8 +189,9 @@ jQuery(document).ready(function( $ ){
         }
         // change backgroud of body
         $("body").css({
-            'background-image' : 'url("/assets/pictures/IMG_2367b.jpg")',
-            'background-size' : '100%'
+            'background-image' : 'url("/assets/pictures/allRobotsFaint.jpg")',
+            'background-size' : '100%',
+            'background-position' : 'center'
           });
         //first sort to get the order of robots to match Mark's preferred order        
         // adding a sort numerically for allRobotOrder, then sort the other 4 arrays the SAME WAY
