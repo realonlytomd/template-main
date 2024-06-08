@@ -28,7 +28,7 @@ body {
     font-size: 24px;
 }
 
-#marksBioPoint {
+#marksBioPoint, #marksSupport {
     color: #4b413b;
     font-size: 18px;
 }
