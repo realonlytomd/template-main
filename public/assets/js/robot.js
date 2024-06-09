@@ -130,7 +130,7 @@ jQuery(document).ready(function( $ ){
                         console.log("robots.length: ", robots.length);
                         if (wrongOrderIds.length === robots.length) {
                             console.log("wrongOrder.length = robots.length");
-                            setTimeout(waitOnPower, 1000);
+                            setTimeout(waitOnPower, 8000);
                         }
                     });
                 }
@@ -190,8 +190,8 @@ jQuery(document).ready(function( $ ){
         // change backgroud of body
         $("body").css({
             'background-image' : 'url("/assets/pictures/allRobotsFaint.jpg")',
-            'background-size' : '100%',
-            'background-position' : 'center'
+            'background-size' : '50%',
+            'background-position' : 'center top'
           });
         //first sort to get the order of robots to match Mark's preferred order        
         // adding a sort numerically for allRobotOrder, then sort the other 4 arrays the SAME WAY

@@ -255,4 +255,8 @@ p.directions {
     .bigRobotImage, .addtlBigRobotImage {
         width: 40%;
     }
+
+    #revealRobots {
+        width: 17%;
+    }
 }
