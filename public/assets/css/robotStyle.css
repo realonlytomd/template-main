@@ -259,4 +259,8 @@ p.directions {
     #revealRobots {
         width: 17%;
     }
+
+    #robotWaiting {
+        width: 50%;
+    }
 }

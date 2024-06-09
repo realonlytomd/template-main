@@ -130,7 +130,7 @@ jQuery(document).ready(function( $ ){
                         console.log("robots.length: ", robots.length);
                         if (wrongOrderIds.length === robots.length) {
                             console.log("wrongOrder.length = robots.length");
-                            setTimeout(waitOnPower, 8000);
+                            setTimeout(waitOnPower, 1000);
                         }
                     });
                 }
