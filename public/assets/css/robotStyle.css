@@ -80,7 +80,8 @@ button.navbar-toggle {
 }
 
 #imageTitleEdit, #imageDescEdit {
-    color: white;
+    display: inline-block;  
+    background-color: white;
 }
 
 #editTitle, #editTitleForm {
@@ -92,7 +93,8 @@ button, input#editTitle {
 }
 
 .lightText {
-    color: white;
+    display: inline-block;  
+    background-color: white;
 }
 
 #showImages {
@@ -105,7 +107,6 @@ button, input#editTitle {
 }
 
 .robotTitles {
-    color: white;
     display: inline-block;
     margin-right: 25px;
     margin-bottom: 10px;
@@ -114,7 +115,6 @@ button, input#editTitle {
 
 .theImages {
     height: 150px;
-    margin-top: -20px;
     margin-right: 10px;
     margin-bottom: 0px;
     border: 0;
@@ -151,6 +151,7 @@ button, input#editTitle {
 }
 
 #logoutButton {
+    display: inline-block;
     font-size: 10px;
 }
 

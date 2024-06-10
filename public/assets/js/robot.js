@@ -278,7 +278,7 @@ jQuery(document).ready(function( $ ){
         //<a href="#about" target="_self">About</a>
         console.log("myNewNested[2].length: " + myNewNested[2].length);
         for (let i=0; i<myNewNested[2].length; i++) {
-            let robotIcon = $("<div>")
+            let robotIcon = $("<div>");
             robotIcon.attr("onclick", "location.href='#specificRobot'");
             robotIcon.attr("target", "_self");
             robotIcon.addClass("robotTitles");
@@ -288,6 +288,7 @@ jQuery(document).ready(function( $ ){
             robotIcon.data("order", allRobotOrder[i]);
             robotIcon.data("noofimages", numberOfImages[i]);
             let robotName = $("<h4>");
+            robotName.addClass("lightText");
             robotName.text(allRobotNameswithImages[i]);
             robotIcon.append(robotName);
             robotIcon.append("<br>");
@@ -335,7 +336,8 @@ jQuery(document).ready(function( $ ){
             $("#editRobotName").css({
                 'border-style': "solid",
                 'border-width': '1px',
-                'border-color': 'white'
+                'border-color': 'white',
+                'border-style': "double"
               });
         }
         $("#editRobotName").attr("data-id", thisRobotId);
@@ -353,7 +355,8 @@ jQuery(document).ready(function( $ ){
             specificRobotBio.css({
                 'border-style': "solid",
                 'border-width': '1px',
-                'border-color': 'white'
+                'border-color': 'white',
+                'border-style': "double"
               });
         } else {
             if (bio === "None") {
@@ -377,7 +380,8 @@ jQuery(document).ready(function( $ ){
             specificRobotOrder.css({
                 'border-style': "solid",
                 'border-width': '1px',
-                'border-color': 'white'
+                'border-color': 'white',
+                'border-style': "double"
               });
               justH4.append(specificRobotOrder);
               $("#specificRobot").append(justH4);
@@ -414,7 +418,8 @@ jQuery(document).ready(function( $ ){
             specificRobotPicTitle.css({
                 'border-style': "solid",
                 'border-width': '1px',
-                'border-color': 'white'
+                'border-color': 'white',
+                'border-style': "double"
               });
         } else {
             if (title === "None") {
@@ -436,7 +441,8 @@ jQuery(document).ready(function( $ ){
             specificRobotPicDesc.css({
                 'border-style': "solid",
                 'border-width': '1px',
-                'border-color': 'white'
+                'border-color': 'white',
+                'border-style': "double"
               });
         } else {
             if (desc === "None") {
@@ -560,7 +566,8 @@ jQuery(document).ready(function( $ ){
             specificRobotPicDesc.css({
                 'border-style': "solid",
                 'border-width': '1px',
-                'border-color': 'white'
+                'border-color': 'white',
+                'border-style': "double"
               });
         } else {
                 if (desc === "None") {
