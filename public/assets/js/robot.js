@@ -335,9 +335,8 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             $("#editRobotName").css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white',
-                'border-style': "double"
+                'border-width': '4px',
+                'border-color': 'red'
               });
         }
         $("#editRobotName").attr("data-id", thisRobotId);
@@ -354,13 +353,13 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             specificRobotBio.css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white',
-                'border-style': "double"
+                'border-width': '4px',
+                'border-color': 'red'
               });
         } else {
             if (bio === "None") {
                 specificRobotBio.text("");
+                specificRobotBio.removeClass("lightText");
             }
         }
         justH4.append(specificRobotBio);
@@ -379,9 +378,8 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             specificRobotOrder.css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white',
-                'border-style': "double"
+                'border-width': '4px',
+                'border-color': 'red'
               });
               justH4.append(specificRobotOrder);
               $("#specificRobot").append(justH4);
@@ -409,6 +407,7 @@ jQuery(document).ready(function( $ ){
         // put the title of this picture underneath
         var justH3 = $("<h3>");
         var specificRobotPicTitle = $("<span>");
+        specificRobotPicTitle.addClass("lightText");
         specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisImageId);
         var title = $(this).attr("title");
@@ -417,13 +416,13 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             specificRobotPicTitle.css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white',
-                'border-style': "double"
+                'border-width': '4px',
+                'border-color': 'red'
               });
         } else {
             if (title === "None") {
                 specificRobotPicTitle.text("");
+                specificRobotPicTitle.removeClass("lightText");
             }
         }
         justH3.append(specificRobotPicTitle);
@@ -432,6 +431,7 @@ jQuery(document).ready(function( $ ){
         // put the desc of this picture underneath that
         var justH3 = $("<h3>");
         var specificRobotPicDesc = $("<span>");
+        specificRobotPicDesc.addClass("lightText");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisImageId);
         var desc = $(this).data("desc");
@@ -440,13 +440,13 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             specificRobotPicDesc.css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white',
-                'border-style': "double"
+                'border-width': '4px',
+                'border-color': 'red'
               });
         } else {
             if (desc === "None") {
                 specificRobotPicDesc.text("");
+                specificRobotPicDesc.removeClass("lightText");
             }
         }
         justH3.append(specificRobotPicDesc);
@@ -533,6 +533,7 @@ jQuery(document).ready(function( $ ){
         // put the title of this picture underneath
         var justH3 = $("<h3>");
         var specificRobotPicTitle = $("<span>");
+        specificRobotPicTitle.addClass("lightText");
         specificRobotPicTitle.attr("id", "imageTitleEdit");
         specificRobotPicTitle.attr("data-id", thisDataId);
         console.log("title before: ", title);
@@ -542,12 +543,13 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             specificRobotPicTitle.css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white'
+                'border-width': '4px',
+                'border-color': 'red'
               });
         } else {
             if (title === "None") {
                 specificRobotPicTitle.text("");
+                specificRobotPicTitle.removeClass("lightText");
             }
         }
         justH3.append(specificRobotPicTitle);
@@ -556,6 +558,7 @@ jQuery(document).ready(function( $ ){
         // put the desc of this picture underneath that
         var justH3 = $("<h3>");
         var specificRobotPicDesc = $("<span>");
+        specificRobotPicDesc.addClass("lightText");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisDataId);
         console.log("desc before: ", desc);
@@ -565,13 +568,13 @@ jQuery(document).ready(function( $ ){
         if (markLoggedIn === true) {
             specificRobotPicDesc.css({
                 'border-style': "solid",
-                'border-width': '1px',
-                'border-color': 'white',
-                'border-style': "double"
+                'border-width': '4px',
+                'border-color': 'red'
               });
         } else {
                 if (desc === "None") {
                     specificRobotPicDesc.text("");
+                    specificRobotPicDesc.removeClass("lightText");
                 }
             }
         justH3.append(specificRobotPicDesc);   
