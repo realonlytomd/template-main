@@ -456,7 +456,7 @@ jQuery(document).ready(function( $ ){
         var dataNoOfImages = $(this).parent().data("noofimages");
         console.log("dataNoOfImages: " + dataNoOfImages);
         if (dataNoOfImages > 1) {
-            $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
+            $("#specificRobot").append("<button type='button' class='lightText' id='showAdditionalImages'" + 
             ">Additional Images</button>");
         }
     });
