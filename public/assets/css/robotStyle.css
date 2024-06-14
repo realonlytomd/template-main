@@ -89,8 +89,8 @@ button, input#editTitle {
 
 .lightText {
     display: inline-block;  
-    background-color: rgb(140, 145, 146);
-    color: white;
+    background-color: rgb(201, 231, 237);
+    color: black;
     padding-left: 4px;
     padding-right: 4px;
     padding-top: 3px;
