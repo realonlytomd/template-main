@@ -88,12 +88,12 @@ button, input#editTitle {
 }
 
 .lightText {
+    color: white;
     display: inline-block;  
-    background-color: rgb(201, 231, 237);
-    color: black;
+    /*background-color: rgb(201, 231, 237);
     padding-left: 4px;
     padding-right: 4px;
-    padding-top: 3px;
+    padding-top: 3px;*/
 }
 
 #showImages {
@@ -120,7 +120,8 @@ button, input#editTitle {
     border-radius: 50%;
     outline-color: rgb(47, 63, 80);
     outline-style: groove;
-    box-shadow: 5px 10px 18px #1a4863;
+    box-shadow: 5px 10px 18px red;
+    /*box-shadow: 5px 10px 18px #1a4863;*/
     cursor: pointer;
 }
 
