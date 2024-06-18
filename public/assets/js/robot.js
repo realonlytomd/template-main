@@ -43,6 +43,12 @@ jQuery(document).ready(function( $ ){
     
     function waitOnPower() {
         $("#robotWaiting").hide();
+        // change background form blue robots to something else
+        $("body").css({
+            'background-image' : 'url("/assets/pictures/giphyrobot.gif")',
+            'background-size' : '50%',
+            'background-position' : 'center center'
+          });
         var power = $("<img>");
         power.attr("src","assets/pictures/redbutton.png" );
         power.attr("id","revealRobots");
