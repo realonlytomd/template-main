@@ -340,7 +340,7 @@ jQuery(document).ready(function( $ ){
         $("#editRobotName").text(name);
         if (markLoggedIn === true) {
             $("#editRobotName").css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
@@ -358,7 +358,7 @@ jQuery(document).ready(function( $ ){
         specificRobotBio.text(bio);
         if (markLoggedIn === true) {
             specificRobotBio.css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
@@ -383,7 +383,7 @@ jQuery(document).ready(function( $ ){
         console.log("building large image: typeof specificRobotOrder " + typeof specificRobotOrder);
         if (markLoggedIn === true) {
             specificRobotOrder.css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
@@ -421,7 +421,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicTitle.text(title);
         if (markLoggedIn === true) {
             specificRobotPicTitle.css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
@@ -445,7 +445,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicDesc.text(desc);
         if (markLoggedIn === true) {
             specificRobotPicDesc.css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
@@ -548,7 +548,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicTitle.text(title);
         if (markLoggedIn === true) {
             specificRobotPicTitle.css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
@@ -573,7 +573,7 @@ jQuery(document).ready(function( $ ){
         specificRobotPicDesc.text(desc);
         if (markLoggedIn === true) {
             specificRobotPicDesc.css({
-                'border-style': "solid",
+                'border-style': 'solid',
                 'border-width': '4px',
                 'border-color': 'red'
               });
