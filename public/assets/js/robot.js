@@ -45,8 +45,8 @@ jQuery(document).ready(function( $ ){
         $("#robotWaiting").hide();
         // change background form blue robots to something else
         $("body").css({
-            'background-image' : 'url("/assets/pictures/giphyrobot.gif")',
-            'background-size' : '50%',
+            'background-image' : 'url("/assets/pictures/giphymorerobots.gif")',
+            'background-size' : '30%',
             'background-position' : 'center center'
           });
         var power = $("<img>");
