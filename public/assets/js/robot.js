@@ -43,12 +43,12 @@ jQuery(document).ready(function( $ ){
     
     function waitOnPower() {
         $("#robotWaiting").hide();
-        // change background form blue robots to something else
+        // change background to blue robots
         $("body").css({
             'background-image' : 'url("/assets/pictures/giphymorerobots.gif")',
-            'background-size' : '30%',
+            //'background-size' : '45%',
             'background-position' : 'center center'
-          });
+        });
         var power = $("<img>");
         power.attr("src","assets/pictures/redbutton.png" );
         power.attr("id","revealRobots");
@@ -463,7 +463,7 @@ jQuery(document).ready(function( $ ){
         console.log("dataNoOfImages: " + dataNoOfImages);
         if (dataNoOfImages > 1) {
             $("#specificRobot").append("<button type='button' id='showAdditionalImages'" + 
-            ">Additional Images</button>");
+            ">Additional Views</button>");
         }
     });
 
@@ -564,7 +564,7 @@ jQuery(document).ready(function( $ ){
         // put the desc of this picture underneath that
         var justH3 = $("<h3>");
         var specificRobotPicDesc = $("<span>");
-        specificRobotPicDesc.addClass("lightText");
+        specificRobotPicDesc.addClass("descText");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisDataId);
         console.log("desc before: ", desc);
@@ -580,7 +580,7 @@ jQuery(document).ready(function( $ ){
         } else {
                 if (desc === "None") {
                     specificRobotPicDesc.text("");
-                    specificRobotPicDesc.removeClass("lightText");
+                    specificRobotPicDesc.removeClass("discText");
                 }
             }
         justH3.append(specificRobotPicDesc);   
