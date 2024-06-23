@@ -99,6 +99,7 @@ button, input#editTitle {
 
 .descText {
     background-color: rgb(140, 145, 146);
+    display: inline-block;
     /*background-color: rgb(201, 231, 237);
     padding-left: 4px;
     padding-right: 4px;
