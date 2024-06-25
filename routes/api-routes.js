@@ -94,10 +94,10 @@ module.exports = function(router) {
         console.log("req.body.title: ", req.body.title);
         console.log("req.body.desc: ", req.body.desc);
         if (req.body.title === "") {
-            req.body.title = "None";
+            req.body.title = "Title";
         }
         if (req.body.desc === "") {
-            req.body.desc = "None";
+            req.body.desc = "Description";
         }
         var obj = {
             title: req.body.title,
@@ -182,7 +182,7 @@ module.exports = function(router) {
         console.log("req.body.name: ", req.body.name);
         // if the name has been emptied out by mistake, "None" should be entered insted of blank
         if (req.body.name === "") {
-            req.body.name = "None";
+            req.body.name = "Name";
         }
         // find the intended robot properties, and change the values accordingly
         db.Robot.findOneAndUpdate (
@@ -211,7 +211,7 @@ module.exports = function(router) {
         console.log("req.body.bio: ", req.body.bio);
         // if bio has been emptied out, "None" should be entered insted of blank
         if (req.body.bio === "") {
-            req.body.bio = "None";
+            req.body.bio = "Biography";
         }
         // find the intended robot properties, and change the values accordingly
         db.Robot.findOneAndUpdate (
@@ -240,7 +240,7 @@ module.exports = function(router) {
         console.log("req.body.order: ", req.body.order);
         // if order has been emptied out, "None" should be entered insted of blank
         if (req.body.order === "") {
-            req.body.order = "None"; //should this be something besides a string?
+            req.body.order = "3000"; //should this be something besides a string?
         }
         // find the intended robot properties, and change the values accordingly
         db.Robot.findOneAndUpdate (
@@ -269,7 +269,7 @@ module.exports = function(router) {
         console.log("req.body.title: ", req.body.title);
         // if title has been emptied out, "None" should be entered insted of blank
         if (req.body.title === "") {
-            req.body.title = "None";
+            req.body.title = "Title";
         }
         // find the intended image properties, and change the values accordingly
         db.Image.findOneAndUpdate (
@@ -298,7 +298,7 @@ module.exports = function(router) {
         console.log("req.body.desc: ", req.body.desc);
         // if desc has been emptied out, "None" should be entered insted of blank
         if (req.body.desc === "") {
-            req.body.desc = "None";
+            req.body.desc = "Description";
         }
         // find the intended image properties, and change the values accordingly
         db.Image.findOneAndUpdate (

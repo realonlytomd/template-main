@@ -73,7 +73,7 @@ button.navbar-toggle {
 
 #rowCreateRobot {
     margin-top: 40px;
-    position: absolute;
+    position: relative;
 }
 
 #unitButton, #unitSizeButton {
@@ -118,6 +118,7 @@ button, input#editTitle {
 }
 
 .robotTitles {
+    color: white;
     display: inline-block;
     margin-right: 25px;
     margin-bottom: 10px;
@@ -215,10 +216,6 @@ button#homeButton, button#usersButton {
 
 input#feedRobot {
     margin-top: 5px;
-}
-
-#rowCreateRobot {
-    position: relative;
 }
 
 button.RobotButtons {

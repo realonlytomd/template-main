@@ -68,7 +68,7 @@ jQuery(document).ready(function( $ ){
         $("#specificRobot").empty();
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
-        $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
+        $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new robot
         $("#noImageYet").hide();
         console.log("markLoggedIn: " + markLoggedIn);
         if (markLoggedIn === true) {
@@ -89,7 +89,7 @@ jQuery(document).ready(function( $ ){
         wrongOrderIds = [];
 
         // set a time to wait to add the power on button
-        //setTimeout(waitOnPower, 8000);
+        // setTimeout(waitOnPower, 8000);
         
         //get the list of robots from the db
         $.getJSON("/getAllRobots", function(robots) {
@@ -133,9 +133,9 @@ jQuery(document).ready(function( $ ){
                         wrongOrderIds.push.apply(wrongOrderIds, myDataId); //array of image ids from 2nd robot db (differing order)
                         //console.log("wrongOrderIds: ", wrongOrderIds);
                         console.log("wrongOrderIds.length: ", wrongOrderIds.length);
-                        console.log("robots.length: ", robots.length);
-                        if (wrongOrderIds.length === robots.length) {
-                            console.log("wrongOrder.length = robots.length");
+                        console.log("allRobotNameswithImages.length: ", allRobotNameswithImages.length);
+                        if (wrongOrderIds.length === allRobotNameswithImages.length) {
+                            console.log("wrongOrder.length = allRobotNameswithImages.length");
                             setTimeout(waitOnPower, 1000);
                         }
                     });
@@ -363,7 +363,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (bio === "None") {
+            if (bio === "Biography") {
                 specificRobotBio.text("");
                 specificRobotBio.removeClass("lightText");
             }
@@ -390,7 +390,7 @@ jQuery(document).ready(function( $ ){
               justH4.append(specificRobotOrder);
               $("#specificRobot").append(justH4);
         } else {
-            if (order === NaN) {
+            if (order === NaN) { //not sure why I did this instead of just not writing it to DOM if Mark isn't logged in
                 specificRobotOrder.text("");
             }
         }
@@ -426,7 +426,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (title === "None") {
+            if (title === "Title") {
                 specificRobotPicTitle.text("");
                 specificRobotPicTitle.removeClass("lightText");
             }
@@ -450,7 +450,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (desc === "None") {
+            if (desc === "Description") {
                 specificRobotPicDesc.text("");
                 specificRobotPicDesc.removeClass("descText");
             }
@@ -553,7 +553,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (title === "None") {
+            if (title === "Title") {
                 specificRobotPicTitle.text("");
                 specificRobotPicTitle.removeClass("lightText");
             }
@@ -578,7 +578,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-                if (desc === "None") {
+                if (desc === "Description") {
                     specificRobotPicDesc.text("");
                     specificRobotPicDesc.removeClass("discText");
                 }
@@ -679,10 +679,10 @@ jQuery(document).ready(function( $ ){
         var bio = $("#robotBioInput").val().trim();
         var order = $("#robotOrderInput").val().trim();
         if (bio === "") {
-            bio = "None";
+            bio = "Biography";
         }
         if (order === "") {
-            order = "None";
+            order = "3000";
         }
         $.ajax({
             method: "GET",
@@ -713,8 +713,7 @@ jQuery(document).ready(function( $ ){
     // function to re-retrieve getAllData if no image is initially given to a new robot, the No Image button is clicked by Mark
     $(document).on("click", "#noImageYet", function(event) {
         event.preventDefault();
-        $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
-        $("#noImageYet").hide();
+        $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new robot
         //window.location.replace("/");
         getAllData();
     });
@@ -745,8 +744,7 @@ jQuery(document).ready(function( $ ){
     event.preventDefault();
     if (markLoggedIn === true) {
         $("#newRobotImageModal").modal("show");
-        $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
-        $("#noImageYet").hide();
+        $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new robot
         //currentRobotId is already set from Mark entering a new robot
         console.log("inside createImageRobot click, currentRobotId: ", currentRobotId);
         // make an ajax call for the robot to be populated
@@ -784,8 +782,7 @@ jQuery(document).ready(function( $ ){
             $("#title").val("");
             $("#desc").val("");
             $("#robotImageInput").val("");
-            $("#createImageRobot").hide();  // remove the button - it should only appear when Mark creates a new robot
-            $("#noImageYet").hide();
+            $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new robot
             $("#newRobotImageModal").modal("hide");
             //reload the current robot div showing the changes
             $("#imageDiv").empty();
