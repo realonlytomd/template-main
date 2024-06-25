@@ -277,6 +277,10 @@ p.directions {
         width: 40%;
     }
 
+    .descText {
+        width: 35%;
+    }
+
     #revealRobots {
         width: 12%;
     }

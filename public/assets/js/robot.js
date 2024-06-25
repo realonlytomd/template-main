@@ -195,7 +195,7 @@ jQuery(document).ready(function( $ ){
         }
         // change backgroud of body
         $("body").css({
-            'background-image' : 'url("/assets/pictures/allRobotDark.jpg")',
+            'background-image' : 'url("/assets/pictures/IMG_2361.jpg")',
             'background-size' : '50%',
             'background-position' : 'center top'
           });
