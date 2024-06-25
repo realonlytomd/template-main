@@ -363,7 +363,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (bio === "Biography") {
+            if (bio === "Biography" || bio === "None") {
                 specificRobotBio.text("");
                 specificRobotBio.removeClass("lightText");
             }
@@ -426,7 +426,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (title === "Title") {
+            if (title === "Title" || title === "None")  {
                 specificRobotPicTitle.text("");
                 specificRobotPicTitle.removeClass("lightText");
             }
@@ -450,7 +450,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (desc === "Description") {
+            if (desc === "Description" || desc === "None") {
                 specificRobotPicDesc.text("");
                 specificRobotPicDesc.removeClass("descText");
             }
@@ -553,7 +553,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-            if (title === "Title") {
+            if (title === "Title" || title === "None") {
                 specificRobotPicTitle.text("");
                 specificRobotPicTitle.removeClass("lightText");
             }
@@ -578,7 +578,7 @@ jQuery(document).ready(function( $ ){
                 'border-color': 'red'
               });
         } else {
-                if (desc === "Description") {
+                if (desc === "Description" || desc === "None") {
                     specificRobotPicDesc.text("");
                     specificRobotPicDesc.removeClass("discText");
                 }
