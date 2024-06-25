@@ -437,7 +437,7 @@ jQuery(document).ready(function( $ ){
         // put the desc of this picture underneath that
         var justH3 = $("<h3>");
         var specificRobotPicDesc = $("<span>");
-        specificRobotPicDesc.addClass("lightText");
+        specificRobotPicDesc.addClass("descText");
         specificRobotPicDesc.attr("id", "imageDescEdit");
         specificRobotPicDesc.attr("data-id", thisImageId);
         var desc = $(this).data("desc");
@@ -452,7 +452,7 @@ jQuery(document).ready(function( $ ){
         } else {
             if (desc === "None") {
                 specificRobotPicDesc.text("");
-                specificRobotPicDesc.removeClass("lightText");
+                specificRobotPicDesc.removeClass("descText");
             }
         }
         justH3.append(specificRobotPicDesc);
