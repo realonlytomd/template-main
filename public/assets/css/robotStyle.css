@@ -28,6 +28,10 @@ body {
     font-size: 24px;
 }
 
+#marksBioPoint {
+    cursor: pointer;
+}
+
 #marksBioPoint, #marksAddress, #marksSupport {
     color: #4b413b;
     font-size: 22px;
