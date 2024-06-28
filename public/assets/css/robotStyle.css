@@ -140,7 +140,6 @@ button, input#editTitle {
     box-shadow: 5px 10px 18px red;
     /*box-shadow: 5px 10px 18px #1a4863;*/
     cursor: pointer;
-    transform: translateZ(0);
 }
 
 #addtlImg {
