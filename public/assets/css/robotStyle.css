@@ -229,6 +229,7 @@ button.RobotButtons {
 }
 
 button#showAdditionalImages {
+    background-color: rgb(140, 145, 146);
     font-size: 22px;
 }
 

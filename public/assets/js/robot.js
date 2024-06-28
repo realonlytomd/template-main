@@ -46,7 +46,7 @@ jQuery(document).ready(function( $ ){
         // change background to blue robots
         $("body").css({
             'background-image' : 'url("/assets/pictures/giphymorerobots.gif")',
-            //'background-size' : '45%',
+            'background-size' : '65%',
             'background-position' : 'center center'
         });
         var power = $("<img>");
