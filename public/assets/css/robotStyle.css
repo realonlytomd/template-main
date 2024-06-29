@@ -16,6 +16,12 @@ body {
     background-position: center center;
 }
 
+h1, h2, h3, h4, p, a, li, footer {
+        font-family: "Handlee", cursive;
+        font-weight: 400;
+        font-style: normal;
+}
+
 #navColor {
     background-color: rgb(140, 145, 146);
     margin-bottom: 0px;
@@ -36,6 +42,7 @@ body {
     color: #4b413b;
     font-size: 22px;
     padding: 10px;
+    margin-left: 30px;
 }
 
 .navbar {
@@ -110,6 +117,7 @@ button, input#editTitle {
     padding-top: 3px;
     padding-bottom: 3px;*/
     width: 80%;
+    border-radius: 10px;
 }
 
 #showImages {
@@ -228,10 +236,10 @@ button.RobotButtons {
     margin-bottom: 5px;
 }
 
-button#showAdditionalImages {
+/*button#showAdditionalImages {
     background-color: rgb(140, 145, 146);
     font-size: 22px;
-}
+}*/
 
 span#editThisRobot {
     cursor: pointer;
