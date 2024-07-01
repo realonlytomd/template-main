@@ -580,7 +580,7 @@ jQuery(document).ready(function( $ ){
         } else {
                 if (desc === "Description" || desc === "None") {
                     specificRobotPicDesc.text("");
-                    specificRobotPicDesc.removeClass("discText");
+                    specificRobotPicDesc.removeClass("descText");
                 }
             }
         justH3.append(specificRobotPicDesc);   
