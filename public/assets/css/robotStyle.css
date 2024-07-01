@@ -16,12 +16,6 @@ body {
     background-position: center center;
 }
 
-.descText {
-        font-family: "Handlee", cursive;
-        font-weight: 400;
-        font-style: normal;
-}
-
 #navColor {
     background-color: rgb(140, 145, 146);
     margin-bottom: 0px;
@@ -51,6 +45,12 @@ body {
 
 button.navbar-toggle {
     margin-top: 23px;
+}
+
+#robotHeader {
+        font-family: "Audiowide", sans-serif;
+        font-weight: 400;
+        font-style: normal;
 }
 
 .wrapper {
@@ -111,11 +111,9 @@ button, input#editTitle {
 .descText {
     background-color: rgb(140, 145, 146);
     display: inline-block;
-    /*background-color: rgb(201, 231, 237);
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 3px;
-    padding-bottom: 3px;*/
+    font-family: "Amaranth", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     width: 80%;
     border-radius: 50px;
     padding: 15px;
