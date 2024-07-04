@@ -25,6 +25,14 @@ body {
 
 #navbarText {
     color: #4b413b;
+    font-size: 22px;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#navHeaders {
+    color: #4b413b;
     font-size: 24px;
 }
 
@@ -51,6 +59,7 @@ button.navbar-toggle {
         font-family: "Audiowide", sans-serif;
         font-weight: 400;
         font-style: normal;
+        font-size: 28px;
 }
 
 .wrapper {
@@ -235,10 +244,9 @@ button.RobotButtons {
     margin-bottom: 5px;
 }
 
-/*button#showAdditionalImages {
-    background-color: rgb(140, 145, 146);
-    font-size: 22px;
-}*/
+button#showAdditionalImages {
+    font-size: 27px;
+}
 
 span#editThisRobot {
     cursor: pointer;
@@ -282,6 +290,10 @@ p.directions {
         background-size: 25%;
     }
 
+    #robotHeader {
+        font-size: 40px;
+    }
+
     .bigRobotImage, .addtlBigRobotImage {
         width: 40%;
     }
@@ -296,5 +308,9 @@ p.directions {
 
     #robotWaiting {
         width: 30%;
+    }
+
+    button#showAdditionalImages {
+        font-size: 35px;
     }
 }

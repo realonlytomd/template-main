@@ -136,7 +136,7 @@ jQuery(document).ready(function( $ ){
                         console.log("allRobotNameswithImages.length: ", allRobotNameswithImages.length);
                         if (wrongOrderIds.length === allRobotNameswithImages.length) {
                             console.log("wrongOrder.length = allRobotNameswithImages.length");
-                            setTimeout(waitOnPower, 1000);
+                            setTimeout(waitOnPower, 3000);
                         }
                     });
                 }
