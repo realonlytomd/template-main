@@ -1,7 +1,7 @@
 {
-  "name": "simple-robot",
+  "name": "simple-item",
   "version": "1.0.0",
-  "description": "Mark's robot site with older tech.",
+  "description": "Generic site to show off artist's item.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/realonlytomd/simple-robot.git"
+    "url": "git+https://github.com/realonlytomd/template-main.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/realonlytomd/simple-robot/issues"
+    "url": "https://github.com/realonlytomd/template-main/issues"
   },
-  "homepage": "https://github.com/realonlytomd/simple-robot#readme",
+  "homepage": "https://github.com/realonlytomd/template-main#readme",
   "keywords": [],
   "dependencies": {
     "array-rearrange": "^2.2.2",

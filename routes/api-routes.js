@@ -36,12 +36,12 @@ var imagesHold = [];
 
 module.exports = function(router) {
 
-    // route for getting all the robots out of the db
-    router.get("/getAllRobots", function(req, res) {
-        db.Robot.find({})
-            .then(function(dbAllRobots) {
-                //console.log("dbAllRobots from /getAllRobots; ", dbAllRobots);
-                res.json(dbAllRobots);
+    // route for getting all the items out of the db
+    router.get("/getAllItems", function(req, res) {
+        db.Item.find({})
+            .then(function(dbAllItems) {
+                //console.log("dbAllItems from /getAllItems; ", dbAllItems);
+                res.json(dbAllItems);
             })
             .catch(function(err) {
                 // or send the error
@@ -49,10 +49,10 @@ module.exports = function(router) {
             });
     });
   
-    // Route for getting a specific Robot by id, and then populate it with an array for Images
-    router.get("/popRobot/:id", function(req, res) {
+    // Route for getting a specific Item by id, and then populate it with an array for Images
+    router.get("/popItem/:id", function(req, res) {
         // Using the id passed in the id parameter, and make a query that finds the matching one in the db
-        db.Robot.findOne({ _id: req.params.id })
+        db.Item.findOne({ _id: req.params.id })
             // then populate the kitten schema associated with it
             .populate([
                 {
@@ -60,10 +60,10 @@ module.exports = function(router) {
                     model: "Image"
                 }
             ])
-            .then(function(dbRobot) {
+            .then(function(dbItem) {
             // If successful, find a User with the given id, send it back to the client
-            console.log("api-routes.js, JUST POPULATE ROBOT, dbRobot: ", dbRobot);
-            res.json(dbRobot);
+            console.log("api-routes.js, JUST POPULATE ITEM, dbItem: ", dbItem);
+            res.json(dbItem);
             })
             .catch(function(err) {
             // but if an error occurred, send it to the client
@@ -71,14 +71,14 @@ module.exports = function(router) {
             });
     });
 
-    // Route for creating a new Robot
-    router.get("/createRobot/", function(req, res) {
-        console.log("from /createRobot, req.query: ", req.query);
-        db.Robot.create(req.query)
-            .then(function(dbRobot) {
+    // Route for creating a new Item
+    router.get("/createItem/", function(req, res) {
+        console.log("from /createItem, req.query: ", req.query);
+        db.Item.create(req.query)
+            .then(function(dbItem) {
                 // View the added result in the console
-            console.log("what was created in the robot db, dbRobot: ", dbRobot);
-            res.json(dbRobot);
+            console.log("what was created in the item db, dbItem: ", dbItem);
+            res.json(dbItem);
             })
             .catch(function(err) {
             // If an error occurred, send it to the client
@@ -87,9 +87,9 @@ module.exports = function(router) {
     });
 
     //This is Step 8 from notes on uploading the images chosen by the user
-    //It's now being called from robot.js, not directly from html form
+    //It's now being called from item.js, not directly from html form
     // 
-    router.post("/createImageRobot/:id", upload.single("robotImageInput"), (req, res, next) => {
+    router.post("/createImagetem/:id", upload.single("itemImageInput"), (req, res, next) => {
         console.log("from api-routes step 8, req.file.filename: ", req.file.filename);
         console.log("req.body.title: ", req.body.title);
         console.log("req.body.desc: ", req.body.desc);
@@ -111,15 +111,15 @@ module.exports = function(router) {
             .then(function(dbImage) {
                 //console.log("after .create Image - dbImage: ", dbImage);
                 //pushing the new kitten image into the document kitten array
-                return db.Robot.findOneAndUpdate(
+                return db.Item.findOneAndUpdate(
                     { _id: req.params.id },
                     { $push: { image: dbImage._id } },
                     { new: true }
                 );
             })
-            .then(function(dbRobot) {
-                //send back the correct robot with the new data in the image array
-                res.json(dbRobot);
+            .then(function(dbItem) {
+                //send back the correct item with the new data in the image array
+                res.json(dbItem);
 
             })
             .catch(function(err) {
@@ -128,14 +128,14 @@ module.exports = function(router) {
             });
     });
 
-    //This route gets one robot document from robot collection
-    router.get("/getARobot/:id", function(req, res) {
+    //This route gets one item document from item collection
+    router.get("/getAItem/:id", function(req, res) {
         //console.log("inside api-routes: req.params: ", req.params);
-        // need to find the correct robot, and retrieve it's data, 
-        db.Robot.find({ _id: req.params.id })
-            .then(function(dbARobot) {
-                res.json(dbARobot);
-                console.log("from route /getARobot:id, dbARobot: ", dbARobot);
+        // need to find the correct item, and retrieve it's data, 
+        db.Item.find({ _id: req.params.id })
+            .then(function(dbAItem) {
+                res.json(dbAItem);
+                console.log("from route /getAItem:id, dbAItem: ", dbAItem);
             })
             .catch(function(err) {
             // However, if an error occurred, send it to the client
@@ -143,13 +143,13 @@ module.exports = function(router) {
             });
     });
     
-    // the GET route for getting all the images from one robot in the db
+    // the GET route for getting all the images from one item in the db
     router.get("/getImages/:id" , (req, res) => {
         //console.log("in /getImages/, req.params.id: ", req.params.id );
             db.Image.find({ _id: req.params.id})
             .then((records) => {
                 // console.log("this is records from api route /getImages/: ", records);
-                //for loop to create array of robot images from records from db
+                //for loop to create array of item images from records from db
                 //study: I'm only getting one record, instead of all of them, so this loop doesn't really need to be here,
                 // it's only going through once, and client side has the .forEach to go through the full array. Leaving it for now...
                 for (i=0; i<records.length; i++) {
@@ -160,10 +160,10 @@ module.exports = function(router) {
                 //console.log("inside /getImages/, records[0].title: " + records[0].title);
                 const formattedImages = imagesHold.map(buffer => {
                     //return `<img data-title=` + records[0].title + ` data-id=` + records[0]._id + ` class="theImages" title=` + records[0].title + ` src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
-                    return `<img data-id=` + records[0]._id + ` id="robotImg" class="theImages" data-desc="` + records[0].desc + 
-                    `" title="` + records[0].title + `" alt="robotpic" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
+                    return `<img data-id=` + records[0]._id + ` id="itemImg" class="theImages" data-desc="` + records[0].desc + 
+                    `" title="` + records[0].title + `" alt="itempic" src="data:image/jpeg;base64,${buffer.toString("base64")}"/>`
                 });
-                res.send(formattedImages)  //this should be going back to robots.js
+                res.send(formattedImages)  //this should be going back to items.js
                 //empty out arrays
                 imgHold = [];
                 imagesHold = [];
@@ -174,28 +174,28 @@ module.exports = function(router) {
         
     });
 
-    // changing the name of a robot in the db
+    // changing the name of a item in the db
        
-       router.post("/editRobotName/:robotId", function(req, res) {
-        console.log("req.params.robotId: ", req.params.robotId);
+       router.post("/editItemName/:itemId", function(req, res) {
+        console.log("req.params.itemId: ", req.params.itemId);
         //console.log("req.body: ", req.body);
         console.log("req.body.name: ", req.body.name);
         // if the name has been emptied out by mistake, "None" should be entered insted of blank
         if (req.body.name === "") {
             req.body.name = "Name";
         }
-        // find the intended robot properties, and change the values accordingly
-        db.Robot.findOneAndUpdate (
-            { _id: req.params.robotId },
+        // find the intended item properties, and change the values accordingly
+        db.Item.findOneAndUpdate (
+            { _id: req.params.itemId },
             {$set: { 
                 name: req.body.name, 
             }},
             { new: true } //send new one back
         )
-            .then(function(dbRobot) {
-                console.log("dbRobot: ", dbRobot);
+            .then(function(dbItem) {
+                console.log("dbItem: ", dbItem);
                 // If successful, send the newly edited data back to the client
-                res.json(dbRobot);
+                res.json(dbItem);
             })
             .catch(function(err) {
             // but if an error occurred, send it to the client
@@ -203,28 +203,28 @@ module.exports = function(router) {
             });
     });
 
-    // changing the bio of a robot in the db
+    // changing the bio of a item in the db
        
-    router.post("/editRobotBio/:robotId", function(req, res) {
-        console.log("req.params.robotId: ", req.params.robotId);
+    router.post("/editItemBio/:itemId", function(req, res) {
+        console.log("req.params.itemId: ", req.params.itemId);
         //console.log("req.body: ", req.body);
         console.log("req.body.bio: ", req.body.bio);
         // if bio has been emptied out, "None" should be entered insted of blank
         if (req.body.bio === "") {
             req.body.bio = "Biography";
         }
-        // find the intended robot properties, and change the values accordingly
-        db.Robot.findOneAndUpdate (
-            { _id: req.params.robotId },
+        // find the intended item properties, and change the values accordingly
+        db.Item.findOneAndUpdate (
+            { _id: req.params.itemId },
             {$set: { 
                 bio: req.body.bio, 
             }},
             { new: true } //send new one back
         )
-            .then(function(dbRobot) {
-                console.log("dbImage: ", dbRobot);
+            .then(function(dbItem) {
+                console.log("dbImage: ", dbItem);
                 // If successful, send the newly edited data back to the client
-                res.json(dbRobot);
+                res.json(dbItem);
             })
             .catch(function(err) {
             // but if an error occurred, send it to the client
@@ -232,28 +232,28 @@ module.exports = function(router) {
             });
     });
 
-    // changing the order of a robot in the db
+    // changing the order of a item in the db
        
-    router.post("/editRobotOrder/:robotId", function(req, res) {
-        console.log("req.params.robotId: ", req.params.robotId);
+    router.post("/editItemOrder/:itemId", function(req, res) {
+        console.log("req.params.itemId: ", req.params.itemId);
         //console.log("req.body: ", req.body);
         console.log("req.body.order: ", req.body.order);
         // if order has been emptied out, "None" should be entered insted of blank
         if (req.body.order === "") {
             req.body.order = "3000"; //should this be something besides a string?
         }
-        // find the intended robot properties, and change the values accordingly
-        db.Robot.findOneAndUpdate (
-            { _id: req.params.robotId },
+        // find the intended item properties, and change the values accordingly
+        db.Item.findOneAndUpdate (
+            { _id: req.params.itemId },
             {$set: { 
                 order: req.body.order, 
             }},
             { new: true } //send new one back
         )
-            .then(function(dbRobot) {
-                console.log("dbImage: ", dbRobot);
+            .then(function(dbItem) {
+                console.log("dbImage: ", dbItem);
                 // If successful, send the newly edited data back to the client
-                res.json(dbRobot);
+                res.json(dbItem);
             })
             .catch(function(err) {
             // but if an error occurred, send it to the client
@@ -337,21 +337,21 @@ module.exports = function(router) {
         });
     });
 
-    // This route deletes the reference to the image document in the associated robot document
-    router.post("/robot/removeRef/:id", function(req, res) {
+    // This route deletes the reference to the image document in the associated item document
+    router.post("/item/removeRef/:id", function(req, res) {
         //console.log("req:", req);
-        console.log("remove an image reference: robot id: ", req.params.id);
+        console.log("remove an image reference: item id: ", req.params.id);
         console.log("data transferred to remove image reference, req.body: ", req.body);
         console.log("req.body.imageId: ", req.body.imageId);
     // delete (or pull) the id of the image and pass the req.body to the entry
-    db.Robot.findOneAndUpdate(
+    db.Item.findOneAndUpdate(
         { _id: req.params.id },
         { $pull: { image: req.body.imageId }}, // this imageid should be the image's id to be removed
         { new: true }
     )
-        .then(function(dbRobot) {
-            console.log("after .then db.Robot.findOneAndUpdate $pull, dbRobot: ", dbRobot);
-            res.json(dbRobot);
+        .then(function(dbItem) {
+            console.log("after .then db.Item.findOneAndUpdate $pull, dbItem: ", dbItem);
+            res.json(dbItem);
         })
         .catch(function(err) {
         // If an error occurred, send it to the client
@@ -360,16 +360,16 @@ module.exports = function(router) {
     });
 
     // This route deletes the kitten the user wants to delete
-    router.delete("/robot/delete/:id", function(req, res) {
-        console.log("in /robot/delete, req.params: ", req.params);
-        console.log("in /robot/delete/, req.params.id: ", req.params.id);
-        // delete the whole robot group
-        db.Robot.deleteOne(
+    router.delete("/item/delete/:id", function(req, res) {
+        console.log("in /item/delete, req.params: ", req.params);
+        console.log("in /item/delete/, req.params.id: ", req.params.id);
+        // delete the whole item group
+        db.Item.deleteOne(
             { _id: req.params.id }
         )
-        .then(function(dbRobot) {
-            console.log("delete a robot, dbRobot: ", dbRobot);
-            res.json(dbRobot);
+        .then(function(dbItem) {
+            console.log("delete a item, dbItem: ", dbItem);
+            res.json(dbItem);
         })
         .catch(function(err) {
             // but if an error occurred, send it to the client
