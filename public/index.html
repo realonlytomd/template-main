@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <title>Robots: Mark</title>
+        <title>Item: Person</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/robotStyle.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/itemStyle.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -22,21 +22,21 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>                        
 					</button>
-					<h1 class="navbar-brand" id="navbarText"><b>ReMARKableRobot.com</b></h1>
+					<h1 class="navbar-brand" id="navbarText"><b>website.com</b></h1>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown"  id="navHeaders" href="#"><b>The Artist</b><span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li data-toggle="collapse" data-target=".navbar-collapse.in" id="marksBioPoint">It's All About Me</li>
-                                    <li data-toggle="collapse" data-target=".navbar-collapse.in" id="marksAddress">Contact: thatmark42@gmail.com</li>
+									<li data-toggle="collapse" data-target=".navbar-collapse.in" id="marksBioPoint">Biography</li>
+                                    <li data-toggle="collapse" data-target=".navbar-collapse.in" id="marksAddress">Contact:</li>
 								</ul>
 						</li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" id="navHeaders" href="#"><span class="redBlink"><b>Support Me</b></span><span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<a href="https://ko-fi.com/mark42" target="_blank"><li id="marksSupport">Buy Me a Coffee</li></a>
+									<a href="" target="_blank"><li id="artistSupport">Link to Patreon, etc.</li></a>
 								</ul>
 						</li>
 					</ul>
@@ -47,39 +47,19 @@
             <div class="wrapper">
                 <div class="no-gutters text-center" id="powerOnGoes">
                     <img id="robotWaiting" src="assets/pictures/stationwait.gif" alt="Please Stand By">
-                    <!--<button type="button" class="btn btn-warning btn-primary btn-lg" id="revealRobots">Power On</button>-->
                 </div>
-                <!-- Modal for displaying Mark's Artist information-->
+                <!-- Modal for displaying Artist information-->
                 <div class="modal fade" id="marksBioShow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">It's All About Me</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">Biography</h2>
                             </div>
                             <div class="modal-body">
                                 <div>
-                                    <img src="assets/pictures/playamarkcrop.jpg" alt="mark bio pic" style="width:100%;">
-                                    <h3>I’ve never had a website before and don’t know the first thing about making one.
-                                        So, like my robot projects, I thought it would be a fun and challenging endeavor and it definitely was. 
-                                        A special thanks to the web developer who spent countless hours working on it and suggesting design 
-                                        and layout ideas I never would have envisioned.<br><br>
-                                        I come from an artistic family; my dad and sister went to art school. I took a different path 
-                                        and graduated with an electrical engineering degree which was more aligned with my mom’s background. 
-                                        I was also fascinated with science fiction from an early age. I was glued to the original 1965
-                                         Lost in Space series. I especially liked the robot and the many other robots of movies and 
-                                         television that followed over the years. When you put together my love to build and fix things 
-                                         with my need for an artistic outlet, this obsession kind of makes sense.<br><br>
-                                        My process seems to repeat for all of the robots. I usually start with a cool vintage device 
-                                        that inspires me and then I see where it goes. I try different parts, then often get discouraged 
-                                        and put it aside. I eventually find something that works with the overall theme and it all 
-                                        comes together. Finding a way to assemble parts that weren’t meant to fit cohesively has 
-                                        become my favorite part of the design. All of my sculptures are bolted or riveted and I sometimes 
-                                        add lighting effects to take them to another level. Doing something different every time 
-                                        keeps the process interesting.<br><br>
-                                        So, enough about me, what do you think of me? I mean my robots!  Please email me with 
-                                        comments or questions.<br><br>
-                                        -mark</h3>
+                                    <img src="assets/pictures/giphyrobot.gif" alt="artist bio pic" style="width:100%;">
+                                    <h3>Stuff to say about you.</h3>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -89,31 +69,31 @@
                     </div>
                 </div>
                 <!-- End of Bootstrap modal code -->
-                <!-- First Modal for entering new Robot-->
-                <div class="modal fade" id="newRobotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <!-- First Modal for entering new Item-->
+                <div class="modal fade" id="newItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">New Robot Entry</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Item Entry</h2>
                             </div>
                             <div class="modal-body">
-                                <!-- entry form for entering info about the new robot-->
+                                <!-- entry form for entering info about the new item-->
                                 <div class="form-group">
-                                    <label for="robotNameInput">Robot Name:</label>
-                                    <input type="text" class="form-control" name="name" id="robotNameInput" placeholder="Enter a Name">
+                                    <label for="itemNameInput">Item Name:</label>
+                                    <input type="text" class="form-control" name="name" id="itemNameInput" placeholder="Enter a Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="robotBioInput">Robot Biography:</label>
-                                    <textarea id="robotBioInput" name="bio" rows="7" placeholder="Enter the Robot's Biography">
+                                    <label for="itemBioInput">Item Biography:</label>
+                                    <textarea id="itemBioInput" name="bio" rows="7" placeholder="Enter the Item's Biography">
                                     </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="robotOrderInput">Robot Order:</label>
-                                    <input type="number" class="form-control" id="robotOrderInput" name="order" placeholder="Enter the Robot's Order">
+                                    <label for="itemOrderInput">Item Order:</label>
+                                    <input type="number" class="form-control" id="itemOrderInput" name="order" placeholder="Enter the Item's Order">
                                     </textarea>
                                 </div>
-                                <button type="submit" id="submitNewRobot">Submit</button>
+                                <button type="submit" id="submitNewItem">Submit</button>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal">Close</button>
@@ -122,44 +102,44 @@
                     </div>
                 </div>
                 <!-- End of Bootstrap modal code -->
-                <!-- Modal for editing a robot's Name -->
+                <!-- Modal for editing a item's Name -->
                 <div class="modal fade" id="editNameForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">New Name of Robot</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Name of Item</h2>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="editName">New Name of Robot:</label>
+                                    <label for="editName">New Name of Item:</label>
                                     <input type="text" class="form-control" name="editName" id="editName" placeholder="">
                                 </div>
-                                <button type="submit" id="submitEditedRobotName">Submit</button>
+                                <button type="submit" id="submitEditedItemName">Submit</button>
                             </div>
                             <div class="modal-footer">
-                                <button class="pull-left btn-danger" type="submit" id="deleteRobot">Delete Robot!</button>
+                                <button class="pull-left btn-danger" type="submit" id="deleteItem">Delete Item!</button>
                                 <button type="button" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End of Bootstrap modal code -->
-                <!-- Modal for editing an robot's Bio -->
+                <!-- Modal for editing an item's Bio -->
                 <div class="modal fade" id="editBioForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">New Bio of Robot</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Bio of Item</h2>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="editBio">New Bio of Robot:</label>
+                                    <label for="editBio">New Bio of Item:</label>
                                     <textarea id="editBio" name="editBio" rows="7" placeholder="">
                                     </textarea>
                                 </div>
-                                <button type="submit" id="submitEditedRobotBio">Submit</button>
+                                <button type="submit" id="submitEditedItemBio">Submit</button>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal">Close</button>
@@ -167,20 +147,20 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modal for editing an robot's Order -->
+                <!-- Modal for editing an item's Order -->
                 <div class="modal fade" id="editOrderForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">New Order of Robot</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Order of Item</h2>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="editOrder">New Order of Robot:</label>
+                                    <label for="editOrder">New Order of Item:</label>
                                     <input type="text" class="form-control" name="editOrder" id="editOrder" placeholder="">
                                 </div>
-                                <button type="submit" id="submitEditedRobotOrder">Submit</button>
+                                <button type="submit" id="submitEditedItemOrder">Submit</button>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal">Close</button>
@@ -233,25 +213,25 @@
                     </div>
                 </div>
                 <!-- End of Bootstrap modal code -->
-                <!-- What user sees including What Mark sees while editing or adding robots-->
-                <div id="rowCreateRobot" class="row">
+                <!-- What user sees including What Mark sees while editing or adding items-->
+                <div id="rowCreateItem" class="row">
                     <div class="col-xs-12 text-center">
-                        <button type="button" data-toggle="modal" data-target="#newRobotModal" id="createRobot">
-                            New Robot
+                        <button type="button" data-toggle="modal" data-target="#newItemModal" id="createItem">
+                            New Item
                         </button>
                         <div id="mainImageButtonSpace"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <h1 class="lightText" id="robotHeader">ReMARKableRobot.com</h1>
-                        <div id="currentRobots"></div>
+                        <h1 class="lightText" id="itemHeader">website.com</h1>
+                        <div id="currentItems"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <h2><span class="lightText" id="editRobotName"></span></h2>
-                        <div id="specificRobot"></div>
+                        <h2><span class="lightText" id="editItemName"></span></h2>
+                        <div id="specificItem"></div>
                     </div>
                 </div>
                 <div Class="row">
@@ -264,16 +244,16 @@
                         <div id="largeAddtlImages"></div>
                     </div>
                 </div>
-                <!-- Modal for entering new robot image-->
-                <div class="modal fade" id="newRobotImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <!-- Modal for entering new item image-->
+                <div class="modal fade" id="newItemImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">New Robot Image Entry</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">New Item Image Entry</h2>
                             </div>
                             <div class="modal-body">
-                                <form id="RobotImageInputForm" method="POST" enctype="multipart/form-data">
+                                <form id="itemImageInputForm" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="title">Image Title</label>
                                         <input type="text" id="title" placeholder="Title" name="title">
@@ -283,10 +263,10 @@
                                         <textarea id="desc" name="desc" rows="3" placeholder="Description"></textarea>
                                     </div>
                                     <div class="form-group">
-                                    <label for="robotImageInput">Upload Picture of Robot:</label>
-                                    <input type="file" class="form-control" id="robotImageInput" name="robotImageInput">
+                                    <label for="itemImageInput">Upload Picture of Item:</label>
+                                    <input type="file" class="form-control" id="itemImageInput" name="itemImageInput">
                                     </div>
-                                    <button type="submit" id="submitNewRobotImage">Submit</button>
+                                    <button type="submit" id="submitNewItemImage">Submit</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -297,7 +277,7 @@
                 </div>
                 <!-- End of Bootstrap modal code -->
                 <!-- Modal for Mark to log in -->
-                <div class="modal fade" id="loginMark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="loginArtist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -335,7 +315,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-        <script type="text/javascript" src="assets/js/robot.js"></script>
+        <script type="text/javascript" src="assets/js/item.js"></script>
     </body>
 </html>
     
