@@ -2,6 +2,6 @@
 //  
 //
 module.exports = {
-    Robot: require("./Robot"),
+    Item: require("./Item"),
     Image: require("./Image")
   };
