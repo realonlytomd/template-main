@@ -94,6 +94,9 @@ jQuery(document).ready(function( $ ){
         //get the list of items from the db
         $.getJSON("/getAllItems", function(items) {
             console.log("items array, from getAllData function", items);
+            if (items = []) {
+                waitOnPower();
+            }
             for (i=0; i<items.length; i++) {
                 allItemIds.push (items[i]._id);
                 allItemNameswithImages.push(items[i].name);
