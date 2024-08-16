@@ -152,7 +152,7 @@ jQuery(document).ready(function( $ ){
     $(document).on("click", "#markserafin", function(event) {
         event.preventDefault();
         console.log("Mark has clicked log in!");
-        $("#loginMark").modal("show");
+        $("#loginArtist").modal("show");
     });
 
     // after Mark enters his password and clicks submit
@@ -165,7 +165,7 @@ jQuery(document).ready(function( $ ){
             markLoggedIn = true;
             console.log("markLoggedIn: " + markLoggedIn);
             $("#enterPass").val("");
-            $("#loginMark").modal("hide");
+            $("#loginArtist").modal("hide");
             // now enter functions that are called to show Mark what he can edit.
             $("#logoutButton").show();
             $("button#createItem").show();
