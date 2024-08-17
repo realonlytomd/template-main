@@ -55,7 +55,7 @@ button.navbar-toggle {
     margin-top: 23px;
 }
 
-#robotHeader {
+#itemHeader {
         font-family: "Audiowide", sans-serif;
         font-weight: 400;
         font-style: normal;
@@ -79,19 +79,19 @@ button.navbar-toggle {
     padding-left: 0px;
 }
 
-#robotWaiting {
+#itemWaiting {
     width: 50%;
     margin-top: 175px;
 }
 
-#revealRobots {
+#revealItems {
     margin-top: 250px;
     color: #4b413b;
     width: 30%;
     cursor: pointer;
 }
 
-#rowCreateRobot {
+#rowCreateItem {
     margin-top: 40px;
     position: relative;
 }
@@ -137,7 +137,7 @@ button, input#editTitle {
     cursor: pointer;
 }
 
-.robotTitles {
+.itemTitles {
     color: white;
     display: inline-block;
     margin-right: 25px;
@@ -163,7 +163,7 @@ button, input#editTitle {
     margin-bottom: 36px;
 }
 
-.bigRobotImage {
+.bigItemImage {
     width: 90%;
 }
 
@@ -175,7 +175,7 @@ button, input#editTitle {
     margin-top: 30px;
 }
 
-.addtlBigRobotImage {
+.addtlBigItemImage {
     width: 90%
 }
 
@@ -234,11 +234,11 @@ button#homeButton, button#usersButton {
     margin-top: 0px;
 }
 
-input#feedRobot {
+input#feedItem {
     margin-top: 5px;
 }
 
-button.RobotButtons {
+button.ItemButtons {
     margin-left: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -248,14 +248,14 @@ button#showAdditionalImages {
     font-size: 27px;
 }
 
-span#editThisRobot {
+span#editThisItem {
     cursor: pointer;
     display: inline-block;
     margin-left: 6px;
     margin-right: 6px;
 }
 
-.editRobotImageTitle, .editRobotImageDesc {
+.editItemImageTitle, .editItemImageDesc {
     cursor: pointer;
 }
 
@@ -281,7 +281,7 @@ p.directions {
     display: inline-block;
 }
 
-#submitNewRobotMetrics {
+#submitNewItemMetrics {
     margin-top: 20px;
 }
 
@@ -290,11 +290,11 @@ p.directions {
         background-size: 25%;
     }
 
-    #robotHeader {
+    #itemHeader {
         font-size: 40px;
     }
 
-    .bigRobotImage, .addtlBigRobotImage {
+    .bigItemImage, .addtlBigItemImage {
         width: 40%;
     }
 
@@ -302,11 +302,11 @@ p.directions {
         width: 35%;
     }
 
-    #revealRobots {
+    #revealItems {
         width: 12%;
     }
 
-    #robotWaiting {
+    #itemWaiting {
         width: 30%;
     }
 

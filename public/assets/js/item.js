@@ -94,7 +94,9 @@ jQuery(document).ready(function( $ ){
         //get the list of items from the db
         $.getJSON("/getAllItems", function(items) {
             console.log("items array, from getAllData function", items);
-            if (items = []) {
+            console.log("items.length: ", items.length);
+            if (items.length === 0) {
+                console.log("this is being called");
                 waitOnPower();
             }
             for (i=0; i<items.length; i++) {
@@ -309,7 +311,7 @@ jQuery(document).ready(function( $ ){
             itemIconArray.push(itemIcon);
         }
 
-        console.log("itemIconArry.length: " + itemIconArray.length);
+        console.log("itemIconArray.length: " + itemIconArray.length);
         console.log("itemIconArray[0]: ", itemIconArray[0]);
         
         for (let i=0; i<itemIconArray.length; i++) {
@@ -767,7 +769,7 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         //get form from html
         console.log("inside 'submitNewItemImage' click, currentItemId: ", currentItemId);
-        var imageform = $("#ItemImageInputForm")[0];
+        var imageform = $("#itemImageInputForm")[0];
         // Create an FormData object called imageData
         var imageData = new FormData(imageform);
         $.ajax({
