@@ -95,10 +95,10 @@ jQuery(document).ready(function( $ ){
         $.getJSON("/getAllItems", function(items) {
             console.log("items array, from getAllData function", items);
             console.log("items.length: ", items.length);
-            if (items.length === 0) {
-                console.log("this is being called");
-                waitOnPower();
-            }
+            // if (items.length === 0) {  //I think I put this here before there were any items in db
+            //     console.log("this is being called");
+            //     waitOnPower();
+            // }
             for (i=0; i<items.length; i++) {
                 allItemIds.push (items[i]._id);
                 allItemNameswithImages.push(items[i].name);
@@ -141,7 +141,7 @@ jQuery(document).ready(function( $ ){
                         console.log("allItemNameswithImages.length: ", allItemNameswithImages.length);
                         if (wrongOrderIds.length === allItemNameswithImages.length) {
                             console.log("wrongOrder.length = allItemNameswithImages.length");
-                            setTimeout(waitOnPower, 3000);
+                            setTimeout(waitOnPower, 3000);  //this adds 3 seconds to wait on the power button, not needed
                         }
                     });
                 }
