@@ -36,11 +36,11 @@ body {
     font-size: 24px;
 }
 
-#marksBioPoint {
+#personsBioPoint {
     cursor: pointer;
 }
 
-#marksBioPoint, #marksAddress, #marksSupport {
+#personsBioPoint, #personsAddress, #personsSupport {
     color: #4b413b;
     font-size: 22px;
     padding: 10px;
@@ -259,7 +259,7 @@ span#editThisItem {
     cursor: pointer;
 }
 
-#markCopy {
+#personCopy {
     margin-top: 10px;
     margin-bottom: 0px;
 }

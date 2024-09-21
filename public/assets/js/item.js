@@ -12,7 +12,7 @@ jQuery(document).ready(function( $ ){
     var allItemImageIds = [];
     var allImagesOfItems = [];
     var wrongOrderIds = [];
-    var markLoggedIn = false;
+    var personLoggedIn = false;
     var itemIconArray = []; // the array built to house all the items and info in the icon stage, to be sorted to allItemOrder
     // these will be copies of the original array for item order as the original is used 4 times to reorder other arrays
     // and .sort() changes the original array.  I'm not sure I'll need them, but just in case.
@@ -29,9 +29,9 @@ jQuery(document).ready(function( $ ){
     var thisImageId; //data-id of image
 
     // code to bring up Mark's biography modal
-    $(document).on("click", "#marksBioPoint", function(event) {
+    $(document).on("click", "#personsBioPoint", function(event) {
         event.preventDefault();
-        $("#marksBioShow").modal("show");
+        $("#personsBioShow").modal("show");
     });
 
     // Need to add the inital load code that shows the user the item's currently in the db.
@@ -70,8 +70,8 @@ jQuery(document).ready(function( $ ){
         $("#largeAddtlImages").empty();
         $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new item
         $("#noImageYet").hide();
-        console.log("markLoggedIn: " + markLoggedIn);
-        if (markLoggedIn === true) {
+        console.log("personLoggedIn: " + personLoggedIn);
+        if (personLoggedIn === true) {
             $("#logoutButton").show();
             $("button#createItem").show();
             $("#currentItems").show();
@@ -151,7 +151,7 @@ jQuery(document).ready(function( $ ){
     }
 
     //function for Mark to log in to see editable sections
-    $(document).on("click", "#markserafin", function(event) {
+    $(document).on("click", "#personname", function(event) {
         event.preventDefault();
         console.log("Mark has clicked log in!");
         $("#loginArtist").modal("show");
@@ -164,8 +164,8 @@ jQuery(document).ready(function( $ ){
         console.log("password: " + password);
         if (password === "marsha") {
             console.log("password is correct!");
-            markLoggedIn = true;
-            console.log("markLoggedIn: " + markLoggedIn);
+            personLoggedIn = true;
+            console.log("personLoggedIn: " + personLoggedIn);
             $("#enterPass").val("");
             $("#loginArtist").modal("hide");
             // now enter functions that are called to show Mark what he can edit.
@@ -195,7 +195,7 @@ jQuery(document).ready(function( $ ){
         $("#additionalImages").empty();
         $("#largeAddtlImages").empty();
         itemIconArray = [];
-        if (markLoggedIn === false) {
+        if (personLoggedIn === false) {
             $("#currentItems").empty(); // this empties out the items without images written to DOM from getAllData()
         }
         // change backgroud of body
@@ -343,7 +343,7 @@ jQuery(document).ready(function( $ ){
         var name = $(this).parent().data("name");
         console.log("name: ", name);
         $("#editItemName").text(name);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             $("#editItemName").css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -361,7 +361,7 @@ jQuery(document).ready(function( $ ){
         var bio = $(this).parent().data("bio");
         console.log("bio: ", bio);
         specificItemBio.text(bio);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             specificItemBio.css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -386,7 +386,7 @@ jQuery(document).ready(function( $ ){
         console.log("order: ", order);
         specificItemOrder.text(order);
         console.log("building large image: typeof specificItemOrder " + typeof specificItemOrder);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             specificItemOrder.css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -424,7 +424,7 @@ jQuery(document).ready(function( $ ){
         var title = $(this).attr("title");
         console.log("title: ", title);
         specificItemPicTitle.text(title);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             specificItemPicTitle.css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -448,7 +448,7 @@ jQuery(document).ready(function( $ ){
         var desc = $(this).data("desc");
         console.log("desc: ", desc);
         specificItemPicDesc.text(desc);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             specificItemPicDesc.css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -476,7 +476,7 @@ jQuery(document).ready(function( $ ){
     // available only to Mark in an "edit" mode
     $(document).on("click", ".bigItemImage", function(event) {
         event.preventDefault();
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             // bring up the modal to enter info for a new image for the item
             $("#newItemImageModal").modal("show");
             currentItemId = $(this).data("itemid"); //here is where I can get the item id from the large picture
@@ -536,7 +536,7 @@ jQuery(document).ready(function( $ ){
         bigImage.data("id", thisDataId);
         bigImage.attr("src", imgSrc);
         $("#largeAddtlImages").append(bigImage);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             $("#largeAddtlImages").append(`<br><button type="button" class="btn btn-danger"` +
             ` id="deleteImage" data-itemid="` + thisItemId + `" data-id="`+ thisDataId +`">Delete This Image</button>`);
         }
@@ -551,7 +551,7 @@ jQuery(document).ready(function( $ ){
         var title = $(this).attr("title");
         console.log("title after: ", title);
         specificItemPicTitle.text(title);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             specificItemPicTitle.css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -576,7 +576,7 @@ jQuery(document).ready(function( $ ){
         var desc = $(this).data("desc");
         console.log("desc after: ", desc);
         specificItemPicDesc.text(desc);
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             specificItemPicDesc.css({
                 'border-style': 'solid',
                 'border-width': '4px',
@@ -747,7 +747,7 @@ jQuery(document).ready(function( $ ){
     // but first the individual item must be found and populated to accept an array of images
     $(document).on("click", "#createImageItem", function(event) {
     event.preventDefault();
-    if (markLoggedIn === true) {
+    if (personLoggedIn === true) {
         $("#newItemImageModal").modal("show");
         $("#mainImageButtonSpace").empty();  // remove the button - it should only appear when Mark creates a new item
         //currentItemId is already set from Mark entering a new item
@@ -802,7 +802,7 @@ jQuery(document).ready(function( $ ){
     //after it's been displayed as a large pic.
     $(document).on("click", "#editItemName", function(event) {
         event.preventDefault();
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             var thisItemName = $(this).text();
             console.log("thisItemName: ", thisItemName);
             thisItemId = $(this).attr("data-id");
@@ -818,7 +818,7 @@ jQuery(document).ready(function( $ ){
     // as a large pic.
     $(document).on("click", "#editItemBio", function(event) {
         event.preventDefault();
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             var thisItemBio = $(this).text();
             console.log("thisItemBio: ", thisItemBio);
             thisItemId = $(this).attr("data-id");
@@ -833,7 +833,7 @@ jQuery(document).ready(function( $ ){
     // as a large pic.
     $(document).on("click", "#editItemOrder", function(event) {
         event.preventDefault();
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             var thisItemOrder = $(this).text()
             console.log("first thisItemOrder after (this): ", thisItemOrder);
             console.log("typeof before parseInt(thisItemOrder): " + typeof thisItemOrder);
@@ -858,7 +858,7 @@ jQuery(document).ready(function( $ ){
     // of an image, either the main one or additional pics
     $(document).on("click", "#imageTitleEdit", function(event) {
         event.preventDefault();
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             var thisTitle = $(this).text();
             console.log("thisTitle: " + thisTitle);
             thisImageId = $(this).attr("data-id");
@@ -873,7 +873,7 @@ jQuery(document).ready(function( $ ){
     // of an image, either the main one or additional pics
     $(document).on("click", "#imageDescEdit", function(event) {
         event.preventDefault();
-        if (markLoggedIn === true) {
+        if (personLoggedIn === true) {
             var thisDesc = $(this).text();
             console.log("thisDesc: " + thisDesc);
             thisImageId = $(this).attr("data-id");
