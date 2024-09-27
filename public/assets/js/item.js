@@ -45,7 +45,7 @@ jQuery(document).ready(function( $ ){
         $("#itemWaiting").hide();
         // change background to blue items
         $("body").css({
-            'background-image' : 'url("/assets/pictures/giphymorerobots.gif")',
+            'background-image' : 'url("/assets/pictures/softfocus.png")',
             'background-size' : '65%',
             'background-position' : 'center center'
         });
@@ -96,7 +96,7 @@ jQuery(document).ready(function( $ ){
             console.log("items array, from getAllData function", items);
             console.log("items.length: ", items.length);
             // if (items.length === 0) {  //I think I put this here before there were any items in db
-            //     console.log("this is being called");
+            //     console.log("waitOnPower is being called");
             //     waitOnPower();
             // }
             for (i=0; i<items.length; i++) {
@@ -141,7 +141,7 @@ jQuery(document).ready(function( $ ){
                         console.log("allItemNameswithImages.length: ", allItemNameswithImages.length);
                         if (wrongOrderIds.length === allItemNameswithImages.length) {
                             console.log("wrongOrder.length = allItemNameswithImages.length");
-                            setTimeout(waitOnPower, 3000);  //this adds 3 seconds to wait on the power button, not needed
+                            setTimeout(waitOnPower, 500);  //this adds 3 seconds to wait on the power button, not needed
                         }
                     });
                 }
