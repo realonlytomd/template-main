@@ -46,11 +46,11 @@ jQuery(document).ready(function( $ ){
         // change background to blue items
         $("body").css({
             'background-image' : 'url("/assets/pictures/softfocus.png")',
-            'background-size' : '65%',
-            'background-position' : 'center center'
+            'background-size' : 'cover'
+            //'background-position' : 'center top'
         });
         var power = $("<img>");
-        power.attr("src","assets/pictures/redbutton.png" );
+        power.attr("src","assets/pictures/greenstart.jpg" );
         power.attr("id","revealItems");
         $("#powerOnGoes").append(power);
     }
@@ -141,7 +141,7 @@ jQuery(document).ready(function( $ ){
                         console.log("allItemNameswithImages.length: ", allItemNameswithImages.length);
                         if (wrongOrderIds.length === allItemNameswithImages.length) {
                             console.log("wrongOrder.length = allItemNameswithImages.length");
-                            setTimeout(waitOnPower, 500);  //this adds 3 seconds to wait on the power button, not needed
+                            setTimeout(waitOnPower, 3000);  //this adds a number of seconds to wait on the power button, not needed
                         }
                     });
                 }
@@ -200,9 +200,8 @@ jQuery(document).ready(function( $ ){
         }
         // change backgroud of body
         $("body").css({
-            'background-image' : 'url("/assets/pictures/IMG_2361.jpg")',
-            'background-size' : '50%',
-            'background-position' : 'center top'
+            'background-image' : 'url("/assets/pictures/softfocus.png")',
+            'background-size' : 'cover'
           });
         //first sort to get the order of items to match Mark's preferred order        
         // adding a sort numerically for allItemOrder, then sort the other 4 arrays the SAME WAY
