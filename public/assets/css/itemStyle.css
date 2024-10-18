@@ -12,8 +12,10 @@ body {
     /*background-color: black;*/
     /*background-image: linear-gradient(0deg, #052530 0%, #032731 50%, #044c59 100%);*/
     background-image: url("/assets/pictures/softfocus.png");
-    background-size: cover; /* or 100% or 100vw?
-    background-position: center top; */
+    height: 100%; 
+    object-fit: cover;
+    /* background-size: cover;  or 100% or 100vw? */
+    background-position: center top;
 }
 
 #navColor {
