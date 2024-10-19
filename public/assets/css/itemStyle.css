@@ -5,14 +5,14 @@ html {
 }
 
 body {
-    height: auto;  /* 100% */
+    height: 100%;
     margin: 0;
     box-sizing: border-box;
     /*background-color: aliceblue;*/
     /*background-color: black;*/
     /*background-image: linear-gradient(0deg, #052530 0%, #032731 50%, #044c59 100%);*/
     background-image: url("/assets/pictures/softfocus.png");
-
+    
     background-size: cover; /* or 100% or 100vw? */
     background-position: center top;
 }
